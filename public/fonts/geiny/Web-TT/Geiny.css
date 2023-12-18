@@ -1,0 +1,12 @@
+/* Webfont: Geiny-Regular */@font-face {
+    font-family: 'Geiny';
+    src: url('Geiny.eot'); /* IE9 Compat Modes */
+    src: url('Geiny.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+         url('Geiny.woff') format('woff'), /* Modern Browsers */
+         url('Geiny.woff2') format('woff2'), /* Modern Browsers */
+         url('Geiny.ttf') format('truetype'); /* Safari, Android, iOS */
+             font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+}
+

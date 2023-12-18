@@ -1,0 +1,9 @@
+/* Webfont: Geiny-Regular */@font-face {
+    font-family: 'Geiny';
+    src: url('Geiny.woff2') format('woff2'), /* Modern Browsers */
+         url('Geiny.otf') format('opentype'); /* Safari, Android, iOS */
+             font-style: normal;
+    font-weight: normal;
+    text-rendering: optimizeLegibility;
+}
+
