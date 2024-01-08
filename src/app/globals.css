@@ -2,31 +2,57 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@font-face {
+  font-family: 'Geiny';
+  src: url('/fonts/geiny/OpenType-TT/Geiny.ttf') format('truetype');
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url('/fonts/PPNeue/PPNeueMontreal-Book.otf') format("opentype");
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Reckless Neue TRIAL';
+  src: url('/fonts/DP_reckless-neue/RecklessNeueTRIAL-Book.otf') format("opentype");
+  font-weight: normal;
+}
+
+:root {
+  --offWhiteTint: #FCFDFD;
+  --stormy: #323334;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  font-family: "PP Neue Montreal", sans-serif;
+}
+
+h2 {
+  color: var(--offWhiteTint);
+  text-align: center;
+  font-family: Reckless Neue TRIAL, sans-serif;
+  font-size: 36px;
+  font-style: normal;
+  font-weight: 350;
+  line-height: 42px; /* 116.667% */
+  letter-spacing: -0.72px;
+}
+
+.container {
   max-width: 1170px;
   margin: auto 0;
   padding: 0 1.5rem;
 }
+
+.logo-text {
+  color: #FFF;
+  font-family: Geiny, sans-serif;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 32px; /* 100% */
+}
+
 
 

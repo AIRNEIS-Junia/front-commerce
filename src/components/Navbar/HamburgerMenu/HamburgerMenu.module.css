@@ -8,15 +8,19 @@
 .hamburger-menu .bar1,
 .hamburger-menu .bar2,
 .hamburger-menu .bar3 {
-    width: 25px;
-    height: 3px;
-    background-color: #333;
+    width: 28px;
+    height: 2px;
+    background-color: var(--offWhiteTint);
     margin: 3px 0;
     transition: 0.4s;
 }
 
 .hamburger-menu.open .bar1 {
     transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.hamburger-menu.open > *{
+    background-color: var(--stormy)
 }
 
 .hamburger-menu.open .bar2 {
