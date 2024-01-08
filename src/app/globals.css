@@ -24,4 +24,9 @@ body {
       rgb(var(--background-end-rgb))
     )
     rgb(var(--background-start-rgb));
+  max-width: 1170px;
+  margin: auto 0;
+  padding: 0 1.5rem;
 }
+
+
