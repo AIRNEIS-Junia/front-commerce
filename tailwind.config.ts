@@ -18,6 +18,19 @@ const config: Config = {
         greyTint: "#384353",
         stormy: "#323334",
         opal: "#384353",
+        oyster: "#DFDEDB",
+      },
+      padding: {
+        extrasmall: "16px",
+        small: "28px",
+        medium: "58px",
+      },
+      margin: {
+        small: "28px",
+        medium: "58px",
+      },
+      maxWidth: {
+        mobileContainer: "350px",
       },
     },
   },
