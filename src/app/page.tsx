@@ -11,10 +11,12 @@ export default function Home() {
       <Hero></Hero>
       <section>
         <SectionTitle title={"Enjoy our feature categories"}></SectionTitle>
-        <HorizontalCarousel></HorizontalCarousel>
-        <Link href={"/"} className={"py-small flex justify-center italic"}>
-          SHOP ALL
-        </Link>
+        <div className="container">
+          <HorizontalCarousel></HorizontalCarousel>
+          <Link href={"/"} className={"py-small flex justify-center italic"}>
+            SHOP ALL
+          </Link>
+        </div>
       </section>
       <ProductHighlight />
     </main>
