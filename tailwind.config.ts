@@ -31,6 +31,7 @@ const config: Config = {
       },
       maxWidth: {
         mobileContainer: "350px",
+        desktopContainer: "1280px",
       },
     },
   },

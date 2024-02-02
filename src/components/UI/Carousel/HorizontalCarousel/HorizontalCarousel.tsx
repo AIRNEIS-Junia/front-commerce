@@ -8,36 +8,39 @@ import React, {
   useState,
 } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import { items } from "@/components/UI/Carousel/HorizontalCarousel/items";
+import {
+  carouselItemType,
+  items,
+} from "@/components/UI/Carousel/HorizontalCarousel/items";
 
-// Define a function to slice the items array based on indices
 const sliceItems = (
   fromItemCarouselIndex: number,
   toItemCarouselIndex: number,
 ) => {
-  // Récupérer le premier et le dernier élément
-  const firstItem = items[0];
-  const secondItem = items[1];
-  const lastItem = items.length - 1;
-  // Vérifier si toItemCarouselIndex est supérieur ou égal à la longueur des éléments
+  const firstItemIndex = 0;
+  const lastItemIndex = items.length - 1;
+
   if (toItemCarouselIndex > items.length) {
-    return [...items.slice(fromItemCarouselIndex), firstItem];
+    return [
+      ...items.slice(fromItemCarouselIndex),
+      ...items.slice(firstItemIndex, 1),
+    ];
   } else if (fromItemCarouselIndex < 0) {
-    // Utiliser items.length + fromItemCarouselIndex comme indice ajusté
-    return [...items.slice(items.length + fromItemCarouselIndex), lastItem];
+    return [
+      ...items.slice(items.length + fromItemCarouselIndex),
+      ...items.slice(lastItemIndex),
+    ];
   } else {
     return items.slice(fromItemCarouselIndex, toItemCarouselIndex);
   }
 };
 
-// Define the main HorizontalCarousel component
 const HorizontalCarousel = () => {
   // Refs to track the current indices for slicing items
   const fromItemCarouselIndex = useRef<number>(0);
-  const toItemCarouselIndex = useRef<number>(3);
-  // State to manage the currently displayed items
-  const [displayedItems, setDisplayedItems] = useState(
-    sliceItems(fromItemCarouselIndex.current, toItemCarouselIndex.current), // Initial display range
+  const toItemCarouselIndex = useRef<number>(window.innerWidth >= 1024 ? 3 : 1); // State to manage the currently displayed items
+  const [displayedItems, setDisplayedItems] = useState<carouselItemType[]>(
+    sliceItems(fromItemCarouselIndex.current, toItemCarouselIndex.current),
   );
 
   // Callback function to handle clicking on the left chevron
@@ -55,13 +58,6 @@ const HorizontalCarousel = () => {
 
     // Update the displayed items
     updateDisplayedItems();
-
-    console.log(
-      "fromItemCarouselIndex.current",
-      fromItemCarouselIndex.current,
-      "toItemCarouselIndex",
-      toItemCarouselIndex.current,
-    );
   }, []);
 
   // Callback function to handle clicking on the right chevron
@@ -83,22 +79,11 @@ const HorizontalCarousel = () => {
 
     // Update the displayed items
     updateDisplayedItems();
-
-    console.log(
-      "fromItemCarouselIndex.current",
-      fromItemCarouselIndex.current,
-      "toItemCarouselIndex",
-      toItemCarouselIndex.current,
-    );
   }, []);
 
   const handleResize = useCallback(() => {
     // Définir toItemCarouselIndex en fonction de la taille de l'écran
-    if (window.innerWidth >= 1024) {
-      toItemCarouselIndex.current = 3; // Afficher trois éléments sur les grands écrans
-    } else {
-      toItemCarouselIndex.current = 2; // Afficher deux éléments par défaut
-    }
+    toItemCarouselIndex.current = window.innerWidth >= 1024 ? 3 : 1;
 
     // Mettre à jour les éléments affichés
     setDisplayedItems(
@@ -117,7 +102,6 @@ const HorizontalCarousel = () => {
   useEffect(() => {
     handleResize();
     updateDisplayedItems();
-    console.log("displayedItems", displayedItems);
   }, []);
 
   // Memoized rendering of items to optimize performance

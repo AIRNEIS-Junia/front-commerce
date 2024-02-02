@@ -11,7 +11,7 @@ export default function Home() {
       <Hero></Hero>
       <section>
         <SectionTitle title={"Enjoy our feature categories"}></SectionTitle>
-        <div className="container">
+        <div className="container max-w-mobileContainer md:max-w-desktopContainer">
           <HorizontalCarousel></HorizontalCarousel>
           <Link href={"/"} className={"py-small flex justify-center italic"}>
             SHOP ALL

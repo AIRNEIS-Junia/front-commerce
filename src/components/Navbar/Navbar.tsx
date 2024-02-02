@@ -4,6 +4,7 @@ import HamburgerMenu from "@/components/Navbar/HamburgerMenu/HamburgerMenu";
 import Link from "next/link";
 import { CiUser } from "react-icons/ci";
 import MobileMenu from "@/components/Navbar/MobileMenu";
+import styles from "./Navbar.module.css";
 
 const Navbar = () => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
@@ -21,7 +22,7 @@ const Navbar = () => {
     >
       <HamburgerMenu onToggleMenu={handleToggleMenu} />
       {showMobileMenu ? <MobileMenu /> : <></>}
-      <Link href={"/"} className={"logo-text"}>
+      <Link href={"/"} className={`${styles["logo-text"]}`}>
         airneis
       </Link>
       <div className={"flex space-x-4 items-center"}>
