@@ -1,21 +1,22 @@
 @media screen and (min-width: 800px) {
     .gridContainer {
-        background-color: whitesmoke;
+        background-color: white;
         display: grid;
         grid-template-columns: 1fr 4fr;
-        grid-template-rows: 3fr 0.5fr 23fr;
+        grid-template-rows: 0.50fr 3fr 0.5fr 23fr;
         grid-gap: 0;
         grid-template-areas:
+    "title-bar title-bar"
     "header-container header-container"
     "search search"
     "sidebar product-grid"
     }
 }
 
-.titleBar{
-    position: fixed;
+.titleBar {
+    grid-area: title-bar;
     min-width: 100%;
-    background-color: whitesmoke;
+    background-color: transparent;
 }
 
 
