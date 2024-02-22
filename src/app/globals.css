@@ -58,12 +58,19 @@ textarea, input, select {
   }
 }
 
-button {
+.btn {
   margin-top: 32px !important;
   padding: 14px;
-  background-color: var(--opal) !important;
   border-radius: 8px;
+}
+
+.btn-dark {
   color: var(--offWhiteTint);
+  background-color: var(--opal) !important;
+}
+
+.btn-light {
+  border : 1px solid #DFDEDB;
 }
 
 .container {

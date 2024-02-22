@@ -35,7 +35,9 @@ const ContactForm = () => {
           as={"textarea"}
           rows={"5"}
         />
-        <button type="submit">Submit</button>
+        <button className={"btn !btn-dark"} type="submit">
+          Submit
+        </button>
       </Form>
     </Formik>
   );
