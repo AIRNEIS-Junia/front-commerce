@@ -19,6 +19,12 @@
   font-weight: 400;
 }
 
+@font-face {
+  font-family: 'PPNeueMontreal-Italic';
+  src: url('/fonts/PPNeue/PPNeueMontreal-Italic.otf') format("opentype");
+  font-weight: normal;
+}
+
 :root {
   --offWhiteTint: #FCFDFD;
   --stormy: #323334;
