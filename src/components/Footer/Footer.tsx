@@ -14,17 +14,21 @@ const Footer = () => {
             "border-y border-offWhiteTint grid grid-cols-2 md:grid-cols-4"
           }
         >
-          <div className={"border-r p-4 flex flex-col space-y-4"}>
+          <div className={"border-b lg:border-b-0 p-4 flex flex-col space-y-4"}>
             <Link href={"!mb-6"}>SHOP</Link>
             <Link href={""}>Accueil</Link>
             <Link href={""}>Accueil</Link>
           </div>
-          <div className={"p-4 flex flex-col space-y-4"}>
+          <div
+            className={
+              "border-l border-b lg:border-b-0 p-4 flex flex-col space-y-4"
+            }
+          >
             <Link href={"!mb-6"}>SHOP</Link>
             <Link href={""}>Accueil</Link>
             <Link href={""}>Accueil</Link>
           </div>
-          <div className={"border-l p-4 flex flex-col space-y-4"}>
+          <div className={"lg:border-l p-4 flex flex-col space-y-4"}>
             <Link href={"!mb-6"}>SHOP</Link>
             <Link href={""}>Accueil</Link>
             <Link href={""}>Accueil</Link>

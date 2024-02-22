@@ -19,6 +19,7 @@ const config: Config = {
         stormy: "#323334",
         opal: "#384353",
         oyster: "#DFDEDB",
+        beige: "#F5F4F3",
       },
       padding: {
         extrasmall: "16px",

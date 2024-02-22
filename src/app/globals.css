@@ -22,10 +22,12 @@
 :root {
   --offWhiteTint: #FCFDFD;
   --stormy: #323334;
+  --beige: #F5F4F3;
+  --opal: #384353;
 }
 
 body {
-  font-family: "PP Neue Montreal", sans-serif;
+  font-family: "PP Neue Montreal", sans-serif
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -45,7 +47,39 @@ h3 {
   line-height: 3vw;
 }
 
+textarea, input, select {
+  background-color: var(--beige);
+  border-radius: 8px;
+  font-style: italic !important;
+  padding: 16px;
+  font-size:14px;
+  ::placeholder {
+    color: var(--stormy);
+  }
+}
+
+button {
+  margin-top: 32px !important;
+  padding: 14px;
+  background-color: var(--opal) !important;
+  border-radius: 8px;
+  color: var(--offWhiteTint);
+}
+
 .container {
   margin: 0 auto;
   padding: 0 1.5rem;
+}
+
+
+
+@media only screen and (max-width: 1024px) {
+  h2 {
+    font-size: 3em;
+    line-height:  1.4em;
+  }
+
+  h3 {
+    font-size: 2.4em;
+  }
 }

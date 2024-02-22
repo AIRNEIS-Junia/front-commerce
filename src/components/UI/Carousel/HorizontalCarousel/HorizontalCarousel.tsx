@@ -38,7 +38,9 @@ const sliceItems = (
 const HorizontalCarousel = () => {
   // Refs to track the current indices for slicing items
   const fromItemCarouselIndex = useRef<number>(0);
-  const toItemCarouselIndex = useRef<number>(window.innerWidth >= 1024 ? 3 : 1); // State to manage the currently displayed items
+  const toItemCarouselIndex = useRef<number>(
+    typeof window !== "undefined" && window.innerWidth >= 1024 ? 3 : 1,
+  );
   const [displayedItems, setDisplayedItems] = useState<carouselItemType[]>(
     sliceItems(fromItemCarouselIndex.current, toItemCarouselIndex.current),
   );
@@ -73,7 +75,7 @@ const HorizontalCarousel = () => {
       if (window.innerWidth >= 1024) {
         toItemCarouselIndex.current = 3;
       } else {
-        toItemCarouselIndex.current = 2;
+        toItemCarouselIndex.current = 1;
       }
     }
 
@@ -130,7 +132,7 @@ const HorizontalCarousel = () => {
         <FaChevronLeft />
       </div>
       {/* Grid to display the rendered items */}
-      <div className={"grid grid-cols-2 lg:grid-cols-3 border-b border-oyster"}>
+      <div className={"grid lg:grid-cols-3 border-b border-oyster"}>
         {renderItems}
       </div>
       <div

@@ -9,10 +9,7 @@ const HorinzontalCarouselItem = (props: {
   link: string;
 }) => {
   return (
-    <Link
-      href={`${props.link}`}
-      className={"aspect-square p-[8px] border-r border-oyster"}
-    >
+    <Link href={`${props.link}`} className={"aspect-square p-[8px]"}>
       <div className={"aspect-square relative"}>
         <Image
           fill
