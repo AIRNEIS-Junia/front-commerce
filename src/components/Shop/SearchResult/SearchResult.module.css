@@ -1,7 +1,7 @@
 .search {
     grid-area: search;
     min-width: 100%;
-    background-color: whitesmoke;
+    background-color: white;
     color: #323334;
     font-family: PP Neue Montreal;
     display: inline-flex;

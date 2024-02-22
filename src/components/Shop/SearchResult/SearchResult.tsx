@@ -1,8 +1,8 @@
-import styles from "./Search.module.css";
+import styles from "./SearchResult.module.css";
 import React from "react";
 import Image from "next/image";
 
-const Search = () => {
+const SearchResult = () => {
   return (
     <div className={styles.search}>
       <p className={styles.productNumber}>21 products</p>
@@ -19,4 +19,4 @@ const Search = () => {
     </div>
   );
 };
-export default Search;
+export default SearchResult;

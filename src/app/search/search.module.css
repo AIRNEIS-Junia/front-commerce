@@ -3,14 +3,29 @@
         background-color: white;
         display: grid;
         grid-template-columns: 1fr 4fr;
-        grid-template-rows: 0.50fr 3fr 0.5fr 23fr;
+        grid-template-rows: 0.5fr 2fr 0.8fr 23fr;
         grid-gap: 0;
         grid-template-areas:
     "title-bar title-bar"
-    "header-container header-container"
+    "all all"
     "search search"
     "sidebar product-grid"
     }
+}
+
+.all{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #DFDEDB;
+    border-top: 1px solid #DFDEDB;
+    grid-area: all;
+    font-size: 1rem;
+    min-width: 100%;
+}
+
+.all h2 {
+    font-size: 10rem;
 }
 
 .titleBar {

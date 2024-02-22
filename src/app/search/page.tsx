@@ -1,16 +1,17 @@
-"use client";
 import React from "react";
 import ProductGrid from "@/components/Shop/ProductGrid/ProductGrid";
 import Header from "@/components/Shop/Header/Header";
 import SideBar from "@/components/Shop/SideBar/SideBar";
 import SearchResult from "@/components/Shop/SearchResult/SearchResult";
-import styles from "./category.module.css";
+import styles from "./search.module.css";
 
-const Category = () => {
+const Search = () => {
   return (
     <div className={styles.gridContainer}>
       <div className={styles.titleBar}></div>
-      <Header></Header>
+      <div className={styles.all}>
+        <h2>All</h2>
+      </div>
       <SearchResult></SearchResult>
       <SideBar></SideBar>
       <ProductGrid></ProductGrid>
@@ -18,4 +19,4 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default Search;

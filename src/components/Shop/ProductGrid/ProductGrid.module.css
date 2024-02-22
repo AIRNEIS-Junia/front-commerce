@@ -1,6 +1,6 @@
 .productGrid {
     grid-area: product-grid;
-    background-color: whitesmoke;
+    background-color: white;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     border: 1px solid #DFDEDB;
