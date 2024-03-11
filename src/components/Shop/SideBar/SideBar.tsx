@@ -9,20 +9,24 @@ const SideBar = () => {
           <p>FILTERS</p>
         </div>
         <div className={styles.sidebarCriteria}>
-          <p>DECORS</p>
-          <p>CERAMICS</p>
-          <p>CHAIRS</p>
-          <p>LAMP</p>
+          <ul>
+            <li>DECORS</li>
+            <li>CERAMICS</li>
+            <li>CHAIRS</li>
+            <li>LAMP</li>
+          </ul>
         </div>
         <div className={styles.sidebarTitle}>
           <p>SORT BY</p>
         </div>
         <div className={styles.sidebarCriteria}>
-          <p>PRICE: LOW TO HIGH</p>
-          <p>PRICE: HIGH TO LOW</p>
-          <p>ALPH: A TO Z</p>
-          <p>ALPH: Z TO A</p>
-          <p>BEST SELLING</p>
+          <ul>
+            <li>PRICE: LOW TO HIGH</li>
+            <li>PRICE: HIGH TO LOW</li>
+            <li>ALPH: A TO Z</li>
+            <li>ALPH: Z TO A</li>
+            <li>BEST SELLING</li>
+          </ul>
         </div>
       </div>
     </div>
