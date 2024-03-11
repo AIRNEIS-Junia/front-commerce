@@ -30,9 +30,19 @@ const config: Config = {
         small: "28px",
         medium: "58px",
       },
+      width: {
+        mobileContainer: "350px",
+        tabletContainer: "768px",
+        desktopContainer: "1280px",
+      },
       maxWidth: {
         mobileContainer: "350px",
+        tabletContainer: "768px",
         desktopContainer: "1280px",
+      },
+      borderRadius: {
+        small: "8px",
+        medium: "16px",
       },
     },
   },

@@ -15,7 +15,7 @@
 
 @font-face {
   font-family: 'Reckless Neue TRIAL';
-  src: url('/fonts/DP_reckless-neue/dfdf-Regular.otf') format("opentype");
+  src: url('/fonts/DP_reckless-neue/RecklessNeueTRIAL-Regular.otf') format("opentype");
   font-weight: 400;
 }
 
@@ -30,14 +30,14 @@ body {
   font-family: "PP Neue Montreal", sans-serif
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, span {
   font-family: Reckless Neue TRIAL, sans-serif;
   font-weight: 400;
   letter-spacing: -0.72px;
   color: var(--stormy)
 }
 
-h2 {
+h1, h2 {
   font-size: 4vw;
   line-height: 4vw;
 }
@@ -45,6 +45,11 @@ h2 {
 h3 {
   font-size: 3vw;
   line-height: 3vw;
+}
+
+span {
+  font-size: 24px;
+  line-height: 28px;
 }
 
 textarea, input, select {
@@ -59,7 +64,6 @@ textarea, input, select {
 }
 
 .btn {
-  margin-top: 32px !important;
   padding: 14px;
   border-radius: 8px;
 }
@@ -81,7 +85,7 @@ textarea, input, select {
 
 
 @media only screen and (max-width: 1024px) {
-  h2 {
+  h1, h2 {
     font-size: 3em;
     line-height:  1.4em;
   }

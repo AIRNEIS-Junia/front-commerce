@@ -4,21 +4,19 @@ import { Formik, Field, Form, FormikHelpers } from "formik";
 import Link from "next/link";
 
 interface Values {
-  firstName: string;
-  lastName: string;
   email: string;
   password: string;
+  rememberMe: boolean;
 }
 
-const SignupForm = () => {
+const LoginForm = () => {
   return (
     <div>
       <Formik
         initialValues={{
-          firstName: "",
-          lastName: "",
           email: "",
           password: "",
+          rememberMe: false,
         }}
         onSubmit={(
           values: Values,
@@ -31,12 +29,6 @@ const SignupForm = () => {
         }}
       >
         <Form className={"flex flex-col space-y-4"}>
-          <label htmlFor="firstName">First Name</label>
-          <Field id="firstName" name="firstName" placeholder="John" />
-
-          <label htmlFor="lastName">Last Name</label>
-          <Field id="lastName" name="lastName" placeholder="Doe" />
-
           <label htmlFor="email">Email</label>
           <Field
             id="email"
@@ -45,8 +37,26 @@ const SignupForm = () => {
             type="email"
           />
 
-          <button className={"btn btn-dark mt-16"} type="submit">
-            SIGN UP
+          <label htmlFor="password">Password</label>
+          <Field
+            id="password"
+            name="password"
+            type={"password"}
+            placeholder="********"
+          />
+
+          <div className={"flex justify-between !mt-[32px]"}>
+            <label>
+              <Field className={"mr-3"} type="checkbox" name="rememberMe" />
+              Remember me
+            </label>
+            <Link href={"/"} className={"italic"}>
+              Forgot password?
+            </Link>
+          </div>
+
+          <button className={"mt-16 btn btn-dark"} type="submit">
+            LOGIN
           </button>
         </Form>
       </Formik>
@@ -58,15 +68,15 @@ const SignupForm = () => {
               "absolute transform -translate-y-1/2 top-1/2 -translate-x-1/2 left-1/2 p-2 bg-white"
             }
           >
-            Already a client ?
+            New client ?
           </div>
         </div>
         <Link className={"btn btn-light text-center mt-16"} href={"/"}>
-          SIGN IN
+          SIGN UP
         </Link>
       </div>
     </div>
   );
 };
 
-export default SignupForm;
+export default LoginForm;

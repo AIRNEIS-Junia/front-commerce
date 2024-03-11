@@ -35,7 +35,7 @@ const ContactForm = () => {
           as={"textarea"}
           rows={"5"}
         />
-        <button className={"btn !btn-dark"} type="submit">
+        <button className={"btn !btn-dark mt-16"} type="submit">
           Submit
         </button>
       </Form>
