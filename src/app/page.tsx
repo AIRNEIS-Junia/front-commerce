@@ -1,4 +1,4 @@
-import Image from "next/image";
+"use client";
 import Hero from "@/components/Hero/Hero";
 import HorizontalCarousel from "@/components/UI/Carousel/HorizontalCarousel/HorizontalCarousel";
 import SectionTitle from "@/components/Section/SectionTitle";

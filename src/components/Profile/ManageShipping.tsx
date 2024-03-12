@@ -22,7 +22,6 @@ const ManageShipping = ({ addresses }: { addresses: AddressType[] }) => {
 
   const [handleCreateModal, setHandleCreateModal] = useState(false);
   const [handleEditModal, setHandleEditModal] = useState(false);
-  const [isClose, setIsClose] = useState(false);
 
   useEffect(() => {
     setActualAddress(addresses[0]);
