@@ -3,33 +3,15 @@ import React, { useEffect, useState } from "react";
 import SelectShippingAddress from "@/components/Profile/SelectShippingAddress";
 import { CreateShippingModal } from "@/components/UI/Modal/CreateShippingModal";
 import EditShippingModal from "@/components/UI/Modal/EditShippingModal";
+import { AddressType, SearchParamProps } from "../../../types/CommonTypes";
 
-interface AddressType {
-  streetNumber: string;
-  street: string;
-  additional: string;
-  zipCode: string;
-  city: string;
-  country: string;
-}
-
-type SearchParamProps = {
-  searchParams: Record<string, string | undefined>;
-  editShipping?: string;
-  createShipping?: string;
-};
-
-const ManageShipping = ({
-  searchParams,
-  addresses,
-}: {
-  searchParams: SearchParamProps;
-  addresses: void | Response;
-}) => {
-  const showCreateShippingModal = searchParams?.createShipping;
-  const showEditShippingModal = searchParams?.editShipping;
-
-  const [address, setAddress] = useState<AddressType>({
+const ManageShipping = ({ addresses }: { addresses: AddressType[] }) => {
+  const [actualAddress, setActualAddress] = useState<AddressType | undefined>({
+    id: "",
+    name: "",
+    firstName: "",
+    lastName: "",
+    phone: "",
     streetNumber: "",
     street: "",
     additional: "",
@@ -38,17 +20,50 @@ const ManageShipping = ({
     country: "",
   });
 
+  const [handleCreateModal, setHandleCreateModal] = useState(false);
+  const [handleEditModal, setHandleEditModal] = useState(false);
+  const [isClose, setIsClose] = useState(false);
+
   useEffect(() => {
-    if (Array.isArray(addresses) && addresses.length > 0) {
-      setAddress(addresses[0]);
-    }
+    setActualAddress(addresses[0]);
   }, [addresses]);
+
+  const handleAddressChange = (newAddress: AddressType | undefined) => {
+    setActualAddress(newAddress);
+  };
 
   return (
     <>
-      <SelectShippingAddress address={address} />
-      {showCreateShippingModal && <CreateShippingModal />}
-      {showEditShippingModal && <EditShippingModal address={address} />}
+      <SelectShippingAddress
+        onAddressChange={handleAddressChange}
+        addresses={addresses}
+        actualAddress={actualAddress}
+      />
+      {handleEditModal && (
+        <EditShippingModal
+          onClosing={() => setHandleEditModal(false)}
+          address={actualAddress}
+        />
+      )}
+
+      {handleCreateModal && (
+        <CreateShippingModal onClosing={() => setHandleCreateModal(false)} />
+      )}
+
+      <div className={"flex space-x-4 mt-4"}>
+        <div
+          className={"btn btn-dark"}
+          onClick={() => setHandleCreateModal(!handleCreateModal)}
+        >
+          Create Shipping Address
+        </div>
+        <div
+          className={"btn btn-dark"}
+          onClick={() => setHandleEditModal(!handleEditModal)}
+        >
+          Edit Shipping Address
+        </div>
+      </div>
     </>
   );
 };

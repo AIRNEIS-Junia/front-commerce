@@ -1,28 +1,18 @@
 "use client";
 import * as React from "react";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Field, Form, Formik } from "formik";
+import { AddressType } from "../../../types/CommonTypes";
 
-interface AddressType {
-  streetNumber: string;
-  street: string;
-  additional: string;
-  zipCode: string;
-  city: string;
-  country: string;
-}
-
-const SelectShippingAddress = ({ address }: { address: AddressType }) => {
+const SelectShippingAddress = ({
+  addresses,
+  onAddressChange,
+}: {
+  addresses: AddressType[];
+  actualAddress: AddressType | undefined;
+  onAddressChange: (newAddress: AddressType | undefined) => void;
+}) => {
   const router = useRouter();
-  const [actualAddress, setAddress] = useState<AddressType>({
-    streetNumber: "",
-    street: "",
-    additional: "",
-    zipCode: "",
-    city: "",
-    country: "",
-  });
 
   return (
     <Formik
@@ -35,10 +25,23 @@ const SelectShippingAddress = ({ address }: { address: AddressType }) => {
       }}
     >
       <Form>
-        <Field as="select" name="color">
-          <option value="red">Red</option>
-          <option value="green">Green</option>
-          <option value="blue">Blue</option>
+        <Field
+          as="select"
+          name="address"
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+            const selectedAddressId = e.target.value;
+            const selectedAddress = addresses.find(
+              (address) => address.id === selectedAddressId,
+            );
+            onAddressChange(selectedAddress);
+          }}
+        >
+          {addresses.map((address) => (
+            <option key={address.id} value={address.id}>
+              {address.streetNumber}
+              {address.street}
+            </option>
+          ))}
         </Field>
       </Form>
     </Formik>

@@ -66,6 +66,7 @@ textarea, input, select {
 .btn {
   padding: 14px;
   border-radius: 8px;
+  cursor: pointer;
 }
 
 .btn-dark {
