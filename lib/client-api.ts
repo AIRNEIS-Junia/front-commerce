@@ -12,7 +12,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use(async (config) => {
   // const token = await airneisStore.getItem("accessToken");
   const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJzdHJpbmciLCJsYXN0TmFtZSI6InN0cmluZyIsInN1YiI6ImFlNzg2OGQxLTZhNGYtNDFjZC1iNWM3LTAxNTljNGIxNWVjNSIsInJvbGVzIjoiY2xpZW50IiwiaWF0IjoxNzEwMjQwNDE0fQ.FXBeU1Y-2KpAbbsCE2gmGWQ5ZosrXaNyFJp4LachX_Q";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmaXJzdE5hbWUiOiJzdHJpbmciLCJsYXN0TmFtZSI6InN0cmluZyIsImVtYWlsIjoic3RyaW5nNUBnbWFpbC5jb20iLCJzdWIiOiIzNTNkYzYyZi1lZmVlLTQ2NzctYmY3NC02ZGZjYTJhZWE0YmQiLCJyb2xlcyI6ImNsaWVudCIsImlhdCI6MTcxMDQ5ODM2N30.iYkQrX83gxunE_v5KNeQZg-oyb9sbElK_bYyOzvAMag";
   if (token) {
     config.headers["Authorization"] = `Bearer ${token}`;
   }

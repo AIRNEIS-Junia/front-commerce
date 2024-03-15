@@ -12,10 +12,19 @@ type AddressType = {
   country: string;
 };
 
-type SearchParamProps = {
-  searchParams: Record<string, string | undefined>;
-  editShipping?: string;
-  createShipping?: string;
+type UserType = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  password?: string;
+  confirmPassword?: string;
+  currentPassword?: string;
+  newPassword?: string;
 };
 
-export type { AddressType, SearchParamProps };
+type AuthRegisterResponseType = {
+  accessToken: string;
+  refreshToken: string;
+};
+
+export type { AddressType, UserType, AuthRegisterResponseType };

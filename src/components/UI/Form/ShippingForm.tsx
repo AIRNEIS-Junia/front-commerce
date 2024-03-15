@@ -1,3 +1,4 @@
+"use client";
 import axiosInstance from "../../../../lib/client-api";
 import { AddressType } from "../../../../types/CommonTypes";
 import { useRouter } from "next/navigation";
@@ -10,7 +11,7 @@ const ShippingForm = ({
 }: {
   type: string;
   address?: AddressType | undefined;
-  onClosing: () => void;
+  onClosing?: () => void;
 }) => {
   const router = useRouter();
 
@@ -61,10 +62,9 @@ const ShippingForm = ({
           { setSubmitting }: FormikHelpers<AddressType>,
         ) => {
           try {
-            console.log("values", values);
             await handleSubmit(values);
             setSubmitting(true);
-            onClosing();
+            onClosing && onClosing();
           } catch (e) {
             console.log("error", e);
           }
@@ -72,11 +72,27 @@ const ShippingForm = ({
       >
         {({ values: AddressType }) => (
           <Form className={"flex flex-col space-y-4"}>
-            <label htmlFor="streetNumber">Street number</label>
-            <Field id="streetNumber" name="streetNumber" placeholder="John" />
+            <div className={"grid grid-cols-[1fr_2fr] gap-4"}>
+              <div className={"flex-col flex space-y-4"}>
+                <label htmlFor="streetNumber">Street number</label>
+                <Field
+                  className={"w-full"}
+                  id="streetNumber"
+                  name="streetNumber"
+                  placeholder="John"
+                />
+              </div>
 
-            <label htmlFor="street">Street</label>
-            <Field id="street" name="street" placeholder="Doe" />
+              <div className={"flex-col flex space-y-4"}>
+                <label htmlFor="street">Street</label>
+                <Field
+                  className={"w-fumm"}
+                  id="street"
+                  name="street"
+                  placeholder="Doe"
+                />
+              </div>
+            </div>
 
             <label htmlFor="additional">Additional</label>
             <Field id="additional" name="additional" placeholder="Doe" />
@@ -91,7 +107,7 @@ const ShippingForm = ({
             <Field id="country" name="country" placeholder="Doe" />
 
             <button className={"btn btn-dark mt-16"} type="submit">
-              ACCESS TO PAYMENT
+              {type === "create" ? "CREATE" : "EDIT"}
             </button>
           </Form>
         )}

@@ -2,15 +2,36 @@
 import * as React from "react";
 import { Formik, Field, Form, FormikHelpers } from "formik";
 import Link from "next/link";
-
-interface Values {
-  firstName: string;
-  lastName: string;
-  email: string;
-  password: string;
-}
+import { AddressType, UserType } from "../../../../types/CommonTypes";
+import axiosInstance, { airneisStore } from "../../../../lib/client-api";
+import { AxiosResponse } from "axios";
 
 const SignupForm = () => {
+  const handleSubmit = async (formikValues: UserType) => {
+    const { confirmPassword, ...valuesToSend } = formikValues;
+
+    await axiosInstance
+      .post("auth/register", valuesToSend)
+      .then((response: any) => {
+        const responseData = [
+          {
+            key: "accessToken",
+            value: response.data.accessToken,
+          },
+          {
+            key: "refreshToken",
+            value: response.data.refreshToken,
+          },
+        ];
+
+        console.log("response", response, response.data);
+
+        responseData.forEach((response) => {
+          airneisStore.setItem(response.key, response.value);
+        });
+      });
+  };
+
   return (
     <div>
       <Formik
@@ -19,15 +40,21 @@ const SignupForm = () => {
           lastName: "",
           email: "",
           password: "",
+          confirmPassword: "",
         }}
-        onSubmit={(
-          values: Values,
-          { setSubmitting }: FormikHelpers<Values>,
+        validate={(values) => {
+          const errors: Partial<UserType> = {};
+          if (values.password !== values.confirmPassword) {
+            errors.confirmPassword = "Passwords do not match";
+          }
+          return errors;
+        }}
+        onSubmit={async (
+          values: UserType,
+          { setSubmitting }: FormikHelpers<UserType>,
         ) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 500);
+          await handleSubmit(values);
+          setSubmitting(true);
         }}
       >
         <Form className={"flex flex-col space-y-4"}>
@@ -43,6 +70,22 @@ const SignupForm = () => {
             name="email"
             placeholder="john@acme.com"
             type="email"
+          />
+
+          <label htmlFor="password">Password</label>
+          <Field
+            id="password"
+            name="password"
+            placeholder="********"
+            type="password"
+          />
+
+          <label htmlFor="confirmPassword">Confirm password</label>
+          <Field
+            id="confirmPassword"
+            name="confirmPassword"
+            placeholder="********"
+            type="password"
           />
 
           <button className={"btn btn-dark mt-16"} type="submit">

@@ -1,10 +1,12 @@
 import React from "react";
 import Image from "next/image";
+import ProfileForm from "@/components/UI/Form/ProfileForm";
+import { UserType } from "../../../types/CommonTypes";
 
-const EditProfile = () => {
+const EditProfile = ({ user }: { user: UserType }) => {
   return (
-    <div className={"bg-beige px-16 py-8"}>
-      <div className={"flex justify-between items-center"}>
+    <div className={"bg-beige p-4 lg:p-8"}>
+      <div className={"flex justify-between items-center mb-8"}>
         <h1 className={"text-3xl"}>Your Profile</h1>
         <div
           className={"h-[50px] w-[50px] relative rounded-full overflow-hidden"}
@@ -17,6 +19,7 @@ const EditProfile = () => {
           />
         </div>
       </div>
+      <ProfileForm user={user} />
     </div>
   );
 };

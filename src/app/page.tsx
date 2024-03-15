@@ -13,9 +13,12 @@ export default function Home() {
         <SectionTitle title={"Enjoy our feature categories"}></SectionTitle>
         <div className="container max-w-mobileContainer md:max-w-desktopContainer">
           <HorizontalCarousel></HorizontalCarousel>
-          <Link href={"/"} className={"py-small flex justify-center italic"}>
-            SHOP ALL
-          </Link>
+          <div>
+            {" "}
+            <Link href={"/"} className={"py-small flex justify-center italic"}>
+              SHOP ALL
+            </Link>
+          </div>
         </div>
       </section>
       <ProductHighlight />

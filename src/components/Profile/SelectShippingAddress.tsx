@@ -24,10 +24,11 @@ const SelectShippingAddress = ({
         }, 1000);
       }}
     >
-      <Form>
+      <Form className={"w-full"}>
         <Field
           as="select"
           name="address"
+          className={"!w-full"}
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
             const selectedAddressId = e.target.value;
             const selectedAddress = addresses.find(

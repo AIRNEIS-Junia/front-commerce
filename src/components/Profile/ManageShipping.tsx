@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import SelectShippingAddress from "@/components/Profile/SelectShippingAddress";
 import { CreateShippingModal } from "@/components/UI/Modal/CreateShippingModal";
 import EditShippingModal from "@/components/UI/Modal/EditShippingModal";
-import { AddressType, SearchParamProps } from "../../../types/CommonTypes";
+import { AddressType } from "../../../types/CommonTypes";
 
 const ManageShipping = ({ addresses }: { addresses: AddressType[] }) => {
   const [actualAddress, setActualAddress] = useState<AddressType | undefined>({
@@ -49,7 +49,11 @@ const ManageShipping = ({ addresses }: { addresses: AddressType[] }) => {
         <CreateShippingModal onClosing={() => setHandleCreateModal(false)} />
       )}
 
-      <div className={"flex space-x-4 mt-4"}>
+      <div
+        className={
+          "flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-4 mt-4"
+        }
+      >
         <div
           className={"btn btn-dark"}
           onClick={() => setHandleCreateModal(!handleCreateModal)}

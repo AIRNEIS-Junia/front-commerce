@@ -6,7 +6,7 @@ const Page = () => {
   return (
     <>
       <h1 className={"mb-16 text-center"}>Shipping Address</h1>
-      <ShippingForm />
+      <ShippingForm type={"create"} />
     </>
   );
 };
