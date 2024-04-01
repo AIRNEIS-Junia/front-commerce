@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import ProductGrid from "@/components/Shop/ProductGrid/ProductGrid";
 import Header from "@/components/Shop/Header/Header";
