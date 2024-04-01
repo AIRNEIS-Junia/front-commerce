@@ -1,3 +1,4 @@
+"use client";
 import styles from "./SearchResult.module.css";
 import React from "react";
 import Image from "next/image";
