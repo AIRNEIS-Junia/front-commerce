@@ -3,7 +3,6 @@
         background-color: white;
         display: grid;
         grid-template-columns: 1fr 4fr;
-        grid-template-rows: 0.50fr 3fr 0.5fr 23fr;
         grid-gap: 0;
         grid-template-areas:
     "title-bar title-bar"
@@ -16,7 +15,6 @@
 .titleBar {
     grid-area: title-bar;
     min-width: 100%;
-    background-color: transparent;
 }
 
 

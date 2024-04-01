@@ -1,3 +1,4 @@
+"use client";
 import styles from "./ProductGrid.module.css";
 import Product from "@/components/Shop/Product/Product";
 import React from "react";
