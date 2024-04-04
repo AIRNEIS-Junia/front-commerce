@@ -1,6 +1,6 @@
 "use client";
 import axiosInstance from "../../../../lib/client-api";
-import { AddressType } from "../../../../types/CommonTypes";
+import { AddressInput } from "../../../../types/Address";
 import { useRouter } from "next/navigation";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 
@@ -10,21 +10,21 @@ const ShippingForm = ({
   onClosing,
 }: {
   type: string;
-  address?: AddressType | undefined;
+  address?: AddressInput | undefined;
   onClosing?: () => void;
 }) => {
   const router = useRouter();
 
-  const handleCreate = async (formikValues: AddressType) => {
+  const handleCreate = async (formikValues: AddressInput) => {
     await axiosInstance.post("/user/address", formikValues);
   };
 
-  const handleEdit = async (formikValues: AddressType) => {
+  const handleEdit = async (formikValues: AddressInput) => {
     console.log("address", address?.id, formikValues);
     await axiosInstance.patch(`/user/address/${address?.id}`, formikValues);
   };
 
-  const handleSubmit = async (formikValues: AddressType) => {
+  const handleSubmit = async (formikValues: AddressInput) => {
     if (type === "create") {
       await handleCreate(formikValues);
     } else {
@@ -32,7 +32,7 @@ const ShippingForm = ({
     }
   };
 
-  const values = (): AddressType => {
+  const values = (): AddressInput => {
     if (type === "edit" && address) {
       const { additional, ...rest } = address;
       const updatedAdditional = additional || "";
@@ -58,8 +58,8 @@ const ShippingForm = ({
       <Formik
         initialValues={values()}
         onSubmit={async (
-          values: AddressType,
-          { setSubmitting }: FormikHelpers<AddressType>,
+          values: AddressInput,
+          { setSubmitting }: FormikHelpers<AddressInput>,
         ) => {
           try {
             await handleSubmit(values);
@@ -70,7 +70,7 @@ const ShippingForm = ({
           }
         }}
       >
-        {({ values: AddressType }) => (
+        {({ values: AddressInput }) => (
           <Form className={"flex flex-col space-y-4"}>
             <div className={"grid grid-cols-[1fr_2fr] gap-4"}>
               <div className={"flex-col flex space-y-4"}>

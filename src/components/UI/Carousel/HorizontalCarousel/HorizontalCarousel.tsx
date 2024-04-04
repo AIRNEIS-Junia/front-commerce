@@ -38,9 +38,7 @@ const sliceItems = (
 const HorizontalCarousel = () => {
   // Refs to track the current indices for slicing items
   const fromItemCarouselIndex = useRef<number>(0);
-  const toItemCarouselIndex = useRef<number>(
-    typeof window !== "undefined" && window.innerWidth >= 1024 ? 3 : 1,
-  );
+  const toItemCarouselIndex = useRef<number>(0);
   const [displayedItems, setDisplayedItems] = useState<carouselItemType[]>(
     sliceItems(fromItemCarouselIndex.current, toItemCarouselIndex.current),
   );

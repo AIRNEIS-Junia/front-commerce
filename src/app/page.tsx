@@ -4,8 +4,16 @@ import HorizontalCarousel from "@/components/UI/Carousel/HorizontalCarousel/Hori
 import SectionTitle from "@/components/Section/SectionTitle";
 import Link from "next/link";
 import ProductHighlight from "@/components/Home/ProductHighlight";
+import { getSession, useSession } from "next-auth/react";
+import { useEffect } from "react";
 
 export default function Home() {
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    console.log("session", session);
+  }, [session]);
+
   return (
     <main className="">
       <Hero></Hero>

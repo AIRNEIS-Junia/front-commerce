@@ -3,10 +3,10 @@ import React, { useEffect, useState } from "react";
 import SelectShippingAddress from "@/components/Profile/SelectShippingAddress";
 import { CreateShippingModal } from "@/components/UI/Modal/CreateShippingModal";
 import EditShippingModal from "@/components/UI/Modal/EditShippingModal";
-import { AddressType } from "../../../types/CommonTypes";
+import { AddressInput } from "../../../types/Address";
 
-const ManageShipping = ({ addresses }: { addresses: AddressType[] }) => {
-  const [actualAddress, setActualAddress] = useState<AddressType | undefined>({
+const ManageShipping = ({ addresses }: { addresses: AddressInput[] }) => {
+  const [actualAddress, setActualAddress] = useState<AddressInput | undefined>({
     id: "",
     name: "",
     firstName: "",
@@ -27,7 +27,7 @@ const ManageShipping = ({ addresses }: { addresses: AddressType[] }) => {
     setActualAddress(addresses[0]);
   }, [addresses]);
 
-  const handleAddressChange = (newAddress: AddressType | undefined) => {
+  const handleAddressChange = (newAddress: AddressInput | undefined) => {
     setActualAddress(newAddress);
   };
 

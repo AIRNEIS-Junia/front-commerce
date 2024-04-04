@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import ProfileForm from "@/components/UI/Form/ProfileForm";
-import { UserType } from "../../../types/CommonTypes";
+import { EditUserInput } from "../../../types/User";
 
-const EditProfile = ({ user }: { user: UserType }) => {
+const EditProfile = ({ user }: { user: any }) => {
   return (
     <div className={"bg-beige p-4 lg:p-8"}>
       <div className={"flex justify-between items-center mb-8"}>

@@ -1,14 +1,14 @@
 "use client";
 import axiosInstance from "../../../../lib/client-api";
-import { UserType } from "../../../../types/CommonTypes";
+import { EditUserInput } from "../../../../types/User";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 
-const ProfileForm = ({ user }: { user: UserType }) => {
-  const handleSubmit = async (formikValues: UserType) => {
+const ProfileForm = ({ user }: { user: EditUserInput }) => {
+  const handleSubmit = async (formikValues: EditUserInput) => {
     await axiosInstance.patch(`/user`, formikValues);
   };
 
-  const values = (): UserType => {
+  const values = (): EditUserInput => {
     return {
       firstName: user.firstName,
       lastName: user.lastName,
@@ -23,8 +23,8 @@ const ProfileForm = ({ user }: { user: UserType }) => {
       <Formik
         initialValues={values()}
         onSubmit={async (
-          values: UserType,
-          { setSubmitting }: FormikHelpers<UserType>,
+          values: EditUserInput,
+          { setSubmitting }: FormikHelpers<EditUserInput>,
         ) => {
           try {
             await handleSubmit(values);
@@ -34,7 +34,7 @@ const ProfileForm = ({ user }: { user: UserType }) => {
           }
         }}
       >
-        {({ values: UserType }) => (
+        {({ values: EditUserInput }) => (
           <Form className={"flex flex-col space-y-4"}>
             <label htmlFor="firstName">Firstname</label>
             <Field

@@ -3,13 +3,13 @@ import React, { useEffect, useState } from "react";
 import ShippingForm from "@/components/UI/Form/ShippingForm";
 import { FaXmark } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
-import { AddressType } from "../../../../types/CommonTypes";
+import { AddressInput } from "../../../../types/Address";
 
 const EditShippingModal = ({
   address,
   onClosing,
 }: {
-  address: AddressType | undefined;
+  address: AddressInput | undefined;
   onClosing: () => void;
 }) => {
   return (

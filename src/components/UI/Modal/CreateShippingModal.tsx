@@ -3,7 +3,6 @@ import * as React from "react";
 import ShippingForm from "@/components/UI/Form/ShippingForm";
 import { FaCross, FaXmark } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
-import { AddressType } from "../../../../types/CommonTypes";
 
 export function CreateShippingModal({ onClosing }: { onClosing: () => void }) {
   const router = useRouter();

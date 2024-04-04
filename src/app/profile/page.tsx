@@ -1,12 +1,17 @@
+"use client";
 import React from "react";
-import EditProfile from "@/components/Profile/EditProfile";
-import ManageShipping from "@/components/Profile/ManageShipping";
 import { getAddressesByUser, getCurrentUser } from "../../../lib/api-functions";
-import { UserType } from "../../../types/CommonTypes";
 
 const Page = async () => {
-  const addresses = await getAddressesByUser();
-  const user = await getCurrentUser();
+  let user = undefined;
+  let userAddress = undefined;
+
+  if (typeof window !== "undefined") {
+    user = await getCurrentUser();
+    userAddress = await getAddressesByUser();
+
+    console.log("user", user);
+  }
 
   return (
     <div
@@ -19,11 +24,7 @@ const Page = async () => {
           <h2 className={"mb-8 pb-2 border-b border-oyster text-4xl"}>
             Register Shipping Address
           </h2>
-
-          <ManageShipping addresses={addresses} />
         </div>
-
-        <EditProfile user={user} />
       </div>
     </div>
   );

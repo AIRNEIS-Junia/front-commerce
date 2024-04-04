@@ -18,7 +18,7 @@ const Page = () => {
       <div className={"flex"}>
         <Link
           className={"btn btn-dark text-center !w-full mt-16"}
-          href={"/shipping-address"}
+          href={"/order-address"}
         >
           FILL THE ADRESS
         </Link>

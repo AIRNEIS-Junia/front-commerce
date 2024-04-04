@@ -2,15 +2,15 @@
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { Field, Form, Formik } from "formik";
-import { AddressType } from "../../../types/CommonTypes";
+import { AddressInput } from "../../../types/Address";
 
 const SelectShippingAddress = ({
   addresses,
   onAddressChange,
 }: {
-  addresses: AddressType[];
-  actualAddress: AddressType | undefined;
-  onAddressChange: (newAddress: AddressType | undefined) => void;
+  addresses: AddressInput[];
+  actualAddress: AddressInput | undefined;
+  onAddressChange: (newAddress: AddressInput | undefined) => void;
 }) => {
   const router = useRouter();
 

@@ -2,34 +2,22 @@
 import * as React from "react";
 import { Formik, Field, Form, FormikHelpers } from "formik";
 import Link from "next/link";
-import { AddressType, UserType } from "../../../../types/CommonTypes";
-import axiosInstance, { airneisStore } from "../../../../lib/client-api";
-import { AxiosResponse } from "axios";
+import { CreateUserInput } from "../../../../types/User";
+import { register } from "../../../../lib/auth";
 
 const SignupForm = () => {
-  const handleSubmit = async (formikValues: UserType) => {
-    const { confirmPassword, ...valuesToSend } = formikValues;
-
-    await axiosInstance
-      .post("auth/register", valuesToSend)
-      .then((response: any) => {
-        const responseData = [
-          {
-            key: "accessToken",
-            value: response.data.accessToken,
-          },
-          {
-            key: "refreshToken",
-            value: response.data.refreshToken,
-          },
-        ];
-
-        console.log("response", response, response.data);
-
-        responseData.forEach((response) => {
-          airneisStore.setItem(response.key, response.value);
-        });
-      });
+  const handleSubmit = async (
+    values: CreateUserInput,
+    formikHelpers: FormikHelpers<CreateUserInput>,
+  ) => {
+    const { confirmPassword, ...valuesToSend } = values;
+    try {
+      await register(valuesToSend);
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      formikHelpers.setSubmitting(false); // Réinitialiser l'état de soumission
+    }
   };
 
   return (
@@ -43,18 +31,17 @@ const SignupForm = () => {
           confirmPassword: "",
         }}
         validate={(values) => {
-          const errors: Partial<UserType> = {};
+          const errors: Partial<CreateUserInput> = {};
           if (values.password !== values.confirmPassword) {
             errors.confirmPassword = "Passwords do not match";
           }
           return errors;
         }}
-        onSubmit={async (
-          values: UserType,
-          { setSubmitting }: FormikHelpers<UserType>,
+        onSubmit={(
+          values: CreateUserInput,
+          formikHelpers: FormikHelpers<CreateUserInput>,
         ) => {
-          await handleSubmit(values);
-          setSubmitting(true);
+          return handleSubmit(values, formikHelpers);
         }}
       >
         <Form className={"flex flex-col space-y-4"}>

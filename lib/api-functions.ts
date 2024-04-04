@@ -1,7 +1,7 @@
+import { AddressInput } from "../types/Address";
 import axiosInstance from "./client-api";
-import { AddressType, UserType } from "../types/CommonTypes";
 
-export const getAddressesByUser = async (): Promise<AddressType[]> => {
+export const getAddressesByUser = async (): Promise<AddressInput[]> => {
   try {
     const response = await axiosInstance.get("user/address");
     return response.data.results;
@@ -11,7 +11,7 @@ export const getAddressesByUser = async (): Promise<AddressType[]> => {
   }
 };
 
-export const getCurrentUser = async (): Promise<UserType> => {
+export const getCurrentUser = async () => {
   try {
     const response = await axiosInstance.get("user");
     return response.data;
