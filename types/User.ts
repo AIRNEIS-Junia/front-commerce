@@ -5,6 +5,11 @@ type UserInput = {
   password: string;
 };
 
+type UserAuthLoginInput = {
+  email: string;
+  password: string;
+};
+
 type CreateUserInput = {
   firstName: string;
   lastName: string;
@@ -26,4 +31,10 @@ type UserSessionInput = {
   password: string;
 };
 
-export type { UserInput, CreateUserInput, EditUserInput, UserSessionInput };
+export type {
+  UserInput,
+  CreateUserInput,
+  EditUserInput,
+  UserSessionInput,
+  UserAuthLoginInput,
+};

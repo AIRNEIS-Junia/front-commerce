@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./MobileMenu.module.css";
 import Link from "next/link";
+import { signOut } from "next-auth/react";
 
 const MobileMenu = () => {
   return (
@@ -11,6 +12,7 @@ const MobileMenu = () => {
         <Link href={"/"}>Accueil</Link>
         <Link href={"/"}>Accueil</Link>
         <Link href={"/"}>Accueil</Link>
+        <button onClick={() => signOut()}>Sign out</button>
       </div>
     </div>
   );

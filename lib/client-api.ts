@@ -1,24 +1,27 @@
 import axios from "axios";
-import * as localforage from "localforage";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-
-export const airneisStore = localforage.createInstance({
-  name: "airneis",
-});
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:3001/",
 });
 
 axiosInstance.interceptors.request.use(async (config) => {
-  const session = await getServerSession(authOptions);
-  const token = session.accessToken;
+  try {
+    if (typeof window === "undefined") {
+      // Requête depuis le serveur
+      const session = await getServerSession(authOptions);
 
-  if (token) {
-    config.headers["Authorization"] = `Bearer ${token}`;
+      if (session && session.accessToken) {
+        const token = session.accessToken;
+        config.headers["Authorization"] = `Bearer ${token}`;
+      }
+    }
+    return config;
+  } catch (e) {
+    console.error("Error in request interceptor:", e);
+    throw e;
   }
-  return config;
 });
 
 export default axiosInstance;

@@ -2,30 +2,38 @@
 import * as React from "react";
 import { Formik, Field, Form, FormikHelpers } from "formik";
 import Link from "next/link";
-
-interface Values {
-  email: string;
-  password: string;
-  rememberMe: boolean;
-}
+import { login } from "../../../../lib/auth";
+import { UserAuthLoginInput } from "../../../../types/User";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
+  const router = useRouter();
+
+  const handleSubmit = async (
+    values: UserAuthLoginInput,
+    formikHelpers: FormikHelpers<UserAuthLoginInput>,
+  ) => {
+    try {
+      await login(values);
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      formikHelpers.setSubmitting(false);
+    }
+  };
+
   return (
     <div>
       <Formik
         initialValues={{
           email: "",
           password: "",
-          rememberMe: false,
         }}
         onSubmit={(
-          values: Values,
-          { setSubmitting }: FormikHelpers<Values>,
+          values: UserAuthLoginInput,
+          formikHelpers: FormikHelpers<UserAuthLoginInput>,
         ) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 500);
+          return handleSubmit(values, formikHelpers);
         }}
       >
         <Form className={"flex flex-col space-y-4"}>
@@ -45,17 +53,7 @@ const LoginForm = () => {
             placeholder="********"
           />
 
-          <div className={"flex justify-between !mt-[32px]"}>
-            <label>
-              <Field className={"mr-3"} type="checkbox" name="rememberMe" />
-              Remember me
-            </label>
-            <Link href={"/"} className={"italic"}>
-              Forgot password?
-            </Link>
-          </div>
-
-          <button className={"mt-16 btn btn-dark"} type="submit">
+          <button className={"!mt-[32px] btn btn-dark"} type="submit">
             LOGIN
           </button>
         </Form>

@@ -1,18 +1,16 @@
-"use client";
 import Hero from "@/components/Hero/Hero";
 import HorizontalCarousel from "@/components/UI/Carousel/HorizontalCarousel/HorizontalCarousel";
 import SectionTitle from "@/components/Section/SectionTitle";
 import Link from "next/link";
 import ProductHighlight from "@/components/Home/ProductHighlight";
-import { getSession, useSession } from "next-auth/react";
-import { useEffect } from "react";
+import { getRandomProducts } from "@/services/product";
 
-export default function Home() {
-  const { data: session } = useSession();
-
-  useEffect(() => {
-    console.log("session", session);
-  }, [session]);
+export default async function Home() {
+  try {
+    const products = await getRandomProducts(5);
+  } catch (error) {
+    console.error("Error fetching random products:", error);
+  }
 
   return (
     <main className="">

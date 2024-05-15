@@ -1,5 +1,6 @@
 import React from "react";
-import { getAddressesByUser, getCurrentUser } from "../../../lib/api-functions";
+import { getCurrentUser } from "@/services/user";
+import { getAddressesByUser } from "@/services/address";
 
 const Page = async () => {
   let user = undefined;
