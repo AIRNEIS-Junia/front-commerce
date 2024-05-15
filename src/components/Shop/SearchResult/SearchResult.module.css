@@ -1,0 +1,36 @@
+.search {
+    grid-area: search;
+    min-width: 100%;
+    background-color: white;
+    color: #323334;
+    font-family: PP Neue Montreal;
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.productNumber {
+    padding-left: 20vw;
+}
+
+.searchContainer {
+    padding-right: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center
+}
+
+.inputField {
+    background-color: transparent;
+    color: #323334;
+    border: none;
+    outline: none;
+    max-width: 120px;
+}
+
+.inputField::placeholder{
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #323334;
+    opacity: 0.7; /* Firefox */
+    font-family: PPNeueMontreal-Italic;
+}
