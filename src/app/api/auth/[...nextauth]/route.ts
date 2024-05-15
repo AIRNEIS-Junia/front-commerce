@@ -15,7 +15,7 @@ async function refreshAccessToken(token: TokenObject) {
   try {
     // Get a new set of tokens with a refreshToken
 
-    const tokenResponse = await axios.post<TokenObject, TokenObject>(
+    const tokenResponse = await axios.post<any, any>(
       process.env.API_URL + "auth/refresh",
       {
         headers: {
@@ -23,6 +23,8 @@ async function refreshAccessToken(token: TokenObject) {
         },
       },
     );
+
+    console.log("1 minute after", tokenResponse);
 
     return {
       ...token,
@@ -80,7 +82,7 @@ const providers = [
 ];
 
 const callbacks = {
-  /*  jwt: async ({ token, user }: { token: any; user: any }) => {
+  jwt: async ({ token, user }: { token: any; user: any }) => {
     if (user) {
       // This will only be executed at login. Each next invocation will skip this part.
       token.accessToken = user.accessToken;
@@ -89,19 +91,17 @@ const callbacks = {
     }
 
     // If accessTokenExpiry is 24 hours, we have to refresh token before 24 hours pass.
-    const shouldRefreshTime = Math.round(
-      token.accessTokenExpiry - Date.now() - (23 * 60 + 59) * 60 * 1000,
-    );
+    const shouldRefreshTime = token.accessTokenExpiry - Date.now();
 
     // If the token is still valid, just return it.
 
     if (shouldRefreshTime > 0) {
       return Promise.resolve(token);
     } else {
-      // token = await refreshAccessToken(token);
+      token = await refreshAccessToken(token);
       return Promise.resolve(token);
     }
-  },*/
+  },
 
   session: async ({ session, token }: { session: any; token: any }) => {
     // Here we pass accessToken to the client to be used in authentication with your API
