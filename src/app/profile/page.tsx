@@ -1,4 +1,3 @@
-"use client";
 import React from "react";
 import { getAddressesByUser, getCurrentUser } from "../../../lib/api-functions";
 
@@ -6,12 +5,10 @@ const Page = async () => {
   let user = undefined;
   let userAddress = undefined;
 
-  if (typeof window !== "undefined") {
-    user = await getCurrentUser();
-    userAddress = await getAddressesByUser();
+  user = await getCurrentUser();
+  userAddress = await getAddressesByUser();
 
-    console.log("user", user);
-  }
+  console.log("currentUser", user);
 
   return (
     <div
