@@ -1,13 +1,11 @@
-import Hero from "@/components/Hero/Hero";
-import HorizontalCarousel from "@/components/UI/Carousel/HorizontalCarousel/HorizontalCarousel";
-import SectionTitle from "@/components/Section/SectionTitle";
+import Hero from "../components/Hero/Hero";
+import HorizontalCarousel from "../components/UI/Carousel/HorizontalCarousel/HorizontalCarousel";
+import SectionTitle from "../components/Section/SectionTitle";
 import Link from "next/link";
-import ProductHighlight from "@/components/Home/ProductHighlight";
-import { getRandomProducts } from "@/services/product";
+import ProductHighlight from "../components/Home/ProductHighlight";
 
 export default async function Home() {
   try {
-    const products = await getRandomProducts(5);
   } catch (error) {
     console.error("Error fetching random products:", error);
   }
