@@ -1,14 +1,21 @@
 "use client";
-import styles from "./SearchResult.module.css";
 import React from "react";
+import styles from "./SearchResult.module.css";
 import Image from "next/image";
+import { useTranslation } from "react-i18next";
 
 const SearchResult = () => {
+  const { t } = useTranslation();
+
   return (
     <div className={styles.search}>
-      <p className={styles.productNumber}>21 products</p>
+      <p className={styles.productNumber}>21 {t("products")}</p>
       <div className={styles.searchContainer}>
-        <input className={styles.inputField} type="text" placeholder="SEARCH" />
+        <input
+          className={styles.inputField}
+          type="text"
+          placeholder={t("search")}
+        />
         <Image
           src={"search.svg"}
           alt="Search Icon"

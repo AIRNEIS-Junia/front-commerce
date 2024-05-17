@@ -1,8 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import styles from "./SideBar.module.css";
+import { useTranslation } from "react-i18next";
 
 function SideBar() {
+  const { t } = useTranslation();
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
   const [isSortByOpen, setIsSortByOpen] = useState(false);
 
@@ -13,15 +15,15 @@ function SideBar() {
           className={styles.sidebarTitle}
           onClick={() => setIsFiltersOpen(!isFiltersOpen)}
         >
-          <p>FILTERS</p>
+          <p>{t("filter")}</p>
         </div>
         {isFiltersOpen && (
           <div className={styles.sidebarCriteria}>
             <ul>
-              <li>DECORS</li>
-              <li>CERAMICS</li>
-              <li>CHAIRS</li>
-              <li>LAMP</li>
+              <li>{t("decors")}</li>
+              <li>{t("ceramics")}</li>
+              <li>{t("chairs")}</li>
+              <li>{t("lamp")}</li>
             </ul>
           </div>
         )}
@@ -29,16 +31,20 @@ function SideBar() {
           className={styles.sidebarTitle}
           onClick={() => setIsSortByOpen(!isSortByOpen)}
         >
-          <p>SORT BY</p>
+          <p>{t("sort")}</p>
         </div>
         {isSortByOpen && (
           <div className={styles.sidebarCriteria}>
             <ul>
-              <li>PRICE: LOW TO HIGH</li>
-              <li>PRICE: HIGH TO LOW</li>
-              <li>ALPH: A TO Z</li>
-              <li>ALPH: Z TO A</li>
-              <li>BEST SELLING</li>
+              <li>
+                {t("price")}: {t("low_to_high")}
+              </li>
+              <li>
+                {t("price")}: {t("high_to_low")}
+              </li>
+              <li>ALPH: A {t("to")} Z</li>
+              <li>ALPH: Z {t("to")} A</li>
+              <li>{t("best_selling")}</li>
             </ul>
           </div>
         )}
