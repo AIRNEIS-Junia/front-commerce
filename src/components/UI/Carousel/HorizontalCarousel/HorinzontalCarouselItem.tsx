@@ -9,8 +9,8 @@ const HorinzontalCarouselItem = (props: {
   link: string;
 }) => {
   return (
-    <Link href={`${props.link}`} className={"aspect-square p-[8px]"}>
-      <div className={"aspect-square relative"}>
+    <Link href={`${props.link}`} className={"p-[8px]"}>
+      <div className={"relative aspect-square"}>
         <Image
           fill
           src={props.image}
@@ -18,7 +18,7 @@ const HorinzontalCarouselItem = (props: {
           alt={`${props.alt}`}
         />
       </div>
-      <p className={"mt-[8px]"}>NATIVE IRON CHAIR</p>
+      <p className={"mt-[8px]"}>{props.name}</p>
     </Link>
   );
 };

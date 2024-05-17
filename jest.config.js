@@ -1,26 +1,17 @@
-const jsdomGlobal = require("jsdom-global");
-
-jsdomGlobal();
-
 const nextJest = require("next/jest");
 
 const createJestConfig = nextJest({
+  // Path to Next.js app to load next.config.js
   dir: "./",
 });
 
+/** @type {import('@jest/types').Config.InitialOptions} */
 const customJestConfig = {
-  setupFiles: ["<rootDir>/jest.setup.js"],
-  moduleNameMapper: {
-    "^@/(.*)$": "<rootDir>/src/$1",
-    "\\.(css|less|scss|sass)$": "<rootDir>/__mocks__/styleMock.js",
-    "\\.(jpg|jpeg|png|gif|webp|svg)$": "<rootDir>/__mocks__/fileMock.js",
-  },
-  globals: {
-    "ts-jest": {
-      tsConfig: "./tsconfig.json",
-    },
-  },
+  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
   testEnvironment: "jsdom",
 };
 
-module.exports = createJestConfig(customJestConfig);
+module.exports = async () => ({
+  ...(await createJestConfig(customJestConfig)()),
+  transformIgnorePatterns: ["node_modules/(?!(jose)/)"],
+});

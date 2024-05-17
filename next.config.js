@@ -1,6 +1,10 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  images: { unoptimized: true },
+module.exports = {
+  experimental: { appDir: true },
+  images: {
+    remotePatterns: [
+      {
+        hostname: "plus.unsplash.com",
+      },
+    ],
+  },
 };
-
-module.exports = nextConfig;
