@@ -10,7 +10,7 @@
 .hamburger-menu .bar3 {
     width: 28px;
     height: 2px;
-    background-color: var(--offWhiteTint);
+    background-color: var(--stormy);
     margin: 3px 0;
     transition: 0.4s;
 }

@@ -1,9 +1,11 @@
 import React from "react";
 import styles from "./MobileMenu.module.css";
 import Link from "next/link";
-import { signOut } from "next-auth/react";
+import { signOut, useSession, signIn } from "next-auth/react";
 
 const MobileMenu = () => {
+  const { data: session, status, update } = useSession();
+
   return (
     <div
       className={"h-screen bg-offWhiteTint w-full fixed z-[90] top-0 left-0"}
@@ -12,7 +14,11 @@ const MobileMenu = () => {
         <Link href={"/"}>Accueil</Link>
         <Link href={"/"}>Accueil</Link>
         <Link href={"/"}>Accueil</Link>
-        <button onClick={() => signOut()}>Sign out</button>
+        <button
+          onClick={() => (status === "authenticated" ? signOut() : signIn())}
+        >
+          {status === "authenticated" ? "Sign out" : "Login"}
+        </button>
       </div>
     </div>
   );

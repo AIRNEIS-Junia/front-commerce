@@ -1,29 +1,22 @@
-import { withAuth } from "next-auth/middleware";
 import { NextRequest, NextResponse } from "next/server";
+import { getToken, JWT } from "next-auth/jwt";
 
-const authMiddleware = withAuth(
-  function onSuccess(req) {
-    return NextResponse.next();
-  },
-  {
-    callbacks: {
-      authorized: ({ token }) => token != null,
-    },
-    pages: {
-      signIn: "/login",
-    },
-  },
-);
+export default async function middleware(req: NextRequest) {
+  const routesNeedAuth: string[] = ["/profile", "/order"];
+  const authRoutes: string[] = ["/signup", "/login"];
+  const currentPath: string = req.nextUrl.pathname;
 
-export default function middleware(req: NextRequest) {
-  const routesNeedAuth = ["profile", "order"];
-  const currentPath = req.nextUrl.pathname;
+  const token: JWT | null = await getToken({ req });
 
-  const requiresAuth = routesNeedAuth.includes(currentPath.substring(1));
-
-  if (requiresAuth) {
-    return (authMiddleware as any)(req);
+  if (token && authRoutes.includes(currentPath)) {
+    return NextResponse.redirect(new URL("/", req.url));
   }
+
+  if (routesNeedAuth.includes(currentPath) && !token) {
+    return NextResponse.redirect(new URL("/login", req.url));
+  }
+
+  return NextResponse.next();
 }
 
 export const config = {

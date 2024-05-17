@@ -37,7 +37,7 @@ const Navbar = () => {
           </div>
         </Link>
         <Link href={"/"}>
-          <CiUser color={"white"} size={24} />
+          <CiUser color={"stormy"} size={24} />
         </Link>
       </div>
     </nav>
