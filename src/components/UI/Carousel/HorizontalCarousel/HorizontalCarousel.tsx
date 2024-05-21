@@ -4,7 +4,6 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import HorinzontalCarouselItem from "@/components/UI/Carousel/HorizontalCarousel/HorinzontalCarouselItem";
-import { string } from "yup";
 
 const HorizontalCarousel = ({ products }: { products: any }) => {
   const settings = {
@@ -32,7 +31,7 @@ const HorizontalCarousel = ({ products }: { products: any }) => {
   };
 
   return (
-    <div>
+    <div data-testid={"horizontal-carousel"}>
       <Slider {...settings}>
         {products.map((item: any, index: any) => (
           <HorinzontalCarouselItem

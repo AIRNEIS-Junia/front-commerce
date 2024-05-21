@@ -1,3 +1,7 @@
+import { TextDecoder } from "node:util";
+
+global.TextDecoder = TextDecoder;
+
 window.matchMedia =
   window.matchMedia ||
   function () {

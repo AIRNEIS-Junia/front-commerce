@@ -7,6 +7,7 @@ const createJestConfig = nextJest({
 
 /** @type {import('@jest/types').Config.InitialOptions} */
 const customJestConfig = {
+  setupFiles: ["<rootDir>/jest.polyfills.js"],
   setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
   testEnvironment: "jsdom",
 };

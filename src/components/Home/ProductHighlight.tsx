@@ -5,6 +5,7 @@ import Link from "next/link";
 const ProductHighlight = ({ product }: { product: any }) => {
   return (
     <section
+      data-testid="product-highlight"
       className={"p-extrasmall pb-medium md:p-0 bg-opal text-offWhiteTint"}
     >
       <div className="mx-auto md:grid md:grid-cols-2">

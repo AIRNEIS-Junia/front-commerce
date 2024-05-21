@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const Hero = () => {
   return (
-    <header className={"h-[700px] relative w-100"}>
+    <header data-testid={"hero"} className={"h-[700px] relative w-100"}>
       <Image
         src={"/images/home/Hero.webp"}
         fill
