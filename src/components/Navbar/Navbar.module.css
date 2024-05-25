@@ -1,5 +1,5 @@
 .logo-text {
-    color: #FFF;
+    color: var(--stormy);
     font-family: Geiny, sans-serif;
     font-size: 32px;
     font-style: normal;

@@ -1,7 +1,7 @@
 "use client";
-import { EditUserInput } from "../../../../types/User";
+import { EditUserInput } from "@/types/User";
 import { Field, Form, Formik, FormikHelpers } from "formik";
-import axiosInstance from "../../../../lib/client-api";
+import axiosInstance from "@/clients/storeFrontClient";
 
 const ProfileForm = ({ user }: { user: EditUserInput }) => {
   const handleSubmit = async (formikValues: EditUserInput) => {

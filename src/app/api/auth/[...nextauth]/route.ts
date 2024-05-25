@@ -1,7 +1,7 @@
-import NextAuth, { Awaitable } from "next-auth";
+import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import axios, { AxiosResponse } from "axios";
-import { login } from "../../../../../lib/auth";
+import axios from "axios";
+import { login } from "@/services/auth";
 
 type TokenObject = {
   accessToken: string;
@@ -47,7 +47,7 @@ const providers = [
       email: { label: "Email", type: "email" },
       password: { label: "Password", type: "password" },
     },
-    async authorize(credentials: AuthCredentials, req): Promise<any> {
+    async authorize(credentials: AuthCredentials): Promise<any> {
       if (!credentials) return null;
 
       let accessToken = undefined;

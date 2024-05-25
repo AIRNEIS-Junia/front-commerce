@@ -1,9 +1,8 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import ShippingForm from "@/components/UI/Form/ShippingForm";
 import { FaXmark } from "react-icons/fa6";
-import { useRouter } from "next/navigation";
-import { AddressInput } from "../../../../types/Address";
+import { AddressInput } from "@/types/Address";
 
 const EditShippingModal = ({
   address,

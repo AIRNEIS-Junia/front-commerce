@@ -1,8 +1,9 @@
 import React from "react";
 import { render, screen, RenderResult } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import ProductHighlight from "@/components/Home/ProductHighlight"; // Assurez-vous que le chemin est correct
+import ProductHighlight from "@/components/Home/ProductHighlight";
 
+// eslint-disable-next-line react/display-name
 jest.mock("next/image", () => ({ src, alt }: { src: string; alt: string }) => (
   <img src={src} alt={alt} />
 ));

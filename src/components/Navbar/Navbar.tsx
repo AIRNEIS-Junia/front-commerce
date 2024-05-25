@@ -36,7 +36,7 @@ const Navbar = () => {
             1
           </div>
         </Link>
-        <Link href={"/"}>
+        <Link href={"/profile"}>
           <CiUser color={"stormy"} size={24} />
         </Link>
       </div>

@@ -3,8 +3,8 @@ import * as React from "react";
 import { Formik, Field, Form, FormikHelpers, ErrorMessage } from "formik";
 import Link from "next/link";
 import * as Yup from "yup";
-import { CreateUserInput } from "../../../../types/User";
-import { register } from "../../../../lib/auth";
+import { CreateUserInput } from "@/types/User";
+import { register } from "@/services/auth";
 import { useRouter } from "next/navigation";
 
 const SignupForm = () => {

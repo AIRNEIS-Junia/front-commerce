@@ -1,8 +1,7 @@
 "use client";
-import { AddressInput } from "../../../../types/Address";
-import { useRouter } from "next/navigation";
+import { AddressInput } from "@/types/Address";
 import { Field, Form, Formik, FormikHelpers } from "formik";
-import axiosInstance from "../../../../lib/client-api";
+import axiosInstance from "@/clients/storeFrontClient";
 
 const ShippingForm = ({
   type,
@@ -13,14 +12,11 @@ const ShippingForm = ({
   address?: AddressInput | undefined;
   onClosing?: () => void;
 }) => {
-  const router = useRouter();
-
   const handleCreate = async (formikValues: AddressInput) => {
     await axiosInstance.post("/user/address", formikValues);
   };
 
   const handleEdit = async (formikValues: AddressInput) => {
-    console.log("address", address?.id, formikValues);
     await axiosInstance.patch(`/user/address/${address?.id}`, formikValues);
   };
 

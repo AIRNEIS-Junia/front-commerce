@@ -3,11 +3,11 @@ import HorizontalCarousel from "../components/UI/Carousel/HorizontalCarousel/Hor
 import SectionTitle from "../components/Section/SectionTitle";
 import Link from "next/link";
 import ProductHighlight from "../components/Home/ProductHighlight";
-import { getRandomProducts } from "@/services/product";
+import { getProducts } from "@/services/product";
 
 export default async function Home() {
-  let productsInCarousel = await getRandomProducts(5);
-  let productInHighlight = await getRandomProducts(1);
+  let productsInCarousel = await getProducts();
+  let productInHighlight = await getProducts();
 
   return (
     <main className="">

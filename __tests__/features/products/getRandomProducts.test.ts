@@ -1,11 +1,11 @@
 import "@testing-library/jest-dom";
-import axiosInstance from "../../../lib/client-api";
-import { getRandomProducts } from "@/services/product";
+import axiosInstance from "@/clients/storeFrontClient";
+import { getProducts } from "@/services/product";
 
 // Mock Axios to simulate API response
-jest.mock("../../../lib/client-api");
+jest.mock("@/clients/storeFrontClient");
 
-describe("getRandomProducts function", () => {
+describe("geProducts function", () => {
   it("returns an array of products", async () => {
     // Define a mocked response
     const mockProducts = [
@@ -19,7 +19,7 @@ describe("getRandomProducts function", () => {
     });
 
     // Call the getRandomProducts function
-    const result = await getRandomProducts(2);
+    const result = await getProducts(2);
 
     // Verify that the function returns an array of products
     expect(result).toEqual(mockProducts);
@@ -33,7 +33,7 @@ describe("getRandomProducts function", () => {
     (axiosInstance.get as jest.Mock).mockResolvedValueOnce(mockResponse);
 
     // Call the getRandomProducts function and expect it to throw an error
-    await expect(getRandomProducts(2)).rejects.toThrow(
+    await expect(getProducts(2)).rejects.toThrow(
       "Response data is not an array",
     );
   });

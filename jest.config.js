@@ -14,5 +14,7 @@ const customJestConfig = {
 
 module.exports = async () => ({
   ...(await createJestConfig(customJestConfig)()),
-  transformIgnorePatterns: ["node_modules/(?!(jose)/)"],
+  transformIgnorePatterns: [
+    "node_modules/(?!(jose|@panva|uuid|preact-render-to-string|preact)/)",
+  ],
 });

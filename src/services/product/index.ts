@@ -1,11 +1,9 @@
-import axiosInstance from "../../../lib/client-api";
+import axiosInstance from "@/clients/storeFrontClient";
 
-export const getRandomProducts = async (numberOfProduct: number) => {
+export const getProducts = async () => {
   try {
     const response = await axiosInstance.get("products");
-    console.log("response.data", response.data);
 
-    // Assurez-vous que response.data est un tableau avant de le retourner
     if (Array.isArray(response.data)) {
       return response.data;
     } else {

@@ -2,8 +2,8 @@
 import * as React from "react";
 import { Formik, Field, Form, FormikHelpers, ErrorMessage } from "formik";
 import Link from "next/link";
-import { login } from "../../../../lib/auth";
-import { UserAuthLoginInput } from "../../../../types/User";
+import { login } from "@/services/auth";
+import { UserAuthLoginInput } from "@/types/User";
 import { useRouter } from "next/navigation";
 import * as Yup from "yup";
 import { useState } from "react";

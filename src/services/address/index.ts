@@ -1,5 +1,5 @@
-import { AddressInput } from "../../../types/Address";
-import axiosInstance from "../../../lib/client-api";
+import { AddressInput } from "@/types/Address";
+import axiosInstance from "@/clients/storeFrontClient";
 
 export const getAddressesByUser = async (): Promise<AddressInput[]> => {
   try {

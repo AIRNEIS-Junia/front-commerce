@@ -1,4 +1,4 @@
-import axiosInstance from "../../../lib/client-api";
+import axiosInstance from "@/clients/storeFrontClient";
 
 export const getCurrentUser = async () => {
   try {

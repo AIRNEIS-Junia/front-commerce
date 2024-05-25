@@ -1,8 +1,7 @@
 "use client";
 import * as React from "react";
-import { useRouter } from "next/navigation";
 import { Field, Form, Formik } from "formik";
-import { AddressInput } from "../../../types/Address";
+import { AddressInput } from "@/types/Address";
 
 const SelectShippingAddress = ({
   addresses,
@@ -12,8 +11,6 @@ const SelectShippingAddress = ({
   actualAddress: AddressInput | undefined;
   onAddressChange: (newAddress: AddressInput | undefined) => void;
 }) => {
-  const router = useRouter();
-
   return (
     <Formik
       initialValues={{ email: "", color: "red", firstName: "", lastName: "" }}

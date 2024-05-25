@@ -1,16 +1,5 @@
 import React from "react";
-import { getCurrentUser } from "@/services/user";
-import { getAddressesByUser } from "@/services/address";
-
 const Page = async () => {
-  let user = undefined;
-  let userAddress = undefined;
-
-  user = await getCurrentUser();
-  userAddress = await getAddressesByUser();
-
-  console.log("currentUser", user);
-
   return (
     <div
       className={
