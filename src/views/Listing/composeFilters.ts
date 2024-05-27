@@ -53,26 +53,55 @@ export function composeFilters(
           .group((sub) => sub.in("flatOptions.Size", parsedSearchParams.sizes)),
     },
     {
-      predicate: !!parsedSearchParams.minPrice,
-      action: () =>
-        filter
-          .and()
-          .where(
-            "minPrice",
-            ComparisonOperators.GreaterThanOrEqual,
-            parsedSearchParams.minPrice!,
-          ),
-    },
-    {
-      predicate: !!parsedSearchParams.maxPrice,
-      action: () =>
-        filter
-          .and()
-          .where(
-            "minPrice",
-            ComparisonOperators.LessThanOrEqual,
-            parsedSearchParams.maxPrice!,
-          ),
+      predicate:
+        (parsedSearchParams.minPrice !== null &&
+          parsedSearchParams.maxPrice === null) ||
+        (parsedSearchParams.minPrice === null &&
+          parsedSearchParams.maxPrice !== null) ||
+        (parsedSearchParams.minPrice !== null &&
+          parsedSearchParams.maxPrice !== null),
+      action: () => {
+        if (
+          parsedSearchParams.minPrice !== null &&
+          parsedSearchParams.maxPrice === null
+        ) {
+          filter
+            .and()
+            .where(
+              "price",
+              ComparisonOperators.GreaterThanOrEqual,
+              parsedSearchParams.minPrice,
+            );
+        } else if (
+          parsedSearchParams.minPrice === null &&
+          parsedSearchParams.maxPrice !== null
+        ) {
+          filter
+            .and()
+            .where(
+              "price",
+              ComparisonOperators.LessThanOrEqual,
+              parsedSearchParams.maxPrice,
+            );
+        } else if (
+          parsedSearchParams.minPrice !== null &&
+          parsedSearchParams.maxPrice !== null
+        ) {
+          filter
+            .and()
+            .where(
+              "price",
+              ComparisonOperators.GreaterThanOrEqual,
+              parsedSearchParams.minPrice,
+            )
+            .and()
+            .where(
+              "price",
+              ComparisonOperators.LessThanOrEqual,
+              parsedSearchParams.maxPrice,
+            );
+        }
+      },
     },
   ];
 

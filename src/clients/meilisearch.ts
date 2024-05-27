@@ -37,22 +37,19 @@ export async function initMeiliSearch() {
       }
     }
 
-    const stats = (await index.getStats()) as IndexStatsWithDocumentCount;
-    if (stats.numberOfDocuments === 0) {
-      const products = await getProducts();
-      if (!products || !Array.isArray(products)) {
-        throw new Error("No products found or invalid product data");
-      }
-      await index.addDocuments(products, { primaryKey: "id" });
-
-      const filterableAttributes = new Set(["category.name"]);
-      const searchableAttributes = ["category.name", "name", "description"];
-
-      await index.updateSettings({
-        filterableAttributes: Array.from(filterableAttributes),
-        searchableAttributes,
-      });
+    const products = await getProducts();
+    if (!products || !Array.isArray(products)) {
+      throw new Error("No products found or invalid product data");
     }
+    await index.addDocuments(products, { primaryKey: "id" });
+
+    const filterableAttributes = new Set(["category.name", "price"]);
+    const searchableAttributes = ["category.name", "name", "description"];
+
+    await index.updateSettings({
+      filterableAttributes: Array.from(filterableAttributes),
+      searchableAttributes,
+    });
   } catch (error) {
     console.error("Error initializing MeiliSearch:", error);
     throw error;
