@@ -103,7 +103,7 @@ const searchProductsWrapper = async (
 
     const results = await index.search(query, {
       sort: sortBy ? [sortBy] : undefined,
-      hitsPerPage: 24,
+      hitsPerPage: 9,
       facets: ["category.name", "productTypes.name", "price"],
       filter,
       page,
@@ -133,5 +133,5 @@ const searchProductsWrapper = async (
 const searchProducts = unstable_cache(
   searchProductsWrapper,
   ["products-search"],
-  { revalidate: 3600 },
+  { revalidate: 10 },
 );
