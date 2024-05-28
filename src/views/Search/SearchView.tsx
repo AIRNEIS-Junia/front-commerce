@@ -120,7 +120,6 @@ const searchProductsWrapper = async (
 
     const hits = results?.hits || [];
 
-    console.log("hits", hits);
     const totalPages = results?.totalPages || 0;
     const facetDistribution = results?.facetDistribution || {};
 
@@ -134,6 +133,5 @@ const searchProductsWrapper = async (
 const searchProducts = unstable_cache(
   searchProductsWrapper,
   ["products-search"],
-  // refresh every 10 seconds
-  { revalidate: 10 },
+  { revalidate: 3600 },
 );

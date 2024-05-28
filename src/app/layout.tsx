@@ -15,12 +15,6 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  try {
-    await initMeiliSearch();
-  } catch (error) {
-    console.log("error");
-  }
-
   return (
     <html lang="fr">
       <body>

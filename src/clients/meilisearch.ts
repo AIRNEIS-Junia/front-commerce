@@ -19,7 +19,6 @@ const meilisearch = globalThis.meilisearch ?? meilisearchClientSingleton();
 export { meilisearch };
 
 export async function initMeiliSearch() {
-  console.log("go");
   try {
     let index;
     try {

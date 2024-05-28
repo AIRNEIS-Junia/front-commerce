@@ -12,7 +12,11 @@ const ProductHighlight = ({ product }: { product: any }) => {
         <div className={"aspect-square relative md:order-last"}>
           <Image
             fill
-            src={product.images[0]}
+            src={
+              product.images[0]
+                ? product.images[0].url
+                : "/default-product-image.svg"
+            }
             className={"object-cover"}
             alt={""}
           />

@@ -2,13 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/utils/cn";
 import { QuickAdd } from "./QuickAdd";
-import {
-  type CurrencyType,
-  mapCurrencyToSign,
-} from "@/utils/mapCurrencyToSign";
 
 export function ProductCard(props: any) {
-  const variant = props.variants?.find(Boolean)?.price;
   const href = `/products/${props.handle}`;
   const linkAria = `Visit product: ${props.title}`;
   const featuredImageAltTag =
@@ -39,7 +34,7 @@ export function ProductCard(props: any) {
           />
         </Link>
 
-        <QuickAdd product={props as any} variants={props.variants} />
+        <QuickAdd />
       </div>
       <Link aria-label={linkAria} href={href}>
         <div className="mt-4 flex flex-col gap-0.5 text-slate-700">
