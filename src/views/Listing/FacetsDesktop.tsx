@@ -6,12 +6,6 @@ import type { CategoriesDistribution } from "meilisearch";
 import dynamic from "next/dynamic";
 import { cn } from "@/utils/cn";
 
-interface FacetsDesktopProps {
-  facetDistribution: Record<string, CategoriesDistribution> | undefined;
-  className?: string;
-  disabledFacets?: string[];
-}
-
 const FacetsContent = dynamic(
   () => import("@/views/Listing/FacetsContent").then((m) => m.FacetsContent),
   { loading: FacetsContentSkeleton },
@@ -21,7 +15,7 @@ export function FacetsDesktop({
   facetDistribution,
   className,
   disabledFacets,
-}: FacetsDesktopProps) {
+}: any) {
   const { width = 0 } = useWindowSize();
   const isMobile = width! < 1024 && !!width;
 

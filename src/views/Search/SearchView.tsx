@@ -24,10 +24,7 @@ export const searchParamsCache = createSearchParamsCache({
   maxPrice: parseAsInteger,
   sortBy: parseAsString.withDefault(""),
   categories: parseAsArrayOf(parseAsString).withDefault([]),
-  vendors: parseAsArrayOf(parseAsString).withDefault([]),
-  tags: parseAsArrayOf(parseAsString).withDefault([]),
-  colors: parseAsArrayOf(parseAsString).withDefault([]),
-  sizes: parseAsArrayOf(parseAsString).withDefault([]),
+  productTypes: parseAsArrayOf(parseAsString).withDefault([]),
 });
 
 export async function SearchView({
@@ -103,18 +100,27 @@ const searchProductsWrapper = async (
   try {
     await initMeiliSearch();
     const index = await meilisearch.getIndex<Product>("products");
-    console.log("query", query);
 
     const results = await index.search(query, {
       sort: sortBy ? [sortBy] : undefined,
       hitsPerPage: 24,
-      facets: ["category.name"],
+      facets: ["category.name", "productTypes.name", "price"],
       filter,
       page,
-      attributesToRetrieve: ["id", "name", "price", "images", "category"],
+      attributesToRetrieve: [
+        "id",
+        "name",
+        "price",
+        "images",
+        "category",
+        "productTypes",
+        "updatedAt",
+      ],
     });
 
     const hits = results?.hits || [];
+
+    console.log("hits", hits);
     const totalPages = results?.totalPages || 0;
     const facetDistribution = results?.facetDistribution || {};
 
@@ -128,5 +134,6 @@ const searchProductsWrapper = async (
 const searchProducts = unstable_cache(
   searchProductsWrapper,
   ["products-search"],
-  { revalidate: 3600 },
+  // refresh every 10 seconds
+  { revalidate: 10 },
 );

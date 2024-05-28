@@ -46,11 +46,9 @@ export function ProductCard(props: any) {
           <div className="line-clamp-2 text-base tracking-tight md:text-xl">
             {props.name}
           </div>
-          {!!variant && !!props.minPrice && (
+          {!!props.price && (
             <p className="text-base font-semibold tracking-tight text-black md:text-lg">
-              From{" "}
-              {props.minPrice.toFixed(2) +
-                mapCurrencyToSign(variant.currencyCode as CurrencyType)}
+              {props.price} €
             </p>
           )}
         </div>

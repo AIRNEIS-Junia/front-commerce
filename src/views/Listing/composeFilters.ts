@@ -4,10 +4,7 @@ interface MakeFilterProps {
   minPrice: number | null;
   maxPrice: number | null;
   categories: string[];
-  vendors: string[];
-  tags: string[];
-  colors: string[];
-  sizes: string[];
+  productTypes: string[];
 }
 
 export function composeFilters(
@@ -25,32 +22,13 @@ export function composeFilters(
           ),
     },
     {
-      predicate: parsedSearchParams.vendors.length > 0,
-      action: () =>
-        filter
-          .and()
-          .group((sub) => sub.in("vendor", parsedSearchParams.vendors)),
-    },
-    {
-      predicate: parsedSearchParams.tags.length > 0,
-      action: () =>
-        filter.and().group((sub) => sub.in("tags", parsedSearchParams.tags)),
-    },
-    {
-      predicate: parsedSearchParams.colors.length > 0,
+      predicate: parsedSearchParams.productTypes.length > 0,
       action: () =>
         filter
           .and()
           .group((sub) =>
-            sub.in("flatOptions.Color", parsedSearchParams.colors),
+            sub.in("productTypes.name", parsedSearchParams.productTypes),
           ),
-    },
-    {
-      predicate: parsedSearchParams.sizes.length > 0,
-      action: () =>
-        filter
-          .and()
-          .group((sub) => sub.in("flatOptions.Size", parsedSearchParams.sizes)),
     },
     {
       predicate:

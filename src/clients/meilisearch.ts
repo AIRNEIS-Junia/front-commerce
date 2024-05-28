@@ -18,11 +18,8 @@ const meilisearch = globalThis.meilisearch ?? meilisearchClientSingleton();
 
 export { meilisearch };
 
-interface IndexStatsWithDocumentCount extends IndexStats {
-  numberOfDocuments: number;
-}
-
 export async function initMeiliSearch() {
+  console.log("go");
   try {
     let index;
     try {
@@ -38,16 +35,25 @@ export async function initMeiliSearch() {
     }
 
     const products = await getProducts();
+
     if (!products || !Array.isArray(products)) {
       throw new Error("No products found or invalid product data");
     }
+
     await index.addDocuments(products, { primaryKey: "id" });
 
-    const filterableAttributes = new Set(["category.name", "price"]);
+    const filterableAttributes = new Set([
+      "category.name",
+      "price",
+      "productTypes.name",
+    ]);
+
+    const sortableAttributes = new Set(["price", "updatedAt"]);
     const searchableAttributes = ["category.name", "name", "description"];
 
     await index.updateSettings({
       filterableAttributes: Array.from(filterableAttributes),
+      sortableAttributes: Array.from(sortableAttributes),
       searchableAttributes,
     });
   } catch (error) {

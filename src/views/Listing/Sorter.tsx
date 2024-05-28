@@ -10,18 +10,18 @@ import { ChevronIcon } from "@/components/UI/Icons/ChevronIcon";
 import { parseAsStringEnum, useQueryState } from "nuqs";
 
 export enum Sorting {
-  PRICE_DESC = "minPrice:desc",
-  PRICE_ASC = "minPrice:asc",
-  DATE_ASC = "updatedAtTimestamp:asc",
-  DATE_DESC = "updatedAtTimestamp:desc",
+  PRICE_DESC = "price:desc",
+  PRICE_ASC = "price:asc",
+  DATE_ASC = "updatedAt:asc",
+  DATE_DESC = "updatedAt:desc",
   RELEVANCY = "",
 }
 
 const LABELS = {
   [Sorting.PRICE_DESC]: "Price: High to Low",
   [Sorting.PRICE_ASC]: "Price: Low to High",
-  [Sorting.DATE_ASC]: "Newest",
-  [Sorting.DATE_DESC]: "Oldest",
+  [Sorting.DATE_DESC]: "Newest",
+  [Sorting.DATE_ASC]: "Oldest",
   [Sorting.RELEVANCY]: "Relevancy",
 };
 

@@ -1,5 +1,3 @@
-"use client";
-
 import { Suspense } from "react";
 import type { CategoriesDistribution } from "meilisearch";
 import {
@@ -35,11 +33,8 @@ export function FacetsContent({
   className,
   disabledFacets,
 }: FacetsContentProps) {
-  const collections = facetDistribution?.["collections.title"];
-  const tags = facetDistribution?.["tags"];
-  const vendors = facetDistribution?.["vendor"];
-  const sizes = facetDistribution?.["flatOptions.Size"];
-  const colors = facetDistribution?.["flatOptions.Color"];
+  const collections = facetDistribution?.["category.name"];
+  const productTypes = facetDistribution?.["productTypes.name"];
 
   const { set: setLastSelected, selected: lastSelected } =
     useFilterTransitionStore((s) => s);
@@ -54,34 +49,17 @@ export function FacetsContent({
       clearOnDefault: true,
     },
   );
-  const [selectedVendors, setSelectedVendors] = useQueryState("vendors", {
-    ...parseAsArrayOf(parseAsString),
-    defaultValue: [],
-    shallow: false,
-    history: "push",
-    clearOnDefault: true,
-  });
-  const [selectedTags, setSelectedTags] = useQueryState("tags", {
-    ...parseAsArrayOf(parseAsString),
-    defaultValue: [],
-    shallow: false,
-    history: "push",
-    clearOnDefault: true,
-  });
-  const [selectedColors, setSelectedColors] = useQueryState("colors", {
-    ...parseAsArrayOf(parseAsString),
-    defaultValue: [],
-    shallow: false,
-    history: "push",
-    clearOnDefault: true,
-  });
-  const [selectedSizes, setSelectedSizes] = useQueryState("sizes", {
-    ...parseAsArrayOf(parseAsString),
-    defaultValue: [],
-    shallow: false,
-    history: "push",
-    clearOnDefault: true,
-  });
+
+  const [selectedProductTypes, setSelectedProductTypes] = useQueryState(
+    "productTypes",
+    {
+      ...parseAsArrayOf(parseAsString),
+      defaultValue: [],
+      shallow: false,
+      history: "push",
+      clearOnDefault: true,
+    },
+  );
 
   const [_, setPage] = useQueryState("page", {
     ...parseAsInteger,
@@ -97,6 +75,7 @@ export function FacetsContent({
     defaultValue: 0,
     clearOnDefault: true,
   });
+
   const [maxPrice, setMaxPrice] = useQueryState("maxPrice", {
     ...parseAsInteger,
     shallow: false,
@@ -106,20 +85,14 @@ export function FacetsContent({
 
   const filtersCount = [
     selectedCategories,
-    selectedVendors,
-    selectedTags,
-    selectedColors,
-    selectedSizes,
+    selectedProductTypes,
     minPrice,
     maxPrice,
   ].filter((v) => (Array.isArray(v) ? v.length !== 0 : !!v)).length;
 
   function resetAllFilters() {
     setSelectedCategories(null);
-    setSelectedVendors(null);
-    setSelectedTags(null);
-    setSelectedColors(null);
-    setSelectedSizes(null);
+    setSelectedProductTypes(null);
     setMinPrice(null);
     setMaxPrice(null);
   }
@@ -156,69 +129,21 @@ export function FacetsContent({
         type="single"
         defaultValue={lastSelected}
       >
-        {!disabledFacets?.includes("tags") ? (
+        {!disabledFacets?.includes("productTypes") ? (
           <Facet
-            id="tags"
-            title="Tags"
-            distribution={tags}
-            isChecked={(tag) => selectedTags.includes(tag)}
-            onCheckedChange={(checked, tag) => {
-              setSelectedTags((prev) =>
-                checked ? [...prev, tag] : prev.filter((cat) => cat !== tag),
-              );
-              setLastSelected("tags");
-              setPage(1);
-            }}
-          />
-        ) : null}
-
-        {!disabledFacets?.includes("vendors") ? (
-          <Facet
-            id="vendors"
-            title="Vendors"
-            distribution={vendors}
-            isChecked={(vendor) => selectedVendors.includes(vendor)}
-            onCheckedChange={(checked, vendor) => {
-              setSelectedVendors((prev) =>
+            id="productTypes"
+            title="Materials"
+            distribution={productTypes}
+            isChecked={(productType) =>
+              selectedProductTypes.includes(productType)
+            }
+            onCheckedChange={(checked, productType) => {
+              setSelectedProductTypes((prev) =>
                 checked
-                  ? [...prev, vendor]
-                  : prev.filter((cat) => cat !== vendor),
+                  ? [...prev, productType]
+                  : prev.filter((pt) => pt !== productType),
               );
-              setLastSelected("vendors");
-              setPage(1);
-            }}
-          />
-        ) : null}
-
-        {!disabledFacets?.includes("sizes") ? (
-          <Facet
-            id="sizes"
-            title="Sizes"
-            distribution={sizes}
-            isChecked={(size) => selectedSizes.includes(size)}
-            onCheckedChange={(checked, size) => {
-              setSelectedSizes((prev) =>
-                checked ? [...prev, size] : prev.filter((cat) => cat !== size),
-              );
-              setLastSelected("sizes");
-              setPage(1);
-            }}
-          />
-        ) : null}
-
-        {!disabledFacets?.includes("colors") ? (
-          <Facet
-            id="colors"
-            title="Colors"
-            distribution={colors}
-            isChecked={(color) => selectedColors.includes(color)}
-            onCheckedChange={(checked, color) => {
-              setSelectedColors((prev) =>
-                checked
-                  ? [...prev, color]
-                  : prev.filter((cat) => cat !== color),
-              );
-              setLastSelected("colors");
+              setLastSelected("productTypes");
               setPage(1);
             }}
           />
