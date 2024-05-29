@@ -133,5 +133,6 @@ const searchProductsWrapper = async (
 const searchProducts = unstable_cache(
   searchProductsWrapper,
   ["products-search"],
+  // Revalidate every 10 seconds
   { revalidate: 10 },
 );

@@ -18,7 +18,7 @@ export function composeFilters(
         filter
           .and()
           .group((sub) =>
-            sub.in("collections.title", parsedSearchParams.categories),
+            sub.in("category.name", parsedSearchParams.categories),
           ),
     },
     {

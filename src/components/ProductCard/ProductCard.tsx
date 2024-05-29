@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/utils/cn";
-import { QuickAdd } from "./QuickAdd";
+import AddToCartButton from "@/views/Products/AddToCartButton";
+import product from "@/components/Shop/Product/Product";
 
 export function ProductCard(props: any) {
   const href = `/products/${props.handle}`;
@@ -33,8 +34,7 @@ export function ProductCard(props: any) {
             priority={props.priority}
           />
         </Link>
-
-        <QuickAdd />
+        <AddToCartButton productId={props.id} />
       </div>
       <Link aria-label={linkAria} href={href}>
         <div className="mt-4 flex flex-col gap-0.5 text-slate-700">

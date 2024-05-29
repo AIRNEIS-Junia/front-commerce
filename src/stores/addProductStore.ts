@@ -1,23 +1,14 @@
-import type { Combination } from "@/utils/productOptionsUtils";
 import { create } from "zustand";
+import type { Product } from "@/types/Product";
 
 interface AddProductStore {
-  product: any | null;
-  combination: Combination | null;
-  setProduct: ({
-    product,
-    combination,
-  }: {
-    product: any;
-    combination: Combination | any;
-  }) => void;
+  product: Product | null;
+  setProduct: (product: Product) => void;
   clean: () => void;
 }
 
 export const useAddProductStore = create<AddProductStore>((set) => ({
   product: null,
-  combination: null,
-  setProduct: ({ product, combination }) =>
-    set(() => ({ product, combination })),
-  clean: () => set(() => ({ product: null, combination: null })),
+  setProduct: (product) => set(() => ({ product })),
+  clean: () => set(() => ({ product: null })),
 }));

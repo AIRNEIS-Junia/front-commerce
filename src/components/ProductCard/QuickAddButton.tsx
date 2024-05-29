@@ -1,12 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { addCartItem } from "@/app/actions/cart.action";
 import { Spinner } from "@/components/UI/Spinner/Spinner";
 import { useAddProductStore } from "@/stores/addProductStore";
 import { cn } from "@/utils/cn";
 import { Combination } from "@/utils/productOptionsUtils";
-import { toast } from "sonner";
 import {
   type CurrencyType,
   mapCurrencyToSign,
@@ -32,19 +30,7 @@ export default function QuickAddButton({
 
   // Mimic delay and display optimistic UI due to shopify API being slow
   const handleClick = async () => {
-    if (!combination?.id) return;
-
-    setIsPending(true);
-
-    setTimeout(() => {
-      setProduct({ product, combination });
-      setIsPending(false);
-    }, 300);
-
-    setTimeout(() => clean(), 4500);
-    const res = await addCartItem(null, combination.id);
-
-    if (!res.ok) toast.error("Out of stock");
+    return;
   };
 
   if (!combination) return null;

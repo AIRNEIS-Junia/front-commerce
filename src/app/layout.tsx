@@ -4,6 +4,7 @@ import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import Providers from "@/components/auth/Provider";
 import { initMeiliSearch } from "@/clients/meilisearch";
+import StoreProvider from "@/app/StoreProvider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,11 +19,13 @@ export default async function RootLayout({
   return (
     <html lang="fr">
       <body>
-        <Providers>
-          <Navbar />
-          {children}
-          <Footer />
-        </Providers>
+        <StoreProvider>
+          <Providers>
+            <Navbar />
+            {children}
+            <Footer />
+          </Providers>
+        </StoreProvider>
       </body>
     </html>
   );
