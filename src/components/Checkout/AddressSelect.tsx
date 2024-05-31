@@ -1,5 +1,6 @@
 "use client";
-import { useDispatch, useSelector } from "react-redux";
+
+import { useState, useEffect, FC } from "react";
 import {
   Select,
   SelectContent,
@@ -8,24 +9,30 @@ import {
   SelectValue,
 } from "@/components/UI/Select/Select";
 import { AddressInput } from "@/types/Address";
-import { selectAddress, showForm } from "@/lib/features/cart/address.slice";
-import { AppDispatch, RootState } from "@/lib/store";
+import ShippingForm from "@/components/UI/Form/ShippingForm";
 
-const AddressSelect = ({ addresses }: { addresses: AddressInput[] }) => {
-  const dispatch = useDispatch<AppDispatch>();
-  const selectedAddressId = useSelector(
-    (state: RootState) => state.address.selectedAddress?.id,
+interface AddressSelectProps {
+  addresses: AddressInput[];
+}
+
+const AddressSelect: FC<AddressSelectProps> = ({ addresses }) => {
+  const [selectedAddress, setSelectedAddress] = useState<AddressInput | null>(
+    null,
   );
-  const showAddressForm = useSelector(
-    (state: RootState) => state.address.showForm,
-  );
+  const [showForm, setShowForm] = useState(false);
+
+  useEffect(() => {
+    if (!selectedAddress && addresses.length > 0) {
+      setSelectedAddress(addresses[addresses.length - 1]);
+    }
+  }, [addresses, selectedAddress]);
 
   const handleSelectChange = (value: string) => {
     if (value === "add-address") {
-      dispatch(showForm());
+      setShowForm(true);
     } else {
-      const selectedAddress = addresses.find((addr) => addr.id === value);
-      dispatch(selectAddress(selectedAddress));
+      setShowForm(false);
+      setSelectedAddress(addresses.find((addr) => addr.id === value) || null);
     }
   };
 
@@ -33,15 +40,11 @@ const AddressSelect = ({ addresses }: { addresses: AddressInput[] }) => {
     <>
       <Select onValueChange={handleSelectChange}>
         <SelectTrigger>
-          <SelectValue
-            placeholder={
-              selectedAddressId ? "Selected address" : "Select an address"
-            }
-          />
+          <SelectValue placeholder={"Select an address"} />
         </SelectTrigger>
         <SelectContent>
           {addresses.map((address) => (
-            <SelectItem key={address.id} value={address.id}>
+            <SelectItem key={address.id} value={address.id ? address.id : ""}>
               {address.street} {address.streetNumber}, {address.city}
             </SelectItem>
           ))}
@@ -50,7 +53,24 @@ const AddressSelect = ({ addresses }: { addresses: AddressInput[] }) => {
           </SelectItem>
         </SelectContent>
       </Select>
-      {showAddressForm && <ShippingForm type={"create"} />}
+      {showForm && (
+        <ShippingForm
+          address={{
+            id: undefined,
+            name: "",
+            firstName: "",
+            lastName: "",
+            phone: "",
+            streetNumber: "",
+            street: "",
+            additional: undefined,
+            zipCode: "",
+            city: "",
+            country: "",
+          }}
+          {...{ type: "create", onClosing: () => setShowForm(false) }}
+        />
+      )}
     </>
   );
 };

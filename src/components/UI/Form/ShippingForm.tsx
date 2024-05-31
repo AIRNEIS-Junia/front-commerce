@@ -1,19 +1,16 @@
-"use client";
 import * as React from "react";
 import { Formik, Field, Form, FormikHelpers, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import axiosInstance from "@/clients/storeFrontClient";
 import { AddressInput } from "@/types/Address";
 
-const ShippingForm = ({
-  type,
-  address,
-  onClosing,
-}: {
+interface ShippingFormProps {
   type: string;
-  address?: AddressInput | undefined;
-  onClosing?: () => void;
-}) => {
+  address: AddressInput;
+  onClosing: () => void;
+}
+
+const ShippingForm = ({ type, address, onClosing }: ShippingFormProps) => {
   const handleCreate = async (formikValues: AddressInput) => {
     await axiosInstance.post("/user/address", formikValues);
   };
@@ -22,11 +19,20 @@ const ShippingForm = ({
     await axiosInstance.patch(`/user/address/${address?.id}`, formikValues);
   };
 
-  const handleSubmit = async (formikValues: AddressInput) => {
-    if (type === "create") {
-      await handleCreate(formikValues);
-    } else {
-      await handleEdit(formikValues);
+  const handleSubmit = async (
+    formikValues: AddressInput,
+    { setSubmitting }: FormikHelpers<AddressInput>,
+  ) => {
+    try {
+      if (type === "create") {
+        await handleCreate(formikValues);
+      } else {
+        await handleEdit(formikValues);
+      }
+      setSubmitting(false);
+      onClosing && onClosing();
+    } catch (e) {
+      console.log("error", e);
     }
   };
 
@@ -78,18 +84,7 @@ const ShippingForm = ({
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={async (
-          values: AddressInput,
-          { setSubmitting }: FormikHelpers<AddressInput>,
-        ) => {
-          try {
-            await handleSubmit(values);
-            setSubmitting(false);
-            onClosing && onClosing();
-          } catch (e) {
-            console.log("error", e);
-          }
-        }}
+        onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
           <Form className={"flex flex-col space-y-4"}>

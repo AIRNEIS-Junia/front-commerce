@@ -10,7 +10,6 @@ const Page = async () => {
     <>
       <h1 className={"mb-16 text-center"}>Shipping Address</h1>
       <AddressSelect addresses={userAddresses} />
-      <ShippingForm type={"create"} />
     </>
   );
 };
