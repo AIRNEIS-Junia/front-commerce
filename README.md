@@ -1,17 +1,25 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## Before starting
+Make sure you install :
+- node.js
+- docker
+- npm
 
-First, run the development server:
+## Getting Started
+First, install necessaries packages by running `npm install` 
+
+
+Now, you can run the development server:
 
 ```bash
-npm run dev
+$ npm run dev
 # or
-yarn dev
+$ yarn dev
 # or
-pnpm dev
+$ pnpm dev
 # or
-bun dev
+$ bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -19,6 +27,13 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+
+## Dockerise Meilisearch
+````bash
+$ docker pull getmeili/meilisearch:v1.8
+
+$ docker run -it --rm -p 7700:7700 -v ${pwd}/meili_data:/meili_data getmeili/meilisearch:v1.8
+````
 
 ## Learn More
 
