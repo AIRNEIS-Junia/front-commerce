@@ -1,19 +1,18 @@
 import { Category } from "@/types/Category";
 import axiosInstance from "@/clients/storeFrontClient";
 
-export const getCategoryByName = async (
-  categoryName: string,
-): Promise<Category> => {
+export const getCategoryBySlug = async (
+  categorySlug: string,
+): Promise<Category | undefined> => {
   try {
     const response = await axiosInstance.get(
-      "products/categories/" + categoryName,
+      "products/categories/" + categorySlug,
     );
 
-    // Vérifiez que la réponse correspond à l'interface Category
-    if (response.data && typeof response.data === "object") {
-      return response.data as Category;
+    if (response.data.slug === categorySlug) {
+      return response.data;
     } else {
-      throw new Error("Response data is not of type Category");
+      return undefined;
     }
   } catch (error) {
     console.error(error);

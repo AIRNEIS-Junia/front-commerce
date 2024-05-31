@@ -24,8 +24,6 @@ async function refreshAccessToken(token: TokenObject) {
       },
     );
 
-    console.log("1 minute after", tokenResponse);
-
     return {
       ...token,
       accessToken: tokenResponse.accessToken,

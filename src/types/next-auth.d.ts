@@ -1,4 +1,7 @@
-export interface SessionType {
-  accessToken: string;
-  refreshToken: string;
+import NextAuth from "next-auth";
+
+declare module "next-auth" {
+  interface Session {
+    accessToken: string;
+  }
 }

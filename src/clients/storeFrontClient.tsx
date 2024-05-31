@@ -1,27 +1,34 @@
+// src/clients/axiosInstance.ts
 import axios from "axios";
-import { getServerSession } from "next-auth";
+import { getServerSession, Session } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getSession } from "next-auth/react";
 
 const axiosInstance = axios.create({
   baseURL: "http://localhost:3001/",
 });
 
-axiosInstance.interceptors.request.use(async (config) => {
-  try {
+axiosInstance.interceptors.request.use(
+  async (config) => {
     if (typeof window === "undefined") {
-      // Requête depuis le serveur
+      // Server context
       const session = await getServerSession(authOptions);
-
       if (session && session.accessToken) {
-        const token = session.accessToken;
-        config.headers["Authorization"] = `Bearer ${token}`;
+        config.headers["Authorization"] = `Bearer ${session.accessToken}`;
+      }
+    } else {
+      // client context
+      const session: Session | null = await getSession();
+      console.log("session", session);
+      if (session && session.accessToken) {
+        config.headers["Authorization"] = `Bearer ${session.accessToken}`;
       }
     }
     return config;
-  } catch (e) {
-    console.error("Error in request interceptor:", e);
-    throw e;
-  }
-});
+  },
+  (error) => {
+    return Promise.reject(error);
+  },
+);
 
 export default axiosInstance;

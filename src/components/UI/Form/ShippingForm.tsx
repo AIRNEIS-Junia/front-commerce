@@ -1,7 +1,9 @@
 "use client";
-import { AddressInput } from "@/types/Address";
-import { Field, Form, Formik, FormikHelpers } from "formik";
+import * as React from "react";
+import { Formik, Field, Form, FormikHelpers, ErrorMessage } from "formik";
+import * as Yup from "yup";
 import axiosInstance from "@/clients/storeFrontClient";
+import { AddressInput } from "@/types/Address";
 
 const ShippingForm = ({
   type,
@@ -28,81 +30,163 @@ const ShippingForm = ({
     }
   };
 
-  const values = (): AddressInput => {
-    if (type === "edit" && address) {
-      const { additional, ...rest } = address;
-      const updatedAdditional = additional || "";
-      return { ...rest, additional: updatedAdditional };
-    } else {
-      return {
-        name: "lorem",
-        firstName: "lorem",
-        lastName: "lorem",
-        phone: "lorem",
-        streetNumber: "",
-        street: "",
-        additional: "",
-        zipCode: "",
-        city: "",
-        country: "",
-      };
-    }
-  };
+  const validationSchema = Yup.object().shape({
+    name: Yup.string()
+      .min(3, "Name must be at least 3 characters")
+      .required("Name is required"),
+    firstName: Yup.string()
+      .min(3, "First name must be at least 3 characters")
+      .required("First name is required"),
+    lastName: Yup.string()
+      .min(3, "Last name must be at least 3 characters")
+      .required("Last name is required"),
+    phone: Yup.string()
+      .matches(/^[0-9]{10}$/, "Phone must be a valid 10-digit number")
+      .required("Phone is required"),
+    streetNumber: Yup.string().required("Street number is required"),
+    street: Yup.string()
+      .min(3, "Street must be at least 3 characters")
+      .required("Street is required"),
+    additional: Yup.string(),
+    zipCode: Yup.string().required("Zip code is required"),
+    city: Yup.string()
+      .min(3, "City must be at least 3 characters")
+      .required("City is required"),
+    country: Yup.string()
+      .min(3, "Country must be at least 3 characters")
+      .required("Country is required"),
+  });
+
+  const initialValues =
+    type === "edit" && address
+      ? address
+      : {
+          name: "",
+          firstName: "",
+          lastName: "",
+          phone: "",
+          streetNumber: "",
+          street: "",
+          additional: "",
+          zipCode: "",
+          city: "",
+          country: "",
+        };
 
   return (
     <div>
       <Formik
-        initialValues={values()}
+        initialValues={initialValues}
+        validationSchema={validationSchema}
         onSubmit={async (
           values: AddressInput,
           { setSubmitting }: FormikHelpers<AddressInput>,
         ) => {
           try {
             await handleSubmit(values);
-            setSubmitting(true);
+            setSubmitting(false);
             onClosing && onClosing();
           } catch (e) {
             console.log("error", e);
           }
         }}
       >
-        {({ values: AddressInput }) => (
+        {({ isSubmitting }) => (
           <Form className={"flex flex-col space-y-4"}>
-            <div className={"grid grid-cols-[1fr_2fr] gap-4"}>
-              <div className={"flex-col flex space-y-4"}>
-                <label htmlFor="streetNumber">Street number</label>
+            <label htmlFor="name">Name</label>
+            <Field id="name" name="name" placeholder="Name" />
+            <ErrorMessage
+              name="name"
+              component="div"
+              className="text-red-500"
+            />
+
+            <label htmlFor="firstName">First Name</label>
+            <Field id="firstName" name="firstName" placeholder="First Name" />
+            <ErrorMessage
+              name="firstName"
+              component="div"
+              className="text-red-500"
+            />
+
+            <label htmlFor="lastName">Last Name</label>
+            <Field id="lastName" name="lastName" placeholder="Last Name" />
+            <ErrorMessage
+              name="lastName"
+              component="div"
+              className="text-red-500"
+            />
+
+            <label htmlFor="phone">Phone</label>
+            <Field id="phone" name="phone" placeholder="Phone" />
+            <ErrorMessage
+              name="phone"
+              component="div"
+              className="text-red-500"
+            />
+
+            <div className={"grid grid-cols-2 gap-4"}>
+              <div>
+                <label htmlFor="streetNumber">Street Number</label>
                 <Field
-                  className={"w-full"}
                   id="streetNumber"
                   name="streetNumber"
-                  placeholder="John"
+                  placeholder="Street Number"
+                />
+                <ErrorMessage
+                  name="streetNumber"
+                  component="div"
+                  className="text-red-500"
                 />
               </div>
-
-              <div className={"flex-col flex space-y-4"}>
+              <div>
                 <label htmlFor="street">Street</label>
-                <Field
-                  className={"w-fumm"}
-                  id="street"
+                <Field id="street" name="street" placeholder="Street" />
+                <ErrorMessage
                   name="street"
-                  placeholder="Doe"
+                  component="div"
+                  className="text-red-500"
                 />
               </div>
             </div>
 
             <label htmlFor="additional">Additional</label>
-            <Field id="additional" name="additional" placeholder="Doe" />
+            <Field id="additional" name="additional" placeholder="Additional" />
+            <ErrorMessage
+              name="additional"
+              component="div"
+              className="text-red-500"
+            />
 
-            <label htmlFor="zipCode">Zip code</label>
-            <Field id="zipCode" name="zipCode" placeholder="Doe" />
+            <label htmlFor="zipCode">Zip Code</label>
+            <Field id="zipCode" name="zipCode" placeholder="Zip Code" />
+            <ErrorMessage
+              name="zipCode"
+              component="div"
+              className="text-red-500"
+            />
 
             <label htmlFor="city">City</label>
-            <Field id="city" name="city" placeholder="Doe" />
+            <Field id="city" name="city" placeholder="City" />
+            <ErrorMessage
+              name="city"
+              component="div"
+              className="text-red-500"
+            />
 
             <label htmlFor="country">Country</label>
-            <Field id="country" name="country" placeholder="Doe" />
+            <Field id="country" name="country" placeholder="Country" />
+            <ErrorMessage
+              name="country"
+              component="div"
+              className="text-red-500"
+            />
 
-            <button className={"btn btn-dark mt-16"} type="submit">
+            <button
+              className={"btn btn-dark mt-16"}
+              type="submit"
+              disabled={isSubmitting}
+            >
               {type === "create" ? "CREATE" : "EDIT"}
             </button>
           </Form>

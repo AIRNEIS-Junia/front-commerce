@@ -1,24 +1,18 @@
 "use client";
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addItem } from "@/lib/features/cart/cart.slice";
 
 interface AddToCartButtonProps {
-  productId: string;
+  productSlug: string;
 }
 
-const AddToCartButton: React.FC<AddToCartButtonProps> = ({ productId }) => {
-  console.log("productId", productId);
+const AddToCartButton: React.FC<AddToCartButtonProps> = ({ productSlug }) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
-    dispatch(addItem({ id: productId, quantity: 1 }));
+    dispatch(addItem({ slug: productSlug, quantity: 1 }));
   };
-
-  // @ts-ignore
-  const cartItems = useSelector((state) => state.cart.items);
-
-  console.log("Cart items:", cartItems);
 
   return (
     <button type="button" onClick={handleAddToCart}>

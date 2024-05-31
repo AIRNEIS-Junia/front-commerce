@@ -1,19 +1,10 @@
-// Import des dépendances React et Image de Next.js
 import React from "react";
 import Image from "next/image";
 
-// Définition du composant OrderSummaryDetailsItem
-const OrderSummaryDetailsItem = ({
-  img,
-  name,
-  size,
-  price,
-}: {
-  img: string;
-  name: string;
-  size: string;
-  price: string;
-}) => {
+// @ts-ignore
+const OrderSummaryDetailsItem = ({ product }) => {
+  const { images, name, size, price } = product;
+
   return (
     <div className={"grid grid-cols-[120px_1fr] gap-16"}>
       <div
@@ -22,7 +13,7 @@ const OrderSummaryDetailsItem = ({
         }
       >
         <Image
-          src={img}
+          src={images[0] || "/default-product-image.svg"}
           fill
           className={"object-cover"}
           alt={""}

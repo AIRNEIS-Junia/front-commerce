@@ -6,13 +6,19 @@ export default async function middleware(req: NextRequest) {
   const authRoutes: string[] = ["/signup", "/login"];
   const currentPath: string = req.nextUrl.pathname;
 
+  const matchesRoute = (path: string, routes: string[]): boolean => {
+    return routes.some(
+      (route) => path === route || path.startsWith(`${route}/`),
+    );
+  };
+
   const token: JWT | null = await getToken({ req });
 
-  if (token && authRoutes.includes(currentPath)) {
+  if (token && matchesRoute(currentPath, authRoutes)) {
     return NextResponse.redirect(new URL("/", req.url));
   }
 
-  if (routesNeedAuth.includes(currentPath) && !token) {
+  if (matchesRoute(currentPath, routesNeedAuth) && !token) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 

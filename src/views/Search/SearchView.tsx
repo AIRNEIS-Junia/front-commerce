@@ -115,6 +115,7 @@ const searchProductsWrapper = async (
         "category",
         "productTypes",
         "updatedAt",
+        "slug",
       ],
     });
 

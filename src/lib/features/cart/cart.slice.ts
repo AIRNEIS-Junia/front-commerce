@@ -14,7 +14,7 @@ export const cartSlice = createSlice({
   reducers: {
     addItem: (state, action: PayloadAction<any>) => {
       const existingItem = state.items.find(
-        (item: { id: any }) => item.id === action.payload.id,
+        (item: { slug: any }) => item.slug === action.payload.slug,
       );
 
       if (existingItem) {
@@ -28,7 +28,7 @@ export const cartSlice = createSlice({
     },
     removeItem: (state, action: PayloadAction<string>) => {
       state.items = state.items.filter(
-        (item: { id: string }) => item.id !== action.payload,
+        (item: { slug: string }) => item.slug !== action.payload,
       );
 
       typeof window !== "undefined" &&

@@ -5,6 +5,7 @@ import AddToCartButton from "@/views/Products/AddToCartButton";
 import product from "@/components/Shop/Product/Product";
 
 export function ProductCard(props: any) {
+  console.log("props", props);
   const href = `/products/${props.handle}`;
   const linkAria = `Visit product: ${props.title}`;
   const featuredImageAltTag =
@@ -34,7 +35,7 @@ export function ProductCard(props: any) {
             priority={props.priority}
           />
         </Link>
-        <AddToCartButton productId={props.id} />
+        <AddToCartButton productSlug={props.slug} />
       </div>
       <Link aria-label={linkAria} href={href}>
         <div className="mt-4 flex flex-col gap-0.5 text-slate-700">
