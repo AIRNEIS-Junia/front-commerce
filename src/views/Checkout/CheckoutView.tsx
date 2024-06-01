@@ -1,25 +1,24 @@
 "use client";
-
 import { useState, useEffect, FC } from "react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/UI/Select/Select";
 import { AddressInput } from "@/types/Address";
 import ShippingForm from "@/components/UI/Form/ShippingForm";
+import PaymentForm from "@/components/UI/Form/PaymentForm";
+import { CreditCard } from "@/types/CreditCard";
+import CheckoutInformationSelector from "@/components/Checkout/CheckoutInformationSelector";
 
 interface AddressSelectProps {
   addresses: AddressInput[];
+  creditCards: CreditCard[];
 }
 
-const AddressSelect: FC<AddressSelectProps> = ({ addresses }) => {
+const CheckoutView: FC<AddressSelectProps> = ({ addresses, creditCards }) => {
   const [selectedAddress, setSelectedAddress] = useState<AddressInput | null>(
     null,
   );
   const [showForm, setShowForm] = useState(false);
+  const [currentStep, setCurrentStep] = useState<"address" | "payment">(
+    "address",
+  ); // nouvel état pour suivre l'étape actuelle
 
   useEffect(() => {
     if (!selectedAddress && addresses.length > 0) {
@@ -36,24 +35,30 @@ const AddressSelect: FC<AddressSelectProps> = ({ addresses }) => {
     }
   };
 
+  const handleNextClick = () => {
+    if (currentStep === "address" && !selectedAddress) {
+      return;
+    }
+    setCurrentStep((prevStep) =>
+      prevStep === "address" ? "payment" : "address",
+    );
+  };
+
+  const handlePrevClick = () => {
+    setCurrentStep((prevStep) =>
+      prevStep === "payment" ? "address" : "payment",
+    );
+  };
+
   return (
     <>
-      <Select onValueChange={handleSelectChange}>
-        <SelectTrigger>
-          <SelectValue placeholder={"Select an address"} />
-        </SelectTrigger>
-        <SelectContent>
-          {addresses.map((address) => (
-            <SelectItem key={address.id} value={address.id ? address.id : ""}>
-              {address.street} {address.streetNumber}, {address.city}
-            </SelectItem>
-          ))}
-          <SelectItem key="add-address" value="add-address">
-            Add shipping address
-          </SelectItem>
-        </SelectContent>
-      </Select>
-      {showForm && (
+      <CheckoutInformationSelector
+        addresses={addresses}
+        creditCards={creditCards}
+        onValueChange={handleSelectChange}
+        currentStep={currentStep}
+      />
+      {currentStep === "address" && showForm && (
         <ShippingForm
           address={{
             id: undefined,
@@ -71,8 +76,11 @@ const AddressSelect: FC<AddressSelectProps> = ({ addresses }) => {
           {...{ type: "create", onClosing: () => setShowForm(false) }}
         />
       )}
+      {currentStep === "payment" && <PaymentForm />}
+      <button onClick={handlePrevClick}>Précédent</button>
+      <button onClick={handleNextClick}>Suivant</button>
     </>
   );
 };
 
-export default AddressSelect;
+export default CheckoutView;

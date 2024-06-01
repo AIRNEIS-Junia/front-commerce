@@ -1,15 +1,19 @@
 import React from "react";
-import ShippingForm from "@/components/UI/Form/ShippingForm";
-import AddressSelect from "@/components/Checkout/AddressSelect";
+
+import { getPaymentCardsByUser } from "@/services/paymentCard";
 import { getAddressesByUser } from "@/services/address";
+import CheckoutView from "@/views/Checkout/CheckoutView";
 
 const Page = async () => {
   const userAddresses = await getAddressesByUser();
+  const userPaymentCards = await getPaymentCardsByUser();
+
+  console.log("userPaymentCards", userPaymentCards);
 
   return (
     <>
       <h1 className={"mb-16 text-center"}>Shipping Address</h1>
-      <AddressSelect addresses={userAddresses} />
+      <CheckoutView addresses={userAddresses} creditCards={userPaymentCards} />
     </>
   );
 };
