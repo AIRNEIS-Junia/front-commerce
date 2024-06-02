@@ -41,11 +41,10 @@ export function getCombination(
   const defaultSize =
     product.flatOptions?.["Size"]?.find(Boolean)?.toLowerCase() ?? undefined;
 
-  // @ts-ignore
-  // @ts-ignore
   return hasOnlyOneVariant
     ? product.variants.find(Boolean)
-    : getAllCombinations(product.variants).find(
+    : // @ts-ignore
+      getAllCombinations(product.variants).find(
         (combination) =>
           combination.size === (size ?? defaultSize) &&
           combination.color === (color ?? defaultColor),

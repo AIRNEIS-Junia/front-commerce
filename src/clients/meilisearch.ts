@@ -45,6 +45,7 @@ export async function initMeiliSearch() {
       "category.name",
       "price",
       "productTypes.name",
+      "handle", // Add handle to the filterable attributes
     ]);
 
     const sortableAttributes = new Set(["price", "updatedAt"]);
