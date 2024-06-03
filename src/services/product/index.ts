@@ -6,8 +6,8 @@ export const getProducts = async () => {
   try {
     const response = await axiosInstance.get("products");
 
-    if (Array.isArray(response.data)) {
-      return response.data.map((product) => {
+    if (Array.isArray(response.data.results)) {
+      return response.data.results.map((product: Record<string, any>) => {
         const updatedAtTimestamp = Date.parse(product.updatedAt) / 1000;
         const createdAtTimestamp = Date.parse(product.createdAt) / 1000;
         return {
@@ -17,7 +17,7 @@ export const getProducts = async () => {
         };
       });
     } else {
-      throw new Error("Response data is not an array");
+      console.error("Response data results is not an array");
     }
   } catch (error) {
     console.error(error);

@@ -66,6 +66,7 @@ async function ProductView({ slug }: { slug: string }) {
               title={product.name}
               slug={product.slug}
               description={product.description}
+              material={product.material}
             />
             <DetailsSection slug={slug} product={product} />
           </div>
