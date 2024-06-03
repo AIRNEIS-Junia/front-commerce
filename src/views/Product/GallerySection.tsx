@@ -1,6 +1,5 @@
 "use client";
 
-import { PlatformImage } from "../../../../enterprise-commerce/packages/core/platform/types";
 import {
   Carousel,
   CarouselApi,
@@ -8,14 +7,14 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from "src/components/UI/Carousel/Carousel/Carousel";
+} from "@/components/UI/Carousel/Carousel/Carousel";
 import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
-import { cn } from "../../../../enterprise-commerce/apps/web/utils/cn";
+import { cn } from "@/utils/cn";
 
 interface GallerySectionProps {
   className?: string;
-  images: PlatformImage[];
+  images: string[];
   children?: React.ReactNode;
 }
 
@@ -62,11 +61,11 @@ export function GallerySection({
           {images.map((image, index) => (
             <CarouselItem
               className="flex size-full h-[600px] flex-col items-center justify-center"
-              key={image.url}
+              key={image}
             >
               <Image
-                alt={image.altText || ""}
-                src={image.url || "/default-product-image.svg"}
+                alt={""}
+                src={image || "/default-product-image.svg"}
                 width={480}
                 height={600}
                 priority={index === 0}
@@ -86,7 +85,7 @@ export function GallerySection({
         <CarouselContent className="ml-0 h-[100px] w-full justify-start gap-6">
           {images.map((image, index) => (
             <div
-              key={"thumbnail_" + image.url}
+              key={"thumbnail_" + image}
               onClick={() => onThumbClick(index)}
               className={cn(
                 "flex size-24 shrink-0 items-center justify-center border border-white bg-neutral-100",
@@ -94,8 +93,8 @@ export function GallerySection({
               )}
             >
               <Image
-                alt={image.altText || ""}
-                src={image.url || `/default-product-image.svg`}
+                alt={""}
+                src={image || `/default-product-image.svg`}
                 width={100}
                 height={100}
                 sizes="100px"

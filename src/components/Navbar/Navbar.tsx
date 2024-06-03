@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from 'react';
 import { useSelector } from "react-redux";
 import HamburgerMenu from "@/components/Navbar/HamburgerMenu/HamburgerMenu";
 import Link from "next/link";
@@ -10,15 +10,22 @@ import styles from "./Navbar.module.css";
 import { RootState } from "@/lib/store";
 
 const Navbar = () => {
-  const [showMobileMenu, setShowMobileMenu] = React.useState(false);
-  const [cartItemsCount, setCartItemsCount] = React.useState(0);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [cartItemsCount, setCartItemsCount] = useState(0);
 
-  // @ts-ignore
-  const cartItems = useSelector((state) => state.cart.items);
+  const cartItems: any[] = useSelector((state: any) => state.cart.items);
 
-  React.useEffect(() => {
-    setCartItemsCount(cartItems.length);
+  useEffect(() => {
+    let cartQuantity = 0;
+
+    cartItems.forEach((item: any) => {
+      console.log("item", item);
+      cartQuantity += item.quantity;
+    });
+
+    setCartItemsCount(cartQuantity);
   }, [cartItems]);
+
 
   const handleToggleMenu = (isOpen: boolean) => {
     setShowMobileMenu(isOpen);

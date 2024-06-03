@@ -1,37 +1,27 @@
-import { PlatformVariant } from "../../../../enterprise-commerce/packages/core/platform/types";
-import { Combination } from "../../../../enterprise-commerce/apps/web/utils/productOptionsUtils";
 import { StarRating } from "./StarRating";
+import AddToCartButton from '@/views/Product/AddToCartButton';
 
 interface InfoSectionProps {
   title: string;
   description: string;
-  combination: Combination | PlatformVariant | undefined;
   className?: string;
-  avgRating?: number;
-  totalReviews?: number;
+  slug: string;
+  price: number;
+  quantity: number;
 }
 
 export function InfoSection({
   title,
   description,
-  combination,
   className,
-  avgRating,
-  totalReviews,
+  slug,
+  price,
+  quantity
 }: InfoSectionProps) {
   return (
     <div className={className}>
       <div className="mb-6">
         <h1 className="mb-1 text-xl/6 tracking-[-1px] md:text-4xl">{title}</h1>
-        {!!avgRating && !!totalReviews && (
-          <div className="flex items-center space-x-1">
-            <StarRating rating={Math.ceil(avgRating)} />
-            <span className="text-xs text-gray-400">
-              ({avgRating}) based on {totalReviews} review
-              {totalReviews !== 1 && "s"}
-            </span>
-          </div>
-        )}
       </div>
       {description && (
         <div
@@ -39,13 +29,25 @@ export function InfoSection({
           dangerouslySetInnerHTML={{ __html: description }}
         />
       )}
-      {!!combination?.price && (
-        <div className="mt-4 text-[36px] font-bold tracking-[-1.44px]">
-          {parseFloat(combination?.price.amount).toFixed(2) +
-            " " +
-            combination?.price.currencyCode}
-        </div>
+      {slug && (
+        <AddToCartButton productSlug={slug}/>
+    )}
+
+      {price && (
+        <p className="text-base font-semibold tracking-tight text-black md:text-lg">
+          {price} €
+        </p>
       )}
+
+      {quantity && (
+        <p className="text-base font-semibold tracking-tight text-black md:text-lg">
+          {quantity} in stock
+        </p>
+      )}
+
+
+
+
     </div>
   );
 }

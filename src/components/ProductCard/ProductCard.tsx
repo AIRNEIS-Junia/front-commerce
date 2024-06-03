@@ -2,12 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/utils/cn";
 import AddToCartButton from "@/views/Product/AddToCartButton";
-import product from "@/components/Shop/Product/Product";
 
 export function ProductCard(props: any) {
   console.log("props", props);
-  const href = `/products/${props.handle}`;
-  const linkAria = `Visit product: ${props.title}`;
+  const href = `/products/${props.slug}`;
+  const linkAria = `Visit product: ${props.name}`;
   const featuredImageAltTag =
     props.images?.find(
       (singleImage: { url: any }) => singleImage.url === props.images[0],
@@ -30,7 +29,7 @@ export function ProductCard(props: any) {
             alt={featuredImageAltTag}
             className="z-0 select-none object-cover transition-transform group-hover:scale-105"
             fill
-            src={props.images[0] || "/default-product-image.svg"}
+            src={props.images[0] ? props.images[0] :  "/default-product-image.svg"}
             sizes="(max-width: 450px) 150px, 300px"
             priority={props.priority}
           />

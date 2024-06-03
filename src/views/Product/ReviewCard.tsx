@@ -1,6 +1,6 @@
-import { Card } from "src/components/Card/Card";
+import { Card } from "@/components/Card/Card";
 import { StarRating } from "./StarRating";
-import { ExpandableContent } from "src/components/ExpandableContent/ExpandableContent";
+import { ExpandableContent } from "@/components/ExpandableContent/ExpandableContent";
 
 export type ReviewCardProps = {
   created_at: string;

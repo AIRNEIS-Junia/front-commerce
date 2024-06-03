@@ -1,6 +1,6 @@
 "use server";
 
-import { COOKIE_FAVORITES } from "src/constants";
+import { COOKIE_FAVORITES } from "@/constants";
 import { cookies } from "next/headers";
 
 export async function toggleFavoriteProduct(prevState: any, handle: string) {

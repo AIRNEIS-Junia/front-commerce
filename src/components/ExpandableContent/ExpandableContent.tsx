@@ -1,8 +1,8 @@
 "use client";
 
-import { ChevronIcon } from "src/components/UI/Icons/ChevronIcon";
+import { ChevronIcon } from "@/components/UI/Icons/ChevronIcon";
 import { type ReactNode, useEffect, useRef, useState } from "react";
-import { cn } from "src/utils/cn";
+import { cn } from "@/utils/cn";
 
 type ExpandableContentProps = {
   children: ReactNode;

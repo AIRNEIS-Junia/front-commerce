@@ -1,4 +1,4 @@
-import { StarIcon } from "../../../../enterprise-commerce/apps/web/components/Icons/StarIcon";
+import { StarIcon } from "@/components/UI/Icons/StarIcon";
 import { cn } from "../../../../enterprise-commerce/apps/web/utils/cn";
 
 export const StarRating = ({ rating }: { rating: number }) => {

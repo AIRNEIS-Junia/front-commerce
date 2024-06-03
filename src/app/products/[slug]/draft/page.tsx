@@ -1,27 +1,23 @@
-import type { PlatformProduct } from "@enterprise-commerce/core/platform/types";
 import { unstable_cache } from "next/cache";
 import { draftMode } from "next/headers";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import { storefrontClient } from "clients/storefrontClient";
-import { Breadcrumbs } from "components/Breadcrumbs/Breadcrumbs";
+import storefrontClient  from "@/clients/storeFrontClient";
+import { Breadcrumbs } from "@/components/UI/Breadcrumbs/Breadcrumbs";
 
-import {
-  getCombination,
-  getOptionsFromUrl,
-  hasValidOption,
-  removeOptionsFromUrl,
-} from "utils/";
-import { BackButton } from "views/Product/BackButton";
-import { DetailsSection } from "views/Product/DetailsSection";
-import { GallerySection } from "views/Product/GallerySection";
-import { InfoSection } from "views/Product/InfoSection";
-import { PageSkeleton } from "views/Product/PageSkeleton";
-import { SimilarProductsSection } from "views/Product/SimilarProductsSection";
-import { SimilarProductsSectionSkeleton } from "views/Product/SimilarProductsSectionSkeleton";
-import { VariantsSection } from "views/Product/VariantsSection";
-import type { CommerceProduct } from "types";
-import { slugToName } from "utils/slug-name";
+
+import { BackButton } from "@/views/Product/BackButton";
+import { DetailsSection } from "@/views/Product/DetailsSection";
+import { GallerySection } from "@/views/Product/GallerySection";
+import { InfoSection } from "@/views/Product/InfoSection";
+import { PageSkeleton } from "@/views/Product/PageSkeleton";
+import { SimilarProductsSection } from "@/views/Product/SimilarProductsSection";
+import { SimilarProductsSectionSkeleton } from "@/views/Product/SimilarProductsSectionSkeleton";
+import { VariantsSection } from "@/views/Product/VariantsSection";
+import type { CommerceProduct } from "@/types";
+import { slugToName } from "@/utils/slug-name";
+import { removeOptionsFromUrl } from '@/utils/productOptionsUtils';
+import { getProductBySlug } from '@/services/product';
 
 export const dynamic = "force-static";
 
@@ -55,29 +51,6 @@ async function ProductView({ slug }: { slug: string }) {
     return notFound();
   }
 
-  const { color, size } = getOptionsFromUrl(slug);
-  console.log("ProductView - color:", color, "size:", size);
-
-  const hasInvalidOptions =
-    !hasValidOption(product?.variants, "color", color) ||
-    !hasValidOption(product?.variants, "size", size);
-
-  if (hasInvalidOptions) {
-    console.log(
-      "Invalid options for slug:",
-      slug,
-      "color:",
-      color,
-      "size:",
-      size,
-    );
-    return notFound();
-  }
-
-  const combination = getCombination(product as CommerceProduct, color, size);
-  const lastCollection = product?.collections?.findLast(Boolean);
-  const hasOnlyOneVariant = product.variants.length <= 1;
-
   return (
     <div className="max-w-container-md relative mx-auto px-4 xl:px-0">
       <div className="mb:pb-8 relative w-fit py-4 md:pt-12">
@@ -93,52 +66,35 @@ async function ProductView({ slug }: { slug: string }) {
           <div className="flex flex-col items-start pt-12">
             <InfoSection
               className="pb-10"
-              title={product.title}
-              description={product.descriptionHtml}
-              combination={combination}
+              title={product.name}
+              description={product.description}
+              combination={product}
             />
-            {hasOnlyOneVariant ? null : (
-              <VariantsSection
-                combination={combination}
-                handle={product.handle}
-                variants={product.variants}
-              />
-            )}
             <DetailsSection slug={slug} product={product as CommerceProduct} />
           </div>
         </div>
       </main>
-      <Suspense fallback={<SimilarProductsSectionSkeleton />}>
-        <SimilarProductsSection
-          collectionHandle={lastCollection?.handle}
-          slug={slug}
-        />
-      </Suspense>
+      {/*<Suspense fallback={<SimilarProductsSectionSkeleton  collectionHandle={}/>}>*/}
+      {/*  <SimilarProductsSection*/}
+      {/*    collectionHandle={lastCollection?.handle}*/}
+      {/*    slug={slug}*/}
+      {/*  />*/}
+      {/*</Suspense>*/}
     </div>
   );
 }
 
 async function getDraftAwareProduct(slug: string) {
-  const draft = draftMode();
   const handle = removeOptionsFromUrl(slug);
   console.log("getDraftAwareProduct - handle:", handle);
 
-  let product = await storefrontClient.getProductByHandle(handle);
-  if (draft.isEnabled && product) {
-    product = await getAdminProduct(product?.id);
-  }
+  let product = await getProductBySlug(slug)
 
   console.log("getDraftAwareProduct - product:", product);
   return product;
 }
 
-const getAdminProduct = unstable_cache(
-  async (id: string) => storefrontClient.getAdminProduct(id),
-  ["admin-product-by-handle"],
-  { revalidate: 1 },
-);
-
-function makeBreadcrumbs(product: PlatformProduct) {
+  function makeBreadcrumbs(product: any) {
   const lastCollection = product.collections?.findLast(Boolean);
   const lastCollectionHandle = lastCollection?.handle
     ? slugToName(lastCollection.handle)

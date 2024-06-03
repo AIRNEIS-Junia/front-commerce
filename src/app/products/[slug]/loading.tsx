@@ -1,4 +1,4 @@
-import { PageSkeleton } from "src/views/Product/PageSkeleton";
+import { PageSkeleton } from "@/views/Product/PageSkeleton";
 
 export default function Loading() {
   return <PageSkeleton />;

@@ -12,9 +12,9 @@ import {
   useEffect,
   useState,
 } from "react";
-import { cn } from "src/utils/cn";
-import { Button } from "src/components/UI/Button/Button";
-import { ChevronIcon } from "src/components/UI/Icons/ChevronIcon";
+import { cn } from "@/utils/cn";
+import { Button } from "@/components/UI/Button/Button";
+import { ChevronIcon } from "@/components/UI/Icons/ChevronIcon";
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;

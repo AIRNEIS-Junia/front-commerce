@@ -1,4 +1,4 @@
-import { ArrowIcon } from "src/components/UI/Icons/ArrowIcon";
+import { ArrowIcon } from "@/components/UI/Icons/ArrowIcon";
 import Link from "next/link";
 
 export function BackButton({

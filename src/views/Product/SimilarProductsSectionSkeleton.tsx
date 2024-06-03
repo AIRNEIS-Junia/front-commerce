@@ -1,14 +1,13 @@
-import { meilisearch } from "src/clients/meilisearch";
+import { meilisearch } from "@/clients/meilisearch";
 import {
   Carousel,
   CarouselContent,
-} from "src/components/UI/Carousel/Carousel/Carousel";
-import { ProductCard } from "src/components/ProductCard/ProductCard";
+} from "@/components/UI/Carousel/Carousel/Carousel";
+import { ProductCard } from "@/components/ProductCard/ProductCard";
 import { unstable_cache } from "next/cache";
-import { ComparisonOperators, FilterBuilder } from "src/utils/filterBuilder";
-import { getDemoProducts, isDemoMode } from "src/utils/demoUtils";
-import type { CommerceProduct } from "src/types";
-import { env } from "src/env.mjs";
+import { ComparisonOperators, FilterBuilder } from "@/utils/filterBuilder";
+import type { CommerceProduct } from "@/types";
+import { env } from "@/env.mjs";
 
 interface SimilarProductsSectionProps {
   slug: string;
@@ -44,8 +43,6 @@ export async function SimilarProductsSectionSkeleton({
 const getSimilarProducts = unstable_cache(
   async (handle: string, collection: string | undefined) => {
     const limit = 8;
-
-    if (isDemoMode()) return getDemoProducts().hits.slice(0, limit);
 
     const index = await meilisearch?.getIndex<CommerceProduct>(
       env.MEILISEARCH_PRODUCTS_INDEX!,

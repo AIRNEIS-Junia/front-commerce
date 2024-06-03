@@ -5,8 +5,8 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "src/components/UI/Accordion/Accordion";
-import { cn } from "src/utils/cn";
+} from "@/components/UI/Accordion/Accordion";
+import { cn } from "@/utils/cn";
 
 const ACCORDIONS = {
   "Product Details": (

@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/heading-has-content */
 import * as React from "react";
-import { cn } from "src/utils/cn";
+import { cn } from "@/utils/cn";
 
 const Card = React.forwardRef<
   HTMLDivElement,

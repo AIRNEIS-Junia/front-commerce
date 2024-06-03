@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "src/components/UI/Button/Button";
-import { useModalStore } from "src/stores/modalStore";
+import { Button } from "@/components/UI/Button/Button";
+import { useModalStore } from "@/stores/modalStore";
 import { useQueryState } from "nuqs";
 
 type ReviewButtonProps = {

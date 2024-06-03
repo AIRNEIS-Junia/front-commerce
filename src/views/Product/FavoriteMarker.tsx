@@ -1,13 +1,13 @@
 "use client";
 
-import { HeartIcon } from "src/components/UI/Icons/HeartIcon";
-import { cn } from "src/utils/cn";
+import { HeartIcon } from "@/components/UI/Icons/HeartIcon";
+import { cn } from "@/utils/cn";
 import {
   getParsedFavoritesHandles,
   toggleFavoriteProduct,
-} from "src/app/actions/favorites.actions";
+} from "@/app/actions/favorites.actions";
 import { useEffect, useState, useTransition } from "react";
-import { Spinner } from "src/components/UI/Spinner/Spinner";
+import { Spinner } from "@/components/UI/Spinner/Spinner";
 
 export function FavoriteMarker({ handle }: { handle: string }) {
   const [isActive, setIsActive] = useState<boolean>(false);
