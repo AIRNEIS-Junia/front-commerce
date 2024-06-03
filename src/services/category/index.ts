@@ -20,6 +20,21 @@ export const getCategoryBySlug = async (
   }
 };
 
+export const getCategoryById = async (
+  categoryId: string,
+): Promise<Category | undefined> => {
+  try {
+    const response = await axiosInstance.get(
+      `products/categories/${categoryId}`,
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 export const getCategories = async () => {
   try {
     const response = await axiosInstance.get("products/categories");
