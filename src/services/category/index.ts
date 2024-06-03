@@ -6,7 +6,7 @@ export const getCategoryBySlug = async (
 ): Promise<Category | undefined> => {
   try {
     const response = await axiosInstance.get(
-      "products/categories/" + categorySlug,
+      "products/categories/slug/" + categorySlug,
     );
 
     if (response.data.slug === categorySlug) {
