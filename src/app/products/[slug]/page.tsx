@@ -17,7 +17,7 @@ import { slugToName } from "@/utils/slug-name";
 
 import type { CommerceProduct } from "@/types";
 import { getProductBySlug } from '@/services/product';
-import AddToCartButton from '@/views/Product/AddToCartButton';
+import { SimilarProductsSection } from '@/views/Product/SimilarProductsSection';
 
 export const revalidate = 3600;
 
@@ -45,6 +45,8 @@ async function ProductView({ slug }: { slug: string }) {
     return notFound();
   }
 
+  const categoryId = product.category?.id;
+
   return (
     <div className="max-w-container-md relative mx-auto px-4 xl:px-0">
       <div className="mb:pb-8 relative w-fit py-4 md:pt-12">
@@ -69,12 +71,10 @@ async function ProductView({ slug }: { slug: string }) {
           </div>
         </div>
       </main>
-      <Suspense>
-        {/*<SimilarProductsSection*/}
-        {/*  collectionHandle={lastCollection?.handle}*/}
-        {/*  slug={slug}*/}
-        {/*/>*/}
-      </Suspense>
+      <SimilarProductsSection
+          categoryId={product.categoryId}
+          slug={product.slug}
+        />
     </div>
   );
 }

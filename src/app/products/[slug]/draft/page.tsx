@@ -13,7 +13,6 @@ import { InfoSection } from "@/views/Product/InfoSection";
 import { PageSkeleton } from "@/views/Product/PageSkeleton";
 import { SimilarProductsSection } from "@/views/Product/SimilarProductsSection";
 import { SimilarProductsSectionSkeleton } from "@/views/Product/SimilarProductsSectionSkeleton";
-import { VariantsSection } from "@/views/Product/VariantsSection";
 import type { CommerceProduct } from "@/types";
 import { slugToName } from "@/utils/slug-name";
 import { removeOptionsFromUrl } from '@/utils/productOptionsUtils';
@@ -65,10 +64,12 @@ async function ProductView({ slug }: { slug: string }) {
           <GallerySection images={product.images} />
           <div className="flex flex-col items-start pt-12">
             <InfoSection
-              className="pb-10"
+              className="pb-6"
+              price={product.price}
+              quantity={product.quantity}
               title={product.name}
+              slug={product.slug}
               description={product.description}
-              combination={product}
             />
             <DetailsSection slug={slug} product={product as CommerceProduct} />
           </div>

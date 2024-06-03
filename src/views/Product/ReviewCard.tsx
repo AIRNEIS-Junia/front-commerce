@@ -1,5 +1,4 @@
 import { Card } from "@/components/Card/Card";
-import { StarRating } from "./StarRating";
 import { ExpandableContent } from "@/components/ExpandableContent/ExpandableContent";
 
 export type ReviewCardProps = {
@@ -28,7 +27,6 @@ export const ReviewCard = ({
             })}
           </span>
         </div>
-        <StarRating rating={rating} />
       </div>
       <ExpandableContent lines={4}>
         <p className="mt-4 text-gray-500">{body}</p>

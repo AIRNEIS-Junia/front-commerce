@@ -1,4 +1,3 @@
-import { StarRating } from "./StarRating";
 import AddToCartButton from '@/views/Product/AddToCartButton';
 
 interface InfoSectionProps {

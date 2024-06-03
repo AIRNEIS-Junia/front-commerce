@@ -1,23 +1,21 @@
-import { meilisearch } from "@/clients/meilisearch";
 import {
   Carousel,
   CarouselContent,
 } from "@/components/UI/Carousel/Carousel/Carousel";
 import { ProductCard } from "@/components/ProductCard/ProductCard";
-import { unstable_cache } from "next/cache";
-import { ComparisonOperators, FilterBuilder } from "@/utils/filterBuilder";
-import type { CommerceProduct } from "@/types";
+import { getProductsByCategoryId } from "@/services/product";
+import { unstable_cache } from 'next/cache';
 
 interface SimilarProductsSectionProps {
   slug: string;
-  collectionHandle: string | undefined;
+  categoryId: string;
 }
 
 export async function SimilarProductsSection({
-  slug,
-  collectionHandle,
-}: SimilarProductsSectionProps) {
-  const items = await getSimilarProducts(slug, collectionHandle);
+                                               slug,
+                                               categoryId,
+                                             }: SimilarProductsSectionProps) {
+  const items = await getSimilarProducts(slug, categoryId);
 
   return (
     <section className="py-40">
@@ -40,37 +38,21 @@ export async function SimilarProductsSection({
 }
 
 const getSimilarProducts = unstable_cache(
-  async (handle: string, collection: string | undefined) => {
-    const limit = 8;
+  async (slug: string, categoryId: string) => {
+    try {
+      const products = await getProductsByCategoryId(categoryId);
 
-    const index = await meilisearch?.getIndex<CommerceProduct>(
-      env.MEILISEARCH_PRODUCTS_INDEX!,
-    );
-    const similarSearchResults = await index.search(handle, {
-      matchingStrategy: "last",
-      limit,
-      hybrid: { semanticRatio: 1 },
-    });
+      if (!products) {
+        return [];
+      }
+      const similarProducts = products.filter(product => product.slug !== slug);
 
-    let collectionSearchResults = { hits: [] };
-    if (similarSearchResults.hits.length < limit) {
-      collectionSearchResults = await index.search("", {
-        matchingStrategy: "last",
-        limit: limit - similarSearchResults.hits.length,
-        filter: collection
-          ? new FilterBuilder()
-              .where(
-                "collections.handle",
-                ComparisonOperators.Equal,
-                collection,
-              )
-              .build()
-          : undefined,
-      });
+      return similarProducts.slice(0, 8);
+    } catch (error) {
+      console.error("Error while fetching similar products :", error);
+      return [];
     }
-
-    return [...similarSearchResults.hits, ...collectionSearchResults.hits];
   },
-  ["product-by-handle"],
-  { revalidate: 3600 },
+  ["similar-products"],
+  { revalidate: 10 },
 );
