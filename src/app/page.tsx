@@ -4,9 +4,10 @@ import SectionTitle from "../components/Section/SectionTitle";
 import Link from "next/link";
 import ProductHighlight from "../components/Home/ProductHighlight";
 import { getProducts } from "@/services/product";
+import { getCategories } from "@/services/category";
 
 export default async function Home() {
-  let productsInCarousel = await getProducts();
+  let categoriesInCarousel = await getCategories();
   let productInHighlight = await getProducts();
 
   return (
@@ -15,7 +16,7 @@ export default async function Home() {
       <section>
         <SectionTitle title={"Enjoy our feature categories"}></SectionTitle>
         <div className="container max-w-mobileContainer md:max-w-desktopContainer">
-          <HorizontalCarousel products={productsInCarousel} />
+          <HorizontalCarousel categories={categoriesInCarousel} />
           <div>
             <Link
               href={"/"}

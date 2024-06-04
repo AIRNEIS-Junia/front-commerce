@@ -3,7 +3,7 @@ import HorizontalCarousel from "@/components/UI/Carousel/HorizontalCarousel/Hori
 import "@testing-library/jest-dom";
 
 // Mock data
-const products = [
+const categories = [
   {
     id: 1,
     images: ["/images/Home/Hero.web"],
@@ -32,11 +32,11 @@ const products = [
 
 describe("HorizontalCarousel", () => {
   test("renders carousel with all items correctly", async () => {
-    render(HorizontalCarousel({ products }));
+    render(HorizontalCarousel({ categories }));
 
-    products.forEach((product) => {
-      const productNames = screen.getAllByText(product.name);
-      const productAlts = screen.getAllByAltText(product.alt);
+    categories.forEach((category) => {
+      const productNames = screen.getAllByText(category.name);
+      const productAlts = screen.getAllByAltText(category.alt);
 
       productNames.forEach((element) => {
         expect(element).toBeInTheDocument();

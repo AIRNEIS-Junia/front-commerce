@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import HorinzontalCarouselItem from "@/components/UI/Carousel/HorizontalCarousel/HorinzontalCarouselItem";
 
-const HorizontalCarousel = ({ products }: { products: any }) => {
+const HorizontalCarousel = ({ categories }: { categories: any }) => {
   const settings = {
     dots: true,
     infinite: true,
@@ -33,7 +33,7 @@ const HorizontalCarousel = ({ products }: { products: any }) => {
   return (
     <div data-testid={"horizontal-carousel"}>
       <Slider {...settings}>
-        {products.map((item: any, index: any) => (
+        {categories.map((item: any, index: any) => (
           <HorinzontalCarouselItem
             key={item.id}
             image={item.images[0] || "/default-product-image.svg"}
