@@ -10,12 +10,6 @@ export default async function Home() {
   let categoriesInCarousel = await getCategories();
   let productInHighlight = await getProducts();
 
-  console.log(
-    "categoriesInCarousel, productInHighlight",
-    categoriesInCarousel,
-    productInHighlight,
-  );
-
   return (
     <main className="">
       <Hero></Hero>
