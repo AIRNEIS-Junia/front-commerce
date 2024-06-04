@@ -20,12 +20,26 @@ const login = async (data: any): Promise<any> => {
   }
 };
 
-const authNextSignin = async (dataSession: UserSessionInput): Promise<any> => {
-  await signIn("credentials", {
+interface SignInResult {
+  error?: string;
+  status?: number;
+  ok: boolean;
+  url?: string | null;
+}
+
+const authNextSignin = async (dataSession: UserSessionInput): Promise<SignInResult> => {
+  const result = await signIn("credentials", {
     email: dataSession.email,
     password: dataSession.password,
     redirect: false,
-  });
+  }) as SignInResult;
+
+  if (result.error) {
+    console.error("authNextSignin error:", result.error);
+    throw new Error(result.error);
+  }
+
+  return result;
 };
 
 export { register, login, authNextSignin };

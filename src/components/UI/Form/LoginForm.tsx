@@ -11,17 +11,19 @@ import { useState } from "react";
 const LoginForm = () => {
   const router = useRouter();
 
-  const [errorDuringLogin, setErrorDuringLogin] = useState(false);
+  const [errorDuringLogin, setErrorDuringLogin] = useState<string | null>(null);
 
   const handleSubmit = async (
     values: UserAuthLoginInput,
     formikHelpers: FormikHelpers<UserAuthLoginInput>,
   ) => {
+    setErrorDuringLogin(null);
     try {
-      await authNextSignin(values);
+      const result = await authNextSignin(values);
       router.push("/");
-    } catch (error) {
-      setErrorDuringLogin(true);
+
+    } catch (error: any) {
+      setErrorDuringLogin("Email or password is incorrect");
       console.error("Error:", error);
     } finally {
       formikHelpers.setSubmitting(false);
@@ -86,10 +88,8 @@ const LoginForm = () => {
             >
               LOGIN
             </button>
-            {errorDuringLogin ? (
-              <p className={"text-red-500"}>Password or email is incorrect</p>
-            ) : (
-              <p></p>
+            {errorDuringLogin && (
+              <p className={"text-red-500"}>{errorDuringLogin}</p>
             )}
           </Form>
         )}
