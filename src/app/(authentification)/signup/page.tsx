@@ -1,7 +1,5 @@
 import React from "react";
 import SignupForm from "@/components/UI/Form/SignupForm";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 const Page = async () => {
   return (

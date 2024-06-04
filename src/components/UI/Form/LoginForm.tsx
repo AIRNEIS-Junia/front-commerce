@@ -2,7 +2,7 @@
 import * as React from "react";
 import { Formik, Field, Form, FormikHelpers, ErrorMessage } from "formik";
 import Link from "next/link";
-import { login } from "@/services/auth";
+import { authNextSignin } from "@/services/auth";
 import { UserAuthLoginInput } from "@/types/User";
 import { useRouter } from "next/navigation";
 import * as Yup from "yup";
@@ -17,8 +17,10 @@ const LoginForm = () => {
     values: UserAuthLoginInput,
     formikHelpers: FormikHelpers<UserAuthLoginInput>,
   ) => {
+    console.log("submit");
     try {
-      await login(values);
+      console.log("values", values);
+      await authNextSignin(values);
       router.push("/");
     } catch (error) {
       setErrorDuringLogin(true);

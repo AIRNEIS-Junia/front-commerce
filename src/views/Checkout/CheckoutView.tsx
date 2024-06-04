@@ -1,10 +1,13 @@
 "use client";
-import { useState, useEffect, FC } from "react";
+import { useState, FC } from "react";
 import { AddressInput } from "@/types/Address";
+import { CreditCard } from "@/types/CreditCard";
 import ShippingForm from "@/components/UI/Form/ShippingForm";
 import PaymentForm from "@/components/UI/Form/PaymentForm";
-import { CreditCard } from "@/types/CreditCard";
 import CheckoutInformationSelector from "@/components/Checkout/CheckoutInformationSelector";
+import axiosInstance from "@/clients/storeFrontClient";
+import { useRouter } from "next/navigation";
+import { useSelector } from "react-redux";
 
 interface AddressSelectProps {
   addresses: AddressInput[];
@@ -12,54 +15,79 @@ interface AddressSelectProps {
 }
 
 const CheckoutView: FC<AddressSelectProps> = ({ addresses, creditCards }) => {
+  const router = useRouter();
+
   const [selectedAddress, setSelectedAddress] = useState<AddressInput | null>(
     null,
   );
-  const [showForm, setShowForm] = useState(false);
-  const [currentStep, setCurrentStep] = useState<"address" | "payment">(
-    "address",
-  ); // nouvel état pour suivre l'étape actuelle
+  const [selectedCreditCard, setSelectedCreditCard] =
+    useState<CreditCard | null>(null);
+  const [showForm, setShowForm] = useState<"address" | "payment" | null>(null);
+  const [currentStep, setCurrentStep] = useState("address");
 
-  useEffect(() => {
-    if (!selectedAddress && addresses.length > 0) {
-      setSelectedAddress(addresses[addresses.length - 1]);
+  const cartItems = useSelector((state: any) => state.cart.items);
+
+  const handleFormSubmit = async (formData: AddressInput | CreditCard) => {
+    try {
+      const response = await axiosInstance.post(
+        `/user/${currentStep === "address" ? "address" : "credit-card"}`,
+        formData,
+      );
+
+      if (currentStep === "address") {
+        setSelectedAddress(response.data);
+      } else {
+        setSelectedCreditCard(response.data);
+      }
+
+      setShowForm(null);
+
+      if (currentStep === "payment") {
+        await axiosInstance.post("/orders", {
+          items: cartItems,
+          addressId: selectedAddress?.id,
+          creditCardId: response.data.id,
+        });
+
+        router.push("/order/thank-you");
+      } else {
+        setCurrentStep("payment");
+      }
+    } catch (error) {
+      console.error(`Error submitting ${currentStep} form`, error);
     }
-  }, [addresses, selectedAddress]);
+  };
 
-  const handleSelectChange = (value: string) => {
+  const handleInformationSelectorChange = (value: string) => {
     if (value === "add-address") {
-      setShowForm(true);
+      setShowForm("address");
+    } else if (value === "add-credit-card") {
+      setShowForm("payment");
     } else {
-      setShowForm(false);
-      setSelectedAddress(addresses.find((addr) => addr.id === value) || null);
-    }
-  };
+      setShowForm(null);
 
-  const handleNextClick = () => {
-    if (currentStep === "address" && !selectedAddress) {
-      return;
+      if (currentStep === "address") {
+        const address = addresses.find((addr) => addr.id === value);
+        setSelectedAddress(address || null);
+      } else {
+        const creditCard = creditCards.find((card) => card.id === value);
+        setSelectedCreditCard(creditCard || null);
+      }
     }
-    setCurrentStep((prevStep) =>
-      prevStep === "address" ? "payment" : "address",
-    );
-  };
-
-  const handlePrevClick = () => {
-    setCurrentStep((prevStep) =>
-      prevStep === "payment" ? "address" : "payment",
-    );
   };
 
   return (
     <>
       <CheckoutInformationSelector
+        key={currentStep}
         addresses={addresses}
         creditCards={creditCards}
-        onValueChange={handleSelectChange}
+        onValueChange={handleInformationSelectorChange}
         currentStep={currentStep}
       />
-      {currentStep === "address" && showForm && (
+      {showForm === "address" && (
         <ShippingForm
+          type="create"
           address={{
             id: undefined,
             name: "",
@@ -73,12 +101,32 @@ const CheckoutView: FC<AddressSelectProps> = ({ addresses, creditCards }) => {
             city: "",
             country: "",
           }}
-          {...{ type: "create", onClosing: () => setShowForm(false) }}
+          onSubmit={handleFormSubmit}
         />
       )}
-      {currentStep === "payment" && <PaymentForm />}
-      <button onClick={handlePrevClick}>Précédent</button>
-      <button onClick={handleNextClick}>Suivant</button>
+      {showForm === "payment" && <PaymentForm onSubmit={handleFormSubmit} />}
+      {!showForm &&
+        selectedAddress !== null &&
+        selectedCreditCard !== null &&
+        currentStep === "payment" && (
+          <button
+            className={"btn btn-dark mt-16"}
+            onClick={() => handleFormSubmit(selectedCreditCard)}
+          >
+            Select this credit card
+          </button>
+        )}
+      {!showForm &&
+        selectedAddress !== null &&
+        !showForm &&
+        currentStep === "address" && (
+          <button
+            className={"btn btn-dark mt-16"}
+            onClick={() => handleFormSubmit(selectedAddress)}
+          >
+            Select this address
+          </button>
+        )}
     </>
   );
 };

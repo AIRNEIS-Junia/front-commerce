@@ -4,7 +4,7 @@ import Link from "next/link";
 import { signOut, useSession, signIn } from "next-auth/react";
 
 const MobileMenu = () => {
-  const { data: session, status, update } = useSession();
+  const { data: session, status } = useSession();
 
   return (
     <div
@@ -15,9 +15,11 @@ const MobileMenu = () => {
         <Link href={"/"}>Accueil</Link>
         <Link href={"/"}>Accueil</Link>
         <button
-          onClick={() => (status === "authenticated" ? signOut() : signIn())}
+          onClick={() =>
+            session?.user.token.accessToken ? signOut() : signIn()
+          }
         >
-          {status === "authenticated" ? "Sign out" : "Login"}
+          {session?.user.token.accessToken ? "Sign out" : "Sign in"}
         </button>
       </div>
     </div>

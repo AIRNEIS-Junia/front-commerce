@@ -1,41 +1,12 @@
-"use client";
-
-import * as React from "react";
 import { Formik, Field, Form, FormikHelpers, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { useRouter } from "next/navigation";
-import axiosInstance from "@/clients/storeFrontClient";
 import { CreditCard } from "@/types/CreditCard";
 
 interface PaymentFormProps {
-  creditCard?: CreditCard;
+  onSubmit: (creditCard: CreditCard) => void;
 }
 
-const PaymentForm: React.FC<PaymentFormProps> = ({ creditCard }) => {
-  // const router = useRouter();
-
-  const handleSubmit = async (
-    values: CreditCard,
-    { setSubmitting }: FormikHelpers<CreditCard>,
-  ) => {
-    try {
-      // Convert expiryDate from string to Date
-      const expiryDate = new Date(values.expiryDate);
-
-      await axiosInstance.post("/user/credit-card", {
-        cardNumber: values.cardNumber,
-        expiryDate: expiryDate,
-        cvv: parseInt(values.cvv),
-        cardHolderName: values.cardHolderName,
-      });
-      setSubmitting(false);
-      // router.push("/thank-you");
-    } catch (error) {
-      console.error("Error submitting payment form", error);
-      setSubmitting(false);
-    }
-  };
-
+const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit }) => {
   const validationSchema = Yup.object().shape({
     cardNumber: Yup.string()
       .matches(/^[0-9]{16}$/, "Card number must be exactly 16 digits")
@@ -49,77 +20,82 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ creditCard }) => {
       .required("Full name is required"),
   });
 
-  const initialValues = creditCard
-    ? {
-        cardNumber: creditCard.cardNumber,
-        expiryDate: creditCard.expiryDate,
-        cvv: creditCard.cvv,
-        cardHolderName: creditCard.cardHolderName,
-      }
-    : {
-        cardNumber: "",
-        expiryDate: "",
-        cvv: "",
-        cardHolderName: "",
-      };
+  const initialValues: CreditCard = {
+    cardNumber: "",
+    expiryDate: "",
+    cvv: "",
+    cardHolderName: "",
+  };
+
+  const handleSubmit = async (
+    values: CreditCard,
+    { setSubmitting }: FormikHelpers<CreditCard>,
+  ) => {
+    try {
+      // Submit the payment form data
+      await onSubmit(values);
+      setSubmitting(false);
+    } catch (error) {
+      console.error("Error submitting payment form", error);
+      setSubmitting(false);
+    }
+  };
 
   return (
-    <div>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        {({ isSubmitting }) => (
-          <Form className={"flex flex-col space-y-4"}>
-            <label htmlFor="cardNumber">Card number</label>
-            <Field
-              type={"text"}
-              id="cardNumber"
-              name="cardNumber"
-              placeholder="Card number"
-            />
-            <ErrorMessage
-              name="cardNumber"
-              component="div"
-              className="text-red-500"
-            />
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+    >
+      {({ isSubmitting }) => (
+        <Form className={"flex flex-col space-y-4"}>
+          <label htmlFor="cardNumber">Card number</label>
+          <Field
+            type={"text"}
+            id="cardNumber"
+            name="cardNumber"
+            placeholder="Card number"
+          />
+          <ErrorMessage
+            name="cardNumber"
+            component="div"
+            className="text-red-500"
+          />
 
-            <label htmlFor="expiryDate">Expiration date</label>
-            <Field type="date" id="expiryDate" name="expiryDate" />
-            <ErrorMessage
-              name="expiryDate"
-              component="div"
-              className="text-red-500"
-            />
+          <label htmlFor="expiryDate">Expiration date</label>
+          <Field type="date" id="expiryDate" name="expiryDate" />
+          <ErrorMessage
+            name="expiryDate"
+            component="div"
+            className="text-red-500"
+          />
 
-            <label htmlFor="cvv">CVV</label>
-            <Field id="cvv" name="cvv" placeholder="CVV" />
-            <ErrorMessage name="cvv" component="div" className="text-red-500" />
+          <label htmlFor="cvv">CVV</label>
+          <Field id="cvv" name="cvv" placeholder="CVV" />
+          <ErrorMessage name="cvv" component="div" className="text-red-500" />
 
-            <label htmlFor="cardHolderName">Full name</label>
-            <Field
-              id="cardHolderName"
-              name="cardHolderName"
-              placeholder="Full name"
-            />
-            <ErrorMessage
-              name="cardHolderName"
-              component="div"
-              className="text-red-500"
-            />
+          <label htmlFor="cardHolderName">Full name</label>
+          <Field
+            id="cardHolderName"
+            name="cardHolderName"
+            placeholder="Full name"
+          />
+          <ErrorMessage
+            name="cardHolderName"
+            component="div"
+            className="text-red-500"
+          />
 
-            <button
-              className={"btn btn-dark mt-16"}
-              type="submit"
-              disabled={isSubmitting}
-            >
-              PROCEED TO PAYMENT
-            </button>
-          </Form>
-        )}
-      </Formik>
-    </div>
+          <button
+            className={"btn btn-dark mt-16"}
+            type="submit"
+            disabled={isSubmitting}
+          >
+            Complete Order
+          </button>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

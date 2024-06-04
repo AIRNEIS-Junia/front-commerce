@@ -36,7 +36,7 @@ const HorizontalCarousel = ({ products }: { products: any }) => {
         {products.map((item: any, index: any) => (
           <HorinzontalCarouselItem
             key={item.id}
-            image={item.images[0]}
+            image={item.images[0] || "/default-product-image.svg"}
             alt={item.alt}
             name={item.name}
             link={""}

@@ -3,6 +3,9 @@ import Image from "next/image";
 
 // @ts-ignore
 const OrderSummaryDetailsItem = ({ product }) => {
+  if (!product) {
+    return null;
+  }
   const { images, name, size, price } = product;
 
   return (

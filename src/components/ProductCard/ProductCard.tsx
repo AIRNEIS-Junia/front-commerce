@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/utils/cn";
 import AddToCartButton from "@/views/Products/AddToCartButton";
-import product from "@/components/Shop/Product/Product";
 
 export function ProductCard(props: any) {
   console.log("props", props);

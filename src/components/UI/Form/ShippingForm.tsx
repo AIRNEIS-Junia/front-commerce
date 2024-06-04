@@ -1,41 +1,18 @@
-import * as React from "react";
 import { Formik, Field, Form, FormikHelpers, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import axiosInstance from "@/clients/storeFrontClient";
 import { AddressInput } from "@/types/Address";
 
 interface ShippingFormProps {
   type: string;
   address: AddressInput;
-  onClosing: () => void;
+  onSubmit: (address: AddressInput) => void;
 }
 
-const ShippingForm = ({ type, address, onClosing }: ShippingFormProps) => {
-  const handleCreate = async (formikValues: AddressInput) => {
-    await axiosInstance.post("/user/address", formikValues);
-  };
-
-  const handleEdit = async (formikValues: AddressInput) => {
-    await axiosInstance.patch(`/user/address/${address?.id}`, formikValues);
-  };
-
-  const handleSubmit = async (
-    formikValues: AddressInput,
-    { setSubmitting }: FormikHelpers<AddressInput>,
-  ) => {
-    try {
-      if (type === "create") {
-        await handleCreate(formikValues);
-      } else {
-        await handleEdit(formikValues);
-      }
-      setSubmitting(false);
-      onClosing && onClosing();
-    } catch (e) {
-      console.log("error", e);
-    }
-  };
-
+const ShippingForm: React.FC<ShippingFormProps> = ({
+  type,
+  address,
+  onSubmit,
+}) => {
   const validationSchema = Yup.object().shape({
     name: Yup.string()
       .min(3, "Name must be at least 3 characters")
@@ -63,131 +40,128 @@ const ShippingForm = ({ type, address, onClosing }: ShippingFormProps) => {
       .required("Country is required"),
   });
 
-  const initialValues =
-    type === "edit" && address
-      ? address
-      : {
-          name: "",
-          firstName: "",
-          lastName: "",
-          phone: "",
-          streetNumber: "",
-          street: "",
-          additional: "",
-          zipCode: "",
-          city: "",
-          country: "",
-        };
+  const initialValues: AddressInput = {
+    name: "",
+    firstName: "",
+    lastName: "",
+    phone: "",
+    streetNumber: "",
+    street: "",
+    additional: "",
+    zipCode: "",
+    city: "",
+    country: "",
+  };
+
+  const handleSubmit = async (
+    values: AddressInput,
+    { setSubmitting }: FormikHelpers<AddressInput>,
+  ) => {
+    try {
+      // Submit the address form data
+      await onSubmit(values);
+      setSubmitting(false);
+    } catch (error) {
+      console.error("Error submitting shipping form", error);
+      setSubmitting(false);
+    }
+  };
 
   return (
-    <div>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        {({ isSubmitting }) => (
-          <Form className={"flex flex-col space-y-4"}>
-            <label htmlFor="name">Name</label>
-            <Field id="name" name="name" placeholder="Name" />
-            <ErrorMessage
-              name="name"
-              component="div"
-              className="text-red-500"
-            />
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={handleSubmit}
+    >
+      {({ isSubmitting }) => (
+        <Form className={"flex flex-col space-y-4"}>
+          <label htmlFor="name">Name</label>
+          <Field id="name" name="name" placeholder="Name" />
+          <ErrorMessage name="name" component="div" className="text-red-500" />
 
-            <label htmlFor="firstName">First Name</label>
-            <Field id="firstName" name="firstName" placeholder="First Name" />
-            <ErrorMessage
-              name="firstName"
-              component="div"
-              className="text-red-500"
-            />
+          <label htmlFor="firstName">First Name</label>
+          <Field id="firstName" name="firstName" placeholder="First Name" />
+          <ErrorMessage
+            name="firstName"
+            component="div"
+            className="text-red-500"
+          />
 
-            <label htmlFor="lastName">Last Name</label>
-            <Field id="lastName" name="lastName" placeholder="Last Name" />
-            <ErrorMessage
-              name="lastName"
-              component="div"
-              className="text-red-500"
-            />
+          <label htmlFor="lastName">Last Name</label>
+          <Field id="lastName" name="lastName" placeholder="Last Name" />
+          <ErrorMessage
+            name="lastName"
+            component="div"
+            className="text-red-500"
+          />
 
-            <label htmlFor="phone">Phone</label>
-            <Field id="phone" name="phone" placeholder="Phone" />
-            <ErrorMessage
-              name="phone"
-              component="div"
-              className="text-red-500"
-            />
+          <label htmlFor="phone">Phone</label>
+          <Field id="phone" name="phone" placeholder="Phone" />
+          <ErrorMessage name="phone" component="div" className="text-red-500" />
 
-            <div className={"grid grid-cols-2 gap-4"}>
-              <div>
-                <label htmlFor="streetNumber">Street Number</label>
-                <Field
-                  id="streetNumber"
-                  name="streetNumber"
-                  placeholder="Street Number"
-                />
-                <ErrorMessage
-                  name="streetNumber"
-                  component="div"
-                  className="text-red-500"
-                />
-              </div>
-              <div>
-                <label htmlFor="street">Street</label>
-                <Field id="street" name="street" placeholder="Street" />
-                <ErrorMessage
-                  name="street"
-                  component="div"
-                  className="text-red-500"
-                />
-              </div>
+          <div className={"grid grid-cols-2 gap-4"}>
+            <div>
+              <label htmlFor="streetNumber">Street Number</label>
+              <Field
+                id="streetNumber"
+                name="streetNumber"
+                placeholder="Street Number"
+              />
+              <ErrorMessage
+                name="streetNumber"
+                component="div"
+                className="text-red-500"
+              />
             </div>
+            <div>
+              <label htmlFor="street">Street</label>
+              <Field id="street" name="street" placeholder="Street" />
+              <ErrorMessage
+                name="street"
+                component="div"
+                className="text-red-500"
+              />
+            </div>
+          </div>
 
-            <label htmlFor="additional">Additional</label>
-            <Field id="additional" name="additional" placeholder="Additional" />
-            <ErrorMessage
-              name="additional"
-              component="div"
-              className="text-red-500"
-            />
+          <label htmlFor="additional">Additional</label>
+          <Field id="additional" name="additional" placeholder="Additional" />
+          <ErrorMessage
+            name="additional"
+            component="div"
+            className="text-red-500"
+          />
 
-            <label htmlFor="zipCode">Zip Code</label>
-            <Field id="zipCode" name="zipCode" placeholder="Zip Code" />
-            <ErrorMessage
-              name="zipCode"
-              component="div"
-              className="text-red-500"
-            />
+          <label htmlFor="zipCode">Zip Code</label>
+          <Field id="zipCode" name="zipCode" placeholder="Zip Code" />
+          <ErrorMessage
+            name="zipCode"
+            component="div"
+            className="text-red-500"
+          />
 
-            <label htmlFor="city">City</label>
-            <Field id="city" name="city" placeholder="City" />
-            <ErrorMessage
-              name="city"
-              component="div"
-              className="text-red-500"
-            />
+          <label htmlFor="city">City</label>
+          <Field id="city" name="city" placeholder="City" />
+          <ErrorMessage name="city" component="div" className="text-red-500" />
 
-            <label htmlFor="country">Country</label>
-            <Field id="country" name="country" placeholder="Country" />
-            <ErrorMessage
-              name="country"
-              component="div"
-              className="text-red-500"
-            />
+          <label htmlFor="country">Country</label>
+          <Field id="country" name="country" placeholder="Country" />
+          <ErrorMessage
+            name="country"
+            component="div"
+            className="text-red-500"
+          />
 
-            <button
-              className={"btn btn-dark mt-16"}
-              type="submit"
-              disabled={isSubmitting}
-            >
-              {type === "create" ? "CREATE" : "EDIT"}
-            </button>
-          </Form>
-        )}
-      </Formik>
-    </div>
+          <button
+            className={"btn btn-dark mt-16"}
+            type="submit"
+            disabled={isSubmitting}
+          >
+            {type === "create" ? "Add Address" : "Update Address"}
+          </button>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

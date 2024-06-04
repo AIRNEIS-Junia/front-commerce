@@ -1,4 +1,4 @@
-import { useState, FC } from "react";
+import { useState, FC, useEffect } from "react";
 import {
   Select,
   SelectContent,
@@ -13,7 +13,7 @@ interface CheckoutInformationSelectorProps {
   addresses: AddressInput[];
   creditCards: CreditCard[];
   onValueChange: (value: string) => void;
-  currentStep: "address" | "payment";
+  currentStep: string;
 }
 
 const CheckoutInformationSelector: FC<CheckoutInformationSelectorProps> = ({
@@ -22,6 +22,16 @@ const CheckoutInformationSelector: FC<CheckoutInformationSelectorProps> = ({
   onValueChange,
   currentStep,
 }) => {
+  const [placeholder, setPlaceholder] = useState("");
+
+  useEffect(() => {
+    if (currentStep === "address") {
+      setPlaceholder("Select an address");
+    } else if (currentStep === "payment") {
+      setPlaceholder("Select a credit card");
+    }
+  }, [currentStep]);
+
   const handleSelectChange = (value: string) => {
     onValueChange(value);
   };
@@ -49,21 +59,15 @@ const CheckoutInformationSelector: FC<CheckoutInformationSelectorProps> = ({
   };
 
   return (
-    <Select onValueChange={handleSelectChange}>
+    <Select key={currentStep} onValueChange={handleSelectChange}>
       <SelectTrigger>
-        <SelectValue
-          placeholder={
-            currentStep === "address"
-              ? "Select an address"
-              : "Select a credit card"
-          }
-        />
+        <SelectValue placeholder={placeholder} />
       </SelectTrigger>
       <SelectContent>
         {getOptions()?.map((option) => (
           <SelectItem
             key={option.value}
-            value={option.value ? option.value : ""}
+            value={option.value ? option.value : "c'est xa"}
           >
             {option.label}
           </SelectItem>

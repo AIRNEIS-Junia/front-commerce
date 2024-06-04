@@ -1,34 +1,36 @@
-import NextAuth from "next-auth";
+import NextAuth, { DefaultSession, Session } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import axios from "axios";
 import { login } from "@/services/auth";
+import { JWT } from "next-auth/jwt";
 
+// Type definitions
 type TokenObject = {
   accessToken: string;
   refreshToken: string;
-  accessTokenExpiry: Date;
+  accessTokenExpiry: any;
 };
 
 type AuthCredentials = Record<"email" | "password", string> | undefined;
 
-async function refreshAccessToken(token: TokenObject) {
+// Function to refresh access token
+async function refreshAccessToken(token: TokenObject | JWT) {
   try {
-    // Get a new set of tokens with a refreshToken
-
-    const tokenResponse = await axios.post<any, any>(
+    const tokenResponse = await axios.post<any>(
       process.env.API_URL + "auth/refresh",
+      {},
       {
         headers: {
-          Bearer: token.refreshToken,
+          Authorization: `Bearer ${token.refreshToken}`,
         },
       },
     );
 
     return {
       ...token,
-      accessToken: tokenResponse.accessToken,
-      accessTokenExpiry: tokenResponse.accessTokenExpiry,
-      refreshToken: tokenResponse.refreshToken,
+      accessToken: tokenResponse.data.accessToken,
+      accessTokenExpiry: Date.now() + 24 * 60 * 60 * 1000, // assuming token is valid for another 24 hours
+      refreshToken: tokenResponse.data.refreshToken,
     };
   } catch (error) {
     return {
@@ -38,6 +40,7 @@ async function refreshAccessToken(token: TokenObject) {
   }
 }
 
+// Providers configuration
 const providers = [
   Credentials({
     name: "Credentials",
@@ -45,12 +48,8 @@ const providers = [
       email: { label: "Email", type: "email" },
       password: { label: "Password", type: "password" },
     },
-    async authorize(credentials: AuthCredentials): Promise<any> {
+    async authorize(credentials: AuthCredentials) {
       if (!credentials) return null;
-
-      let accessToken = undefined;
-      let refreshToken = undefined;
-      let accessTokenExpiry = undefined;
 
       try {
         const loginResponse = await login({
@@ -58,67 +57,75 @@ const providers = [
           password: credentials.password,
         });
 
-        accessToken = loginResponse.accessToken;
+        console.log("loginResponses", loginResponse);
 
-        refreshToken = loginResponse.refreshToken;
-        accessTokenExpiry = Date.now() + 24 * 60 * 60 * 1000;
+        return {
+          id: credentials.email, // Using email as id since it's unique and a string
+          name: credentials.email,
+          email: credentials.email,
+          accessToken: loginResponse.accessToken,
+          accessTokenExpiry: Date.now() + 24 * 60 * 60 * 1000, // 24 hours from now
+          refreshToken: loginResponse.refreshToken,
+        };
       } catch (error) {
         console.error("Login error:", error);
         return null;
       }
-
-      return {
-        id: 1,
-        name: credentials.email,
-        email: credentials.email,
-        accessToken: accessToken,
-        accessTokenExpiry: accessTokenExpiry,
-        refreshToken: refreshToken,
-      };
     },
   }),
 ];
 
+// Callback functions
 const callbacks = {
-  jwt: async ({ token, user }: { token: any; user: any }) => {
+  jwt: async ({ token, user }: { token: TokenObject | JWT; user: any }) => {
     if (user) {
-      // This will only be executed at login. Each next invocation will skip this part.
       token.accessToken = user.accessToken;
       token.accessTokenExpiry = user.accessTokenExpiry;
       token.refreshToken = user.refreshToken;
     }
 
-    // If accessTokenExpiry is 24 hours, we have to refresh token before 24 hours pass.
-    const shouldRefreshTime = token.accessTokenExpiry - Date.now();
+    // Vérifiez que l'objet user est défini avant d'essayer d'accéder à ses propriétés
+    if (user && user.accessTokenExpiry) {
+      const shouldRefreshTime = user.accessTokenExpiry - Date.now();
 
-    // If the token is still valid, just return it.
-
-    if (shouldRefreshTime > 0) {
-      return Promise.resolve(token);
+      if (shouldRefreshTime > 0) {
+        return token;
+      } else {
+        return await refreshAccessToken(token);
+      }
     } else {
-      token = await refreshAccessToken(token);
-      return Promise.resolve(token);
+      // Si l'objet user est undefined ou si la propriété accessTokenExpiry est manquante,
+      // retournez simplement le jeton sans le mettre à jour
+      return token;
     }
   },
 
-  session: async ({ session, token }: { session: any; token: any }) => {
-    // Here we pass accessToken to the client to be used in authentication with your API
-    session.accessToken = token.accessToken;
-    session.accessTokenExpiry = token.accessTokenExpiry;
-    session.error = token.error;
-
-    return Promise.resolve(session);
+  session: async ({
+    session,
+    token,
+  }: {
+    session: Session;
+    token: TokenObject | JWT;
+  }) => {
+    session.user.token = {
+      accessToken: token.accessToken,
+      refreshToken: token.refreshToken,
+      accessTokenExpiry: token.accessTokenExpiry,
+    };
+    return session;
   },
 };
 
+// Exporting the authentication options
 export const authOptions = {
   providers,
   pages: {
-    signIn: "/signup",
+    signIn: "/login",
   },
   callbacks,
   secret: process.env.NEXTAUTH_SECRET,
 };
 
+// Handling authentication
 const handler = NextAuth(authOptions);
 export { handler as GET, handler as POST };

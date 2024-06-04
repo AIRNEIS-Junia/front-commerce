@@ -1,5 +1,5 @@
 export interface CreditCard {
-  id: string;
+  id?: string;
   cardNumber: string;
   cardHolderName: string;
   expiryDate: string;

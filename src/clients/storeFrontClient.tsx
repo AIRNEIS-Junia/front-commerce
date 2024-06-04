@@ -1,4 +1,3 @@
-// src/clients/axiosInstance.ts
 import axios from "axios";
 import { getServerSession, Session } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
@@ -13,15 +12,18 @@ axiosInstance.interceptors.request.use(
     if (typeof window === "undefined") {
       // Server context
       const session = await getServerSession(authOptions);
-      if (session && session.accessToken) {
-        config.headers["Authorization"] = `Bearer ${session.accessToken}`;
+      console.log("session", session);
+      if (session && session.user.token.accessToken) {
+        config.headers["Authorization"] =
+          `Bearer ${session.user.token.accessToken}`;
       }
     } else {
       // client context
       const session: Session | null = await getSession();
       console.log("session", session);
-      if (session && session.accessToken) {
-        config.headers["Authorization"] = `Bearer ${session.accessToken}`;
+      if (session && session.user.token.accessToken) {
+        config.headers["Authorization"] =
+          `Bearer ${session.user.token.accessToken}`;
       }
     }
     return config;

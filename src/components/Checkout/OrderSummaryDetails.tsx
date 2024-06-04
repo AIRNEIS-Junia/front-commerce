@@ -40,7 +40,7 @@ const OrderSummaryDetails = () => {
   return (
     <div className="flex flex-col space-y-14">
       {products.map((item) => (
-        <OrderSummaryDetailsItem key={item.id} product={item} />
+        <OrderSummaryDetailsItem key={item.slug} product={item} />
       ))}
     </div>
   );
