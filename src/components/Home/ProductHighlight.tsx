@@ -1,18 +1,22 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { useTranslation } from "react-i18next";
 
-const ProductHighlight = () => {
+const ProductHighlight = ({ product }: { product: any }) => {
   return (
     <section
+      data-testid="product-highlight"
       className={"p-extrasmall pb-medium md:p-0 bg-opal text-offWhiteTint"}
     >
       <div className="mx-auto md:grid md:grid-cols-2">
         <div className={"aspect-square relative md:order-last"}>
           <Image
             fill
-            src={"/images/products/product-1.webp"}
+            src={
+              product.images[0]
+                ? product.images[0].url
+                : "/default-product-image.svg"
+            }
             className={"object-cover"}
             alt={""}
           />
@@ -23,20 +27,11 @@ const ProductHighlight = () => {
           }
         >
           <h3 className={"my-medium md:mt-0 text-offWhiteTint"}>
-            Native light chair
+            {product.name}
           </h3>
-          <p className={"mb-small"}>
-            Refinement Chair with Ripped Seat, made of retro Eucalyptus wood, of
-            great resistance, Kiln dried, made with a spike system and painted
-            with P.U. (Polyurethane) With its entire structure painted in wood,
-            it offers a lot of elegance to your environment and when cleaning is
-            very easy, as it is washable and light for movement. Enough of
-            receiving visitors and not having a place to accommodate them. With
-            the chair, your days as a host will be marked by a lot of elegance
-            and sophistication.
-          </p>
+          <p className={"mb-small"}>{product.description}</p>
           <Link className={"text-sm italic"} href={"/"}>
-            {t("view_product")}
+            VIEW PRODUCT
           </Link>
         </div>
       </div>

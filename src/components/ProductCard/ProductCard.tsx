@@ -4,7 +4,6 @@ import { cn } from "@/utils/cn";
 import AddToCartButton from "@/views/Products/AddToCartButton";
 
 export function ProductCard(props: any) {
-  console.log("props", props);
   const href = `/products/${props.handle}`;
   const linkAria = `Visit product: ${props.title}`;
   const featuredImageAltTag =

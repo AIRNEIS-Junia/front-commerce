@@ -12,7 +12,6 @@ axiosInstance.interceptors.request.use(
     if (typeof window === "undefined") {
       // Server context
       const session = await getServerSession(authOptions);
-      console.log("session", session);
       if (session && session.user.token.accessToken) {
         config.headers["Authorization"] =
           `Bearer ${session.user.token.accessToken}`;
@@ -20,7 +19,6 @@ axiosInstance.interceptors.request.use(
     } else {
       // client context
       const session: Session | null = await getSession();
-      console.log("session", session);
       if (session && session.user.token.accessToken) {
         config.headers["Authorization"] =
           `Bearer ${session.user.token.accessToken}`;

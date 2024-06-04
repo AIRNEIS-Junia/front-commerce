@@ -4,15 +4,10 @@ import { AddressInput } from "@/types/Address";
 
 interface ShippingFormProps {
   type: string;
-  address: AddressInput;
   onSubmit: (address: AddressInput) => void;
 }
 
-const ShippingForm: React.FC<ShippingFormProps> = ({
-  type,
-  address,
-  onSubmit,
-}) => {
+const ShippingForm: React.FC<ShippingFormProps> = ({ type, onSubmit }) => {
   const validationSchema = Yup.object().shape({
     name: Yup.string()
       .min(3, "Name must be at least 3 characters")

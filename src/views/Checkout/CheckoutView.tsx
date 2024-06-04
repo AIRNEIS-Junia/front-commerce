@@ -86,23 +86,7 @@ const CheckoutView: FC<AddressSelectProps> = ({ addresses, creditCards }) => {
         currentStep={currentStep}
       />
       {showForm === "address" && (
-        <ShippingForm
-          type="create"
-          address={{
-            id: undefined,
-            name: "",
-            firstName: "",
-            lastName: "",
-            phone: "",
-            streetNumber: "",
-            street: "",
-            additional: undefined,
-            zipCode: "",
-            city: "",
-            country: "",
-          }}
-          onSubmit={handleFormSubmit}
-        />
+        <ShippingForm type="create" onSubmit={handleFormSubmit} />
       )}
       {showForm === "payment" && <PaymentForm onSubmit={handleFormSubmit} />}
       {!showForm &&

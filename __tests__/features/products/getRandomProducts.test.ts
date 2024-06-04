@@ -19,7 +19,7 @@ describe("geProducts function", () => {
     });
 
     // Call the getRandomProducts function
-    const result = await getProducts(2);
+    const result = await getProducts();
 
     // Verify that the function returns an array of products
     expect(result).toEqual(mockProducts);
@@ -33,7 +33,7 @@ describe("geProducts function", () => {
     (axiosInstance.get as jest.Mock).mockResolvedValueOnce(mockResponse);
 
     // Call the getRandomProducts function and expect it to throw an error
-    await expect(getProducts(2)).rejects.toThrow(
+    await expect(getProducts()).rejects.toThrow(
       "Response data is not an array",
     );
   });

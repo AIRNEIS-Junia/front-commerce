@@ -17,9 +17,7 @@ const LoginForm = () => {
     values: UserAuthLoginInput,
     formikHelpers: FormikHelpers<UserAuthLoginInput>,
   ) => {
-    console.log("submit");
     try {
-      console.log("values", values);
       await authNextSignin(values);
       router.push("/");
     } catch (error) {

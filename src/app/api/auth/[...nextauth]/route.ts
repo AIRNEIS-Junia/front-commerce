@@ -57,8 +57,6 @@ const providers = [
           password: credentials.password,
         });
 
-        console.log("loginResponses", loginResponse);
-
         return {
           id: credentials.email, // Using email as id since it's unique and a string
           name: credentials.email,

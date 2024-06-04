@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import ProfileForm from "@/components/UI/Form/ProfileForm";
-import { EditUserInput } from "../../../types/User";
 import { useTranslation } from "react-i18next";
 
 const EditProfile = ({ user }: { user: any }) => {

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import SelectShippingAddress from "@/components/Profile/SelectShippingAddress";
 import { CreateShippingModal } from "@/components/UI/Modal/CreateShippingModal";
 import EditShippingModal from "@/components/UI/Modal/EditShippingModal";
-import { AddressInput } from "../../../types/Address";
+import { AddressInput } from "@/types/Address";
 import { useTranslation } from "react-i18next";
 
 const ManageShipping = ({ addresses }: { addresses: AddressInput[] }) => {

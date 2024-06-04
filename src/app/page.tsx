@@ -3,21 +3,20 @@ import HorizontalCarousel from "../components/UI/Carousel/HorizontalCarousel/Hor
 import SectionTitle from "../components/Section/SectionTitle";
 import Link from "next/link";
 import ProductHighlight from "../components/Home/ProductHighlight";
-import { getProducts } from "@/services/product";
 import { getCategories } from "@/services/category";
 import { useSession } from "next-auth/react";
 import "../i18n";
 import { useTranslation } from "react-i18next";
-import { getRandomProducts } from "@/services/product";
+import { getProducts } from "@/services/product";
 
 export default async function Home() {
   let categoriesInCarousel = await getCategories();
   let productInHighlight = await getProducts();
-    const { t } = useTranslation();
-    const { data: session } = useSession();
+  const { t } = useTranslation();
+  const { data: session } = useSession();
 
-    try {
-    const products = await getRandomProducts(5);
+  try {
+    const products = await getProducts();
   } catch (error) {
     console.error("Error fetching random products:", error);
   }
@@ -26,7 +25,7 @@ export default async function Home() {
     <main className="">
       <Hero></Hero>
       <section>
-        <SectionTitle title={"Enjoy our feature categories"}></SectionTitle>
+        <SectionTitle title={t("enjoy_title")}></SectionTitle>
         <div className="container max-w-mobileContainer md:max-w-desktopContainer">
           <HorizontalCarousel categories={categoriesInCarousel} />
           <div>
