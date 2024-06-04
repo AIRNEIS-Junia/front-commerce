@@ -56,24 +56,36 @@ export function GallerySection({
         className,
       )}
     >
-      <Carousel setApi={setApi} className="relative min-h-[600px] w-full ">
+      <Carousel setApi={setApi} className="relative w-full ">
         <CarouselContent className="size-full">
-          {images.map((image, index) => (
-            <CarouselItem
-              className="flex size-full h-[600px] flex-col items-center justify-center"
-              key={image}
-            >
+          {images.length > 0 ? (
+            images.map((image, index) => (
+              <CarouselItem
+                className="flex size-full h-[600px] flex-col items-center justify-center"
+                key={image}
+              >
+                <Image
+                  alt={""}
+                  src={image !== "" ? image : "/default-product-image.svg"}
+                  width={480}
+                  height={600}
+                  priority={index === 0}
+                  className="mx-auto object-contain px-4"
+                  sizes="(max-width: 450px) 300px, 480px"
+                />
+              </CarouselItem>
+            ))
+          ) : (
+            <div className="h-[480px] w-[480px] relative mt-3">
               <Image
                 alt={""}
-                src={image || "/default-product-image.svg"}
                 width={480}
-                height={600}
-                priority={index === 0}
-                className="mx-auto object-contain px-4"
-                sizes="(max-width: 450px) 300px, 480px"
+                height={480}
+                src={"/default-product-image.svg"}
+                className="w-full h-full object-cover"
               />
-            </CarouselItem>
-          ))}
+            </div>
+          )}
         </CarouselContent>
         <div className="absolute bottom-0 left-1/2 flex -translate-x-1/2 gap-10 pb-6">
           {hasOnlyOneImage ? null : <CarouselPrevious className="relative" />}
@@ -94,7 +106,7 @@ export function GallerySection({
             >
               <Image
                 alt={""}
-                src={image || `/default-product-image.svg`}
+                src={image !== "" ? image : `/default-product-image.svg`}
                 width={100}
                 height={100}
                 sizes="100px"

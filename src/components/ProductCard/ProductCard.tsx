@@ -1,10 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/utils/cn";
-import AddToCartButton from "@/views/Products/AddToCartButton";
 
 export function ProductCard(props: any) {
-  const href = `/products/${props.handle}`;
+  const href = `/products/${props.slug}`;
   const linkAria = `Visit product: ${props.title}`;
   const featuredImageAltTag =
     props.images?.find(
@@ -33,7 +32,6 @@ export function ProductCard(props: any) {
             priority={props.priority}
           />
         </Link>
-        <AddToCartButton productSlug={props.slug} />
       </div>
       <Link aria-label={linkAria} href={href}>
         <div className="mt-4 flex flex-col gap-0.5 text-slate-700">

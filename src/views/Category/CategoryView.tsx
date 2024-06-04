@@ -1,12 +1,11 @@
 import { notFound } from "next/navigation";
-import { SearchParamsType } from "@/types";
 import { HeroSection } from "@/views/Category/HeroSection";
 import { SearchView } from "@/views/Search/SearchView";
 import { getCategoryBySlug } from "@/services/category";
 
 interface CategoryViewProps {
   params: { slug: string; page?: string };
-  searchParams?: SearchParamsType;
+  searchParams?: any;
 }
 
 export async function CategoryView({

@@ -1,22 +1,14 @@
-import { unstable_cache } from "next/cache";
-import { draftMode } from "next/headers";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-import storefrontClient  from "@/clients/storeFrontClient";
 import { Breadcrumbs } from "@/components/UI/Breadcrumbs/Breadcrumbs";
 
-
 import { BackButton } from "@/views/Product/BackButton";
-import { DetailsSection } from "@/views/Product/DetailsSection";
 import { GallerySection } from "@/views/Product/GallerySection";
 import { InfoSection } from "@/views/Product/InfoSection";
 import { PageSkeleton } from "@/views/Product/PageSkeleton";
-import { SimilarProductsSection } from "@/views/Product/SimilarProductsSection";
-import { SimilarProductsSectionSkeleton } from "@/views/Product/SimilarProductsSectionSkeleton";
-import type { CommerceProduct } from "@/types";
 import { slugToName } from "@/utils/slug-name";
-import { removeOptionsFromUrl } from '@/utils/productOptionsUtils';
-import { getProductBySlug } from '@/services/product';
+import { removeOptionsFromUrl } from "@/utils/productOptionsUtils";
+import { getProductBySlug } from "@/services/product";
 
 export const dynamic = "force-static";
 
@@ -70,17 +62,11 @@ async function ProductView({ slug }: { slug: string }) {
               title={product.name}
               slug={product.slug}
               description={product.description}
+              productTypes={product.productTypes}
             />
-            <DetailsSection slug={slug} product={product as CommerceProduct} />
           </div>
         </div>
       </main>
-      {/*<Suspense fallback={<SimilarProductsSectionSkeleton  collectionHandle={}/>}>*/}
-      {/*  <SimilarProductsSection*/}
-      {/*    collectionHandle={lastCollection?.handle}*/}
-      {/*    slug={slug}*/}
-      {/*  />*/}
-      {/*</Suspense>*/}
     </div>
   );
 }
@@ -89,13 +75,13 @@ async function getDraftAwareProduct(slug: string) {
   const handle = removeOptionsFromUrl(slug);
   console.log("getDraftAwareProduct - handle:", handle);
 
-  let product = await getProductBySlug(slug)
+  let product = await getProductBySlug(slug);
 
   console.log("getDraftAwareProduct - product:", product);
   return product;
 }
 
-  function makeBreadcrumbs(product: any) {
+function makeBreadcrumbs(product: any) {
   const lastCollection = product.collections?.findLast(Boolean);
   const lastCollectionHandle = lastCollection?.handle
     ? slugToName(lastCollection.handle)

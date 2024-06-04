@@ -7,15 +7,13 @@ import {
   removeOptionsFromUrl,
 } from "@/utils/productOptionsUtils";
 import { BackButton } from "@/views/Product/BackButton";
-import { DetailsSection } from "@/views/Product/DetailsSection";
 import { GallerySection } from "@/views/Product/GallerySection";
 import { InfoSection } from "@/views/Product/InfoSection";
 import { PageSkeleton } from "@/views/Product/PageSkeleton";
-import type { CommerceProduct } from "@/types";
-import { getProductBySlug } from '@/services/product';
-import { SimilarProductsSection } from '@/views/Product/SimilarProductsSection';
-import { getCategoryById } from '@/services/category';
-import AltBreadcrumbs from '@/components/UI/Breadcrumbs/AltBreadcrumbs';
+import { getProductBySlug } from "@/services/product";
+import { SimilarProductsSection } from "@/views/Product/SimilarProductsSection";
+import { getCategoryById } from "@/services/category";
+import AltBreadcrumbs from "@/components/UI/Breadcrumbs/AltBreadcrumbs";
 
 export const dynamic = "force-static";
 export const dynamicParams = true;
@@ -61,7 +59,6 @@ async function ProductView({ slug }: { slug: string }) {
               description={product.description}
               productTypes={product.productTypes}
             />
-            <DetailsSection slug={slug} product={product} />
           </div>
         </div>
       </main>
@@ -73,7 +70,7 @@ async function ProductView({ slug }: { slug: string }) {
   );
 }
 
-async function makeBreadcrumbs(product: CommerceProduct) {
+async function makeBreadcrumbs(product: any) {
   const categoryId = product.categoryId;
   let categoryName = "";
 
@@ -89,6 +86,6 @@ async function makeBreadcrumbs(product: CommerceProduct) {
   return [
     { label: "Home", path: "/" },
     { label: categoryName, path: `/category/${categoryName}` },
-    { label: product.name, path: `/products/${product.slug}` }
+    { label: product.name, path: `/products/${product.slug}` },
   ];
 }

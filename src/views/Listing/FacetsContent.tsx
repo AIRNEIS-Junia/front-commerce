@@ -33,7 +33,7 @@ export function FacetsContent({
   className,
   disabledFacets,
 }: FacetsContentProps) {
-  const collections = facetDistribution?.["category.name"];
+  const collections = facetDistribution?.["category.slug"];
   const productTypes = facetDistribution?.["productTypes.name"];
 
   const { set: setLastSelected, selected: lastSelected } =

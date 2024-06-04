@@ -4,10 +4,8 @@ import SelectShippingAddress from "@/components/Profile/SelectShippingAddress";
 import { CreateShippingModal } from "@/components/UI/Modal/CreateShippingModal";
 import EditShippingModal from "@/components/UI/Modal/EditShippingModal";
 import { AddressInput } from "@/types/Address";
-import { useTranslation } from "react-i18next";
 
 const ManageShipping = ({ addresses }: { addresses: AddressInput[] }) => {
-  const { t } = useTranslation();
   const [actualAddress, setActualAddress] = useState<AddressInput | undefined>({
     id: "",
     name: "",
@@ -60,13 +58,13 @@ const ManageShipping = ({ addresses }: { addresses: AddressInput[] }) => {
           className={"btn btn-dark"}
           onClick={() => setHandleCreateModal(!handleCreateModal)}
         >
-          {t("create_address")}
+          Create new address
         </div>
         <div
           className={"btn btn-dark"}
           onClick={() => setHandleEditModal(!handleEditModal)}
         >
-          {t("edit_address")}
+          Edit address
         </div>
       </div>
     </>

@@ -38,9 +38,9 @@ export async function SearchView({
   const filterBuilder = new FilterBuilder();
   if (collection) {
     filterBuilder.where(
-      "category.name",
+      "category.slug",
       ComparisonOperators.Equal,
-      collection.name,
+      collection.slug,
     );
   }
 
@@ -104,7 +104,7 @@ const searchProductsWrapper = async (
     const results = await index.search(query, {
       sort: sortBy ? [sortBy] : undefined,
       hitsPerPage: 9,
-      facets: ["category.name", "productTypes.name", "price"],
+      facets: ["category.slug", "productTypes.name", "price"],
       filter,
       page,
       attributesToRetrieve: [

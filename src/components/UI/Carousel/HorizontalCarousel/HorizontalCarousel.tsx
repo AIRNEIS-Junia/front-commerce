@@ -44,7 +44,7 @@ const HorizontalCarousel = ({ categories }: { categories: any }) => {
                 }
                 alt={item.alt}
                 name={item.name}
-                link={""}
+                link={item.slug ? `/category/${item.slug}` : "/"}
               />
             ),
         )}

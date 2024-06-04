@@ -47,3 +47,18 @@ export const getProductBySlug = async (
     throw error;
   }
 };
+
+export const getProductsByCategoryId = async (
+  categoryId: string,
+): Promise<Product[] | undefined> => {
+  try {
+    const response = await axiosInstance.get(
+      `products/search/category/${categoryId}`,
+    );
+
+    return response.data;
+  } catch (error) {
+    console.error("Error while fetching product by category :", error);
+    throw error;
+  }
+};

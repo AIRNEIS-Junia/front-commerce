@@ -1,12 +1,12 @@
-import { create } from "zustand"
+import { create } from "zustand";
 
-export type Modal = "login" | "signup" | "search" | "facets-mobile"
+export type Modal = "login" | "signup" | "search" | "facets-mobile";
 
 interface ModalStore {
-  modals: Partial<Record<Modal, boolean>>
-  openModal: (modal: Modal) => void
-  closeModal: (modal: Modal) => void
-  closeAllModals: () => void
+  modals: Partial<Record<Modal, boolean>>;
+  openModal: (modal: Modal) => void;
+  closeModal: (modal: Modal) => void;
+  closeAllModals: () => void;
 }
 
 export const useModalStore = create<ModalStore>((set) => ({
@@ -25,8 +25,9 @@ export const useModalStore = create<ModalStore>((set) => ({
   closeAllModals: () =>
     set((state) => ({
       modals: Object.keys(state.modals).reduce((acc, modalId) => {
-        acc[modalId] = false
-        return acc
+        // @ts-ignore
+        acc[modalId] = false;
+        return acc;
       }, {}),
     })),
-}))
+}));

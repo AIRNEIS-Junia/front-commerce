@@ -23,7 +23,7 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit }) => {
   const initialValues: CreditCard = {
     cardNumber: "",
     expiryDate: "",
-    cvv: "",
+    cvv: 0,
     cardHolderName: "",
   };
 
@@ -32,8 +32,11 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit }) => {
     { setSubmitting }: FormikHelpers<CreditCard>,
   ) => {
     try {
+      const expiryDate = new Date(values.expiryDate);
+      values.expiryDate = expiryDate.toISOString();
+
       // Submit the payment form data
-      await onSubmit(values);
+      onSubmit(values);
       setSubmitting(false);
     } catch (error) {
       console.error("Error submitting payment form", error);
@@ -71,7 +74,7 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit }) => {
           />
 
           <label htmlFor="cvv">CVV</label>
-          <Field id="cvv" name="cvv" placeholder="CVV" />
+          <Field type={"number"} id="cvv" name="cvv" placeholder="CVV" />
           <ErrorMessage name="cvv" component="div" className="text-red-500" />
 
           <label htmlFor="cardHolderName">Full name</label>

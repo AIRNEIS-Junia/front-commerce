@@ -4,7 +4,7 @@ import {
 } from "@/components/UI/Carousel/Carousel/Carousel";
 import { ProductCard } from "@/components/ProductCard/ProductCard";
 import { getProductsByCategoryId } from "@/services/product";
-import { unstable_cache } from 'next/cache';
+import { unstable_cache } from "next/cache";
 
 interface SimilarProductsSectionProps {
   slug: string;
@@ -12,9 +12,9 @@ interface SimilarProductsSectionProps {
 }
 
 export async function SimilarProductsSection({
-                                               slug,
-                                               categoryId,
-                                             }: SimilarProductsSectionProps) {
+  slug,
+  categoryId,
+}: SimilarProductsSectionProps) {
   const items = await getSimilarProducts(slug, categoryId);
 
   return (
@@ -24,7 +24,7 @@ export async function SimilarProductsSection({
       </h2>
       <Carousel opts={{ skipSnaps: true }}>
         <CarouselContent className="ml-0 justify-start gap-6">
-          {items.map((product, idx) => (
+          {items.map((product: any, idx: number) => (
             <ProductCard
               className="h-full min-w-[150px] max-w-[150px] md:min-w-[280px] md:max-w-[280px]"
               key={"featured_" + product.id + idx}
@@ -45,7 +45,9 @@ const getSimilarProducts = unstable_cache(
       if (!products) {
         return [];
       }
-      const similarProducts = products.filter(product => product.slug !== slug);
+      const similarProducts = products.filter(
+        (product) => product.slug !== slug,
+      );
 
       return similarProducts.slice(0, 8);
     } catch (error) {

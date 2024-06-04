@@ -6,7 +6,6 @@ import {
 import { ProductCard } from "@/components/ProductCard/ProductCard";
 import { unstable_cache } from "next/cache";
 import { ComparisonOperators, FilterBuilder } from "@/utils/filterBuilder";
-import type { CommerceProduct } from "@/types";
 import { env } from "@/env.mjs";
 
 interface SimilarProductsSectionProps {
@@ -44,7 +43,7 @@ const getSimilarProducts = unstable_cache(
   async (handle: string, collection: string | undefined) => {
     const limit = 8;
 
-    const index = await meilisearch?.getIndex<CommerceProduct>(
+    const index = await meilisearch?.getIndex<any>(
       env.MEILISEARCH_PRODUCTS_INDEX!,
     );
     const similarSearchResults = await index.search(handle, {

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import HamburgerMenu from "@/components/Navbar/HamburgerMenu/HamburgerMenu";
 import Link from "next/link";
@@ -19,13 +19,11 @@ const Navbar = () => {
     let cartQuantity = 0;
 
     cartItems.forEach((item: any) => {
-      console.log("item", item);
       cartQuantity += item.quantity;
     });
 
     setCartItemsCount(cartQuantity);
   }, [cartItems]);
-
 
   const handleToggleMenu = (isOpen: boolean) => {
     setShowMobileMenu(isOpen);
