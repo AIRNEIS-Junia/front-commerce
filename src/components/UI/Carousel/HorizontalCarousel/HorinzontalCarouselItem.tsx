@@ -8,6 +8,9 @@ const HorinzontalCarouselItem = (props: {
   name: string;
   link: string;
 }) => {
+  if (!props) {
+    return null;
+  }
   return (
     <Link href={`${props.link}`} className={"p-[8px]"}>
       <div className={"relative aspect-square"}>

@@ -33,15 +33,21 @@ const HorizontalCarousel = ({ categories }: { categories: any }) => {
   return (
     <div data-testid={"horizontal-carousel"}>
       <Slider {...settings}>
-        {categories.map((item: any, index: any) => (
-          <HorinzontalCarouselItem
-            key={item.id}
-            image={item.images[0] || "/default-product-image.svg"}
-            alt={item.alt}
-            name={item.name}
-            link={""}
-          />
-        ))}
+        {categories?.map(
+          (item: any, index: any) =>
+            item && (
+              <HorinzontalCarouselItem
+                key={item.id}
+                image={
+                  (item.images && item.images[0]) ||
+                  "/default-product-image.svg"
+                }
+                alt={item.alt}
+                name={item.name}
+                link={""}
+              />
+            ),
+        )}
       </Slider>
     </div>
   );

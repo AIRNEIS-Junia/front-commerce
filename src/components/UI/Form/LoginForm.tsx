@@ -105,7 +105,7 @@ const LoginForm = () => {
             New client ?
           </div>
         </div>
-        <Link className={"btn btn-light text-center mt-16"} href={"/"}>
+        <Link className={"btn btn-light text-center mt-16"} href={"/signup"}>
           SIGN UP
         </Link>
       </div>

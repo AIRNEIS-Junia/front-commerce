@@ -6,16 +6,18 @@ export const getProducts = async () => {
   try {
     const response = await axiosInstance.get("products");
 
-    if (Array.isArray(response.data)) {
-      const products = response.data.map((product) => {
-        const updatedAtTimestamp = Date.parse(product.updatedAt) / 1000;
-        const createdAtTimestamp = Date.parse(product.createdAt) / 1000;
-        return {
-          ...product,
-          updatedAt: updatedAtTimestamp.toFixed(0),
-          createdAt: createdAtTimestamp.toFixed(0),
-        };
-      });
+    if (Array.isArray(response.data.results)) {
+      const products = response.data.results.map(
+        (product: { updatedAt: string; createdAt: string }) => {
+          const updatedAtTimestamp = Date.parse(product.updatedAt) / 1000;
+          const createdAtTimestamp = Date.parse(product.createdAt) / 1000;
+          return {
+            ...product,
+            updatedAt: updatedAtTimestamp.toFixed(0),
+            createdAt: createdAtTimestamp.toFixed(0),
+          };
+        },
+      );
 
       return products;
     } else {
