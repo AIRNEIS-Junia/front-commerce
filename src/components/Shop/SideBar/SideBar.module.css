@@ -27,7 +27,7 @@
     color: #7C7F84;
 }
 
-.sidebarCriteria li {
+.sidebarCriteria p, li {
     padding: 5px;
 }
 

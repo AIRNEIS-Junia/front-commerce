@@ -1,25 +1,17 @@
 "use client";
-
-import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
+import React, { useState } from "react";
 import HamburgerMenu from "@/components/Navbar/HamburgerMenu/HamburgerMenu";
 import Link from "next/link";
 import { CiUser } from "react-icons/ci";
 import MobileMenu from "@/components/Navbar/MobileMenu";
 import styles from "./Navbar.module.css";
-import { RootState } from "@/lib/store";
+import { useTranslation } from "react-i18next";
 
 const Navbar = () => {
-  const [showMobileMenu, setShowMobileMenu] = React.useState(false);
-  const [cartItemsCount, setCartItemsCount] = React.useState(0);
+  const { t } = useTranslation();
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
 
-  // @ts-ignore
-  const cartItems = useSelector((state) => state.cart.items);
-
-  React.useEffect(() => {
-    setCartItemsCount(cartItems.length);
-  }, [cartItems]);
-
+  // Créer une fonction de rappel pour gérer l'événement de changement d'état
   const handleToggleMenu = (isOpen: boolean) => {
     setShowMobileMenu(isOpen);
   };
@@ -37,17 +29,17 @@ const Navbar = () => {
       </Link>
       <div className={"flex space-x-4 items-center"}>
         <Link href={"/cart"} className={"flex space-x-2 items-center"}>
-          <p className={"text-stormy"}>BAG</p>
+          <p className={"text-stormy"}>{t("cart")}</p>
           <div
             className={
               "p-[10px] bg-greyTint rounded-full w-[32px] h-[32px] text-offWhiteTint flex justify-center items-center"
             }
           >
-            {cartItemsCount}
+            1
           </div>
         </Link>
-        <Link href={"/profile"}>
-          <CiUser color={"stormy"} size={24} />
+        <Link href={"/"}>
+          <CiUser color={"white"} size={24} />
         </Link>
       </div>
     </nav>
