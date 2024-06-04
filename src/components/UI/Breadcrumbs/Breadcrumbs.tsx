@@ -12,11 +12,11 @@ export function Breadcrumbs({ items, className }: BreadcrumbsProps) {
   return (
     <nav aria-label="Breadcrumb" className={className}>
       <ol className="no-scrollbar flex items-center gap-1.5 overflow-x-scroll  whitespace-nowrap text-xs  md:text-base/[18px]">
-        {Object.entries(items).map(([title, href], idx) => {
+        {Object.entries(items).map(([name, slug], idx) => {
           const isLast = idx + 1 === Object.keys(items).length;
 
           return (
-            <React.Fragment key={title + href}>
+            <React.Fragment key={name + slug}>
               <li>
                 <Link
                   prefetch={false}
@@ -25,9 +25,9 @@ export function Breadcrumbs({ items, className }: BreadcrumbsProps) {
                     "text-neutral-500 hover:underline",
                     isLast && "font-medium underline",
                   )}
-                  href={href}
+                  href={slug}
                 >
-                  {title}
+                  {name}
                 </Link>
               </li>
               {!isLast && (

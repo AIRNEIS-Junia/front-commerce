@@ -1,14 +1,32 @@
 "use client";
-import React, { useState } from "react";
+
+import React, { useEffect, useState } from 'react';
+import { useSelector } from "react-redux";
 import HamburgerMenu from "@/components/Navbar/HamburgerMenu/HamburgerMenu";
 import Link from "next/link";
 import { CiUser } from "react-icons/ci";
 import MobileMenu from "@/components/Navbar/MobileMenu";
 import styles from "./Navbar.module.css";
+import { RootState } from "@/lib/store";
+
 const Navbar = () => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
+  const [cartItemsCount, setCartItemsCount] = useState(0);
 
-  // Créer une fonction de rappel pour gérer l'événement de changement d'état
+  const cartItems: any[] = useSelector((state: any) => state.cart.items);
+
+  useEffect(() => {
+    let cartQuantity = 0;
+
+    cartItems.forEach((item: any) => {
+      console.log("item", item);
+      cartQuantity += item.quantity;
+    });
+
+    setCartItemsCount(cartQuantity);
+  }, [cartItems]);
+
+
   const handleToggleMenu = (isOpen: boolean) => {
     setShowMobileMenu(isOpen);
   };
@@ -32,11 +50,11 @@ const Navbar = () => {
               "p-[10px] bg-greyTint rounded-full w-[32px] h-[32px] text-offWhiteTint flex justify-center items-center"
             }
           >
-            1
+            {cartItemsCount}
           </div>
         </Link>
-        <Link href={"/"}>
-          <CiUser color={"white"} size={24} />
+        <Link href={"/profile"}>
+          <CiUser color={"stormy"} size={24} />
         </Link>
       </div>
     </nav>
