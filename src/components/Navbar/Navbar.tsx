@@ -7,7 +7,6 @@ import Link from "next/link";
 import { CiUser } from "react-icons/ci";
 import MobileMenu from "@/components/Navbar/MobileMenu";
 import styles from "./Navbar.module.css";
-import { RootState } from "@/lib/store";
 
 const Navbar = () => {
   const [showMobileMenu, setShowMobileMenu] = useState(false);

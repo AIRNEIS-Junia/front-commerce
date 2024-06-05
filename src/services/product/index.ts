@@ -1,5 +1,4 @@
 import axiosInstance from "@/clients/storeFrontClient";
-import { Category } from "@/types/Category";
 import { Product } from "@/types/Product";
 
 export const getProducts = async () => {

@@ -3,7 +3,6 @@ import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
 import Providers from "@/components/auth/Provider";
-import { initMeiliSearch } from "@/clients/meilisearch";
 import StoreProvider from "@/app/StoreProvider";
 
 export const metadata: Metadata = {

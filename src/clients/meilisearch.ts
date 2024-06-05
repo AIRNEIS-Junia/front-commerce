@@ -1,4 +1,3 @@
-import { IndexStats } from "meilisearch";
 import MeiliSearch from "meilisearch";
 import { MEILISEARCH_INDEX } from "@/constants";
 import { getProducts } from "@/services/product";

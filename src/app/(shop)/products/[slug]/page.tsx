@@ -1,9 +1,7 @@
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import {
-  getCombination,
   getOptionsFromUrl,
-  hasValidOption,
   removeOptionsFromUrl,
 } from "@/utils/productOptionsUtils";
 import { BackButton } from "@/views/Product/BackButton";
@@ -32,7 +30,6 @@ export default async function Product({ params: { slug } }: ProductProps) {
 
 async function ProductView({ slug }: { slug: string }) {
   const product = await getProductBySlug(removeOptionsFromUrl(slug));
-  const { color, size } = getOptionsFromUrl(slug);
 
   if (!product) {
     return notFound();

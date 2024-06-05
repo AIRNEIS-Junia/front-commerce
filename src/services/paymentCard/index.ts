@@ -1,4 +1,3 @@
-import { AddressInput } from "@/types/Address";
 import axiosInstance from "@/clients/storeFrontClient";
 import { CreditCard } from "@/types/CreditCard";
 

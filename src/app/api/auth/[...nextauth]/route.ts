@@ -1,4 +1,4 @@
-import NextAuth, { DefaultSession, Session } from "next-auth";
+import NextAuth, { Session } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import axios from "axios";
 import { login } from "@/services/auth";

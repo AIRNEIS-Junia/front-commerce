@@ -4,7 +4,7 @@ import Link from "next/link";
 import { signIn, signOut, useSession } from "next-auth/react";
 
 const MobileMenu = () => {
-  const { data: session, status } = useSession();
+  const { data: session } = useSession();
 
   return (
     <div

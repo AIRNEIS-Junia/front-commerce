@@ -1,5 +1,4 @@
 import { Skeleton } from "@/components/Skeleton/Skeleton";
-import { SimilarProductsSectionSkeleton } from "./SimilarProductsSectionSkeleton";
 
 export function PageSkeleton() {
   return (

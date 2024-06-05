@@ -5,7 +5,6 @@ import { FaXmark } from "react-icons/fa6";
 import { AddressInput } from "@/types/Address";
 
 const EditShippingModal = ({
-  address,
   onClosing,
 }: {
   address: AddressInput | undefined;

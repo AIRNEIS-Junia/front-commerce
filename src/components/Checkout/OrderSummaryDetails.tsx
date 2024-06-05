@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import OrderSummaryDetailsItem from "@/components/Checkout/OrderSummaryDetailsItem";
 import { getProductBySlug } from "@/services/product";
-import { Product } from "@/types/Product";
 
 const OrderSummaryDetails = () => {
   const cartItems = useSelector((state: any) => state.cart.items);
