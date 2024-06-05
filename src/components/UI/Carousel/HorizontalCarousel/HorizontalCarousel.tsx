@@ -39,8 +39,7 @@ const HorizontalCarousel = ({ categories }: { categories: any }) => {
               <HorinzontalCarouselItem
                 key={item.id}
                 image={
-                  (item.images && item.images[0]) ||
-                  "/default-product-image.svg"
+                  item.image ? item.image :  "/default-product-image.svg"
                 }
                 alt={item.alt}
                 name={item.name}
