@@ -7,7 +7,8 @@ import PaymentForm from "@/components/UI/Form/PaymentForm";
 import CheckoutInformationSelector from "@/components/Checkout/CheckoutInformationSelector";
 import axiosInstance from "@/clients/storeFrontClient";
 import { useRouter } from "next/navigation";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
+import { removeItems } from '@/lib/features/cart/cart.slice';
 
 interface AddressSelectProps {
   addresses: AddressInput[];
@@ -26,6 +27,8 @@ const CheckoutView: FC<AddressSelectProps> = ({ addresses, creditCards }) => {
   const [currentStep, setCurrentStep] = useState("address");
 
   const cartItems = useSelector((state: any) => state.cart.items);
+  const dispatch = useDispatch();
+
 
   const handleFormSubmit = async (formData: AddressInput | CreditCard) => {
     try {
@@ -48,6 +51,8 @@ const CheckoutView: FC<AddressSelectProps> = ({ addresses, creditCards }) => {
           addressId: selectedAddress?.id,
           creditCardId: response.data.id,
         });
+
+        dispatch(removeItems(cartItems));
 
         router.push("/order/thank-you");
       } else {

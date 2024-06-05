@@ -26,10 +26,8 @@ export const cartSlice = createSlice({
       typeof window !== "undefined" &&
         localStorage.setItem("cart", JSON.stringify(state.items));
     },
-    removeItem: (state, action: PayloadAction<string>) => {
-      state.items = state.items.filter(
-        (item: { slug: string }) => item.slug !== action.payload,
-      );
+    removeItems: (state, action: PayloadAction<string>) => {
+      state.items = []
 
       typeof window !== "undefined" &&
         localStorage.setItem("cart", JSON.stringify(state.items));
@@ -37,6 +35,6 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { addItem, removeItem } = cartSlice.actions;
+export const { addItem, removeItems } = cartSlice.actions;
 
 export default cartSlice.reducer;
