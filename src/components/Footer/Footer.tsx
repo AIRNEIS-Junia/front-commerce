@@ -15,28 +15,28 @@ const Footer = () => {
           }
         >
           <div className={"border-b lg:border-b-0 p-4 flex flex-col space-y-4"}>
-            <Link href={"/search"}>Shop</Link>
+            <Link href={"/"}>Accueil</Link>
+            <Link href={"/search"}>Boutique</Link>
             <Link href={"/contact"}>Contact</Link>
-            <Link href={"/"}>Home</Link>
           </div>
           <div
             className={
               "border-l border-b lg:border-b-0 p-4 flex flex-col space-y-4"
             }
           >
-            <Link href={"/search"}>Shop</Link>
-            <Link href={"/"}>Accueil</Link>
-            <Link href={""}>Accueil</Link>
+            <p className={"text-offWhiteTint font-bold"}>Catégories</p>
+            <Link href={`/category/rangement`}>Rangement</Link>
+            <Link href={"/category/salon"}>Salon</Link>
           </div>
           <div className={"lg:border-l p-4 flex flex-col space-y-4"}>
-            <Link href={"/search"}>Shop</Link>
-            <Link href={""}>Accueil</Link>
-            <Link href={""}>Accueil</Link>
+            <p className={"text-offWhiteTint font-bold"}>Catégories</p>
+            <Link href={"/category/bureau"}>Bureau</Link>
+            <Link href={"/category/chambre"}>Chambre</Link>
           </div>
           <div className={"border-l p-4 flex flex-col space-y-4"}>
-            <Link href={"/search"}>Shop</Link>
-            <Link href={""}>Accueil</Link>
-            <Link href={""}>Accueil</Link>
+            <p className={"text-offWhiteTint font-bold"}>Catégories</p>
+            <Link href={`#`}>Cuisine</Link>
+            <Link href={"#"}>Jardin</Link>
           </div>
         </div>
         <div className="py-medium border-b border-offWhiteTint flex justify-center">
@@ -47,7 +47,7 @@ const Footer = () => {
           </a>
         </div>
         <div className="py-medium flex justify-center">
-          <p className={"italic"}>© ÀIRNESS 2023 | Devops Project</p>
+          <p className={"italic"}>© ÀIRNESS 2023 | Projet Devops</p>
         </div>
       </div>
     </footer>

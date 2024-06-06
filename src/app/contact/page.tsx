@@ -15,7 +15,7 @@ const Page = () => {
         />
       </div>
       <div className={"container lg:w-2/3 lg:mx-auto"}>
-        <SectionTitle title={"Get in touch"} />
+        <SectionTitle title={"Rester en contact"} />
         <ContactForm />
       </div>
     </div>

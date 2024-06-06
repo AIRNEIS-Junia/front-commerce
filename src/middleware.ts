@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getToken, JWT } from "next-auth/jwt";
 
 export default async function middleware(req: NextRequest) {
-  const routesNeedAuth: string[] = ["/profile", "/order"];
+  const routesNeedAuth: string[] = ["/profile", "/checkout"];
   const authRoutes: string[] = ["/signup", "/login"];
   const currentPath: string = req.nextUrl.pathname;
 

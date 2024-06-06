@@ -38,7 +38,7 @@ export async function initMeiliSearch() {
       throw new Error("No products found or invalid product data");
     }
 
-    await index.updateDocuments(products, { primaryKey: "id" });
+    await index.addDocuments(products, { primaryKey: "id" });
 
     const filterableAttributes = new Set([
       "category.slug",

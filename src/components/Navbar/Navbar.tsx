@@ -41,7 +41,7 @@ const Navbar = () => {
       </Link>
       <div className={"flex space-x-4 items-center"}>
         <Link href={"/cart"} className={"flex space-x-2 items-center"}>
-          <p className={"text-stormy"}>BAG</p>
+          <p className={"text-stormy"}>PANIER</p>
           <div
             className={
               "p-[10px] bg-greyTint rounded-full w-[32px] h-[32px] text-offWhiteTint flex justify-center items-center"

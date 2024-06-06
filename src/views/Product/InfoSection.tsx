@@ -1,25 +1,25 @@
-import AddToCartButton from '@/views/Product/AddToCartButton';
-import { ProductType } from '@/types/ProductType';
+import AddToCartButton from "@/views/Product/AddToCartButton";
+import { ProductType } from "@/types/ProductType";
 
 interface InfoSectionProps {
-  title: string,
-  description: string,
-  className?: string,
-  slug: string,
-  price: number,
-  quantity: number,
-  productTypes: ProductType[],
+  title: string;
+  description: string;
+  className?: string;
+  slug: string;
+  price: number;
+  quantity: number;
+  productTypes: ProductType[];
 }
 
 export function InfoSection({
-                              title,
-                              description,
-                              className,
-                              slug,
-                              price,
-                              quantity,
-                              productTypes,
-                            }: InfoSectionProps) {
+  title,
+  description,
+  className,
+  slug,
+  price,
+  quantity,
+  productTypes,
+}: InfoSectionProps) {
   // @ts-ignore
   return (
     <div className={className}>
@@ -33,7 +33,7 @@ export function InfoSection({
       )}
       {quantity && (
         <p className="mb-2 text-base font-semibold tracking-tight text-black md:text-lg">
-          {quantity} in stock
+          {quantity} en stock
         </p>
       )}
       {description && (
@@ -44,7 +44,8 @@ export function InfoSection({
       )}
       {productTypes && (
         <p className="mb-2 text-base font-semibold tracking-tight text-black md:text-lg">
-          Material(s): {productTypes.map((productType) => productType.name).join(', ')}
+          Material(s):{" "}
+          {productTypes.map((productType) => productType.name).join(", ")}
         </p>
       )}
       {slug && (

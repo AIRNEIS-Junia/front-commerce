@@ -21,9 +21,8 @@ const LoginForm = () => {
     try {
       const result = await authNextSignin(values);
       router.push("/");
-
     } catch (error: any) {
-      setErrorDuringLogin("Email or password is incorrect");
+      setErrorDuringLogin("Email ou mot de passe incorrect");
       console.error("Error:", error);
     } finally {
       formikHelpers.setSubmitting(false);
@@ -31,10 +30,8 @@ const LoginForm = () => {
   };
 
   const validationSchema = Yup.object().shape({
-    email: Yup.string()
-      .email("Invalid email address")
-      .required("Email is required"),
-    password: Yup.string().required("Password is required"),
+    email: Yup.string().email("Adresse e-mail").required("L'e-mail est requis"),
+    password: Yup.string().required("Le mot de passe est requis"),
   });
 
   return (
@@ -86,7 +83,7 @@ const LoginForm = () => {
               type="submit"
               disabled={isSubmitting}
             >
-              LOGIN
+              SE CONNECTER
             </button>
             {errorDuringLogin && (
               <p className={"text-red-500"}>{errorDuringLogin}</p>
@@ -102,11 +99,11 @@ const LoginForm = () => {
               "absolute transform -translate-y-1/2 top-1/2 -translate-x-1/2 left-1/2 p-2 bg-white"
             }
           >
-            New client ?
+            Nouveau client ?
           </div>
         </div>
         <Link className={"btn btn-light text-center mt-16"} href={"/signup"}>
-          SIGN UP
+          S'INSCRIRE
         </Link>
       </div>
     </div>

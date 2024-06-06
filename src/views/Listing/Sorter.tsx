@@ -18,11 +18,11 @@ export enum Sorting {
 }
 
 const LABELS = {
-  [Sorting.PRICE_DESC]: "Price: High to Low",
-  [Sorting.PRICE_ASC]: "Price: Low to High",
-  [Sorting.DATE_DESC]: "Newest",
-  [Sorting.DATE_ASC]: "Oldest",
-  [Sorting.RELEVANCY]: "Relevancy",
+  [Sorting.PRICE_DESC]: "Prix : Du plus élevé au plus bas",
+  [Sorting.PRICE_ASC]: "Prix : Du plus bas au plus élevé",
+  [Sorting.DATE_DESC]: "Les plus récents",
+  [Sorting.DATE_ASC]: "Les plus anciens",
+  [Sorting.RELEVANCY]: "Pertinence",
 };
 
 interface SorterProps {
@@ -43,7 +43,7 @@ export function Sorter({ className }: SorterProps) {
       <DropdownMenu>
         <DropdownMenuTrigger aria-expanded={undefined} asChild>
           <div className="flex cursor-pointer flex-wrap items-center justify-center gap-0.5 text-[15px] text-black">
-            Sort by:{" "}
+            Trier par:{" "}
             <span className="ml-0.5 text-slate-700 underline">
               {LABELS[sortBy]}
             </span>

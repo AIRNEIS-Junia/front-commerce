@@ -132,7 +132,7 @@ export function FacetsContent({
         {!disabledFacets?.includes("productTypes") ? (
           <Facet
             id="productTypes"
-            title="Materials"
+            title="Matériaux"
             distribution={productTypes}
             isChecked={(productType) =>
               selectedProductTypes.includes(productType)
@@ -150,7 +150,7 @@ export function FacetsContent({
         ) : null}
 
         <AccordionItem value="price">
-          <AccordionTrigger className="text-base">Price Range</AccordionTrigger>
+          <AccordionTrigger className="text-base">Prix</AccordionTrigger>
           <AccordionContent>
             <PriceFacet
               initMin={minPrice}
@@ -171,7 +171,7 @@ export function FacetsContent({
           className="mt-10 inline-flex cursor-pointer text-[15px] text-black underline"
           onClick={() => resetAllFilters()}
         >
-          Reset all filters {filtersCount}
+          Supprimer les filtres {filtersCount}
         </div>
       ) : null}
     </div>

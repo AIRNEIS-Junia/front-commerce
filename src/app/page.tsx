@@ -14,20 +14,19 @@ export default async function Home() {
     <main className="">
       <Hero></Hero>
       <section>
-        <SectionTitle title={"Home"}></SectionTitle>
+        <SectionTitle title={"Accueil"}></SectionTitle>
         <div className="container max-w-mobileContainer md:max-w-desktopContainer">
           {categoriesInCarousel && (
             <HorizontalCarousel categories={categoriesInCarousel} />
           )}
-
-          <div>
-            {" "}
-            <Link href={"/"} className={"py-small flex justify-center italic"}>
-              See all categories
-            </Link>
-          </div>
         </div>
       </section>
+      <div className={"flex justify-center my-8"}>
+        {" "}
+        <Link href={"/search"} className={" italic btn btn-dark"}>
+          Voir toutes les catégories
+        </Link>
+      </div>
       <ProductHighlight product={productInHighlight[0]} />
     </main>
   );

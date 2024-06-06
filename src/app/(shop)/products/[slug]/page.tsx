@@ -11,7 +11,6 @@ import { PageSkeleton } from "@/views/Product/PageSkeleton";
 import { getProductBySlug } from "@/services/product";
 import { SimilarProductsSection } from "@/views/Product/SimilarProductsSection";
 import { getCategoryById } from "@/services/category";
-import AltBreadcrumbs from "@/components/UI/Breadcrumbs/AltBreadcrumbs";
 
 export const dynamic = "force-static";
 export const dynamicParams = true;
@@ -43,7 +42,6 @@ async function ProductView({ slug }: { slug: string }) {
         <BackButton className="mb-8 hidden md:block" />
       </div>
       <main className="max-w-container-sm mx-auto">
-        <AltBreadcrumbs items={breadcrumbs} />
         <div className="grid grid-cols-1 justify-center gap-10 md:grid-cols-2 lg:gap-20">
           <GallerySection images={product.images} />
           <div className="flex flex-col items-start pt-12">
@@ -73,8 +71,6 @@ async function makeBreadcrumbs(product: any) {
 
   if (categoryId) {
     const category = await getCategoryById(categoryId);
-    console.log("Category ID:", categoryId);
-    console.log("Category:", category);
     if (category) {
       categoryName = category.name;
     }

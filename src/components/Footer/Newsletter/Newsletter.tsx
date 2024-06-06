@@ -16,8 +16,10 @@ const Newsletter = () => {
           "absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 text-offWhiteTint max-w-mobileContainer md:max-w-[600px] w-full mx-auto space-y-16 flex flex-col justify-center"
         }
       >
-        <h2 className={"text-offWhiteTint text-center"}>Newsletter</h2>
-        <Input className={"w-[75%]"} placeholder={"Your email"} />
+        <h2 className={"text-offWhiteTint text-center"}>
+          Inscrivez vous aux newsletters
+        </h2>
+        <Input className={"w-[75%]"} placeholder={"Votre e-mail"} />
       </div>
     </div>
   );

@@ -10,7 +10,6 @@ const Page = async () => {
 
   return (
     <>
-      <h1 className={"mb-16 text-center"}>Shipping Address</h1>
       <CheckoutView addresses={userAddresses} creditCards={userPaymentCards} />
     </>
   );

@@ -20,7 +20,7 @@ export async function SimilarProductsSection({
   return (
     <section className="py-40">
       <h2 className="mb-10 text-[26px] font-normal tracking-[-0.78px]">
-        You might also like
+        Vous pourriez aussi aimer
       </h2>
       <Carousel opts={{ skipSnaps: true }}>
         <CarouselContent className="ml-0 justify-start gap-6">

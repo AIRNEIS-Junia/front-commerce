@@ -9,7 +9,7 @@ const Page = async () => {
       <div className={"grid lg:grid-cols-[2fr_1fr] my-20 gap-16"}>
         <div>
           <h2 className={"mb-8 pb-2 border-b border-oyster text-4xl"}>
-            Register Shipping Address
+            Adresses de livraison enregistrées
           </h2>
         </div>
       </div>

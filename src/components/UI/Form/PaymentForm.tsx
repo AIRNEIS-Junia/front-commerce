@@ -9,15 +9,20 @@ interface PaymentFormProps {
 const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit }) => {
   const validationSchema = Yup.object().shape({
     cardNumber: Yup.string()
-      .matches(/^[0-9]{16}$/, "Card number must be exactly 16 digits")
-      .required("Card number is required"),
-    expiryDate: Yup.date().required("Expiration date is required").nullable(),
+      .matches(
+        /^[0-9]{16}$/,
+        "Le numéro de carte doit comporter exactement 16 chiffres",
+      )
+      .required("Le numéro de carte est obligatoire"),
+    expiryDate: Yup.date()
+      .required("La date d'expiration est obligatoire")
+      .nullable(),
     cvv: Yup.string()
-      .matches(/^[0-9]{3}$/, "CVV must be 3 digits")
-      .required("CVV is required"),
+      .matches(/^[0-9]{3}$/, "Le CVV doit comporter 3 chiffres")
+      .required("Le CVV est obligatoire"),
     cardHolderName: Yup.string()
-      .min(3, "Full name must be at least 3 characters")
-      .required("Full name is required"),
+      .min(3, "Le nom complet doit comporter au moins 3 caractères")
+      .required("Le nom complet est obligatoire"),
   });
 
   const initialValues: CreditCard = {
@@ -32,14 +37,13 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit }) => {
     { setSubmitting }: FormikHelpers<CreditCard>,
   ) => {
     try {
-      const expiryDate = new Date(values.expiryDate);
-      values.expiryDate = expiryDate.toISOString();
-
-      // Submit the payment form data
       onSubmit(values);
       setSubmitting(false);
     } catch (error) {
-      console.error("Error submitting payment form", error);
+      console.error(
+        "Erreur lors de la soumission du formulaire de paiement",
+        error,
+      );
       setSubmitting(false);
     }
   };
@@ -52,12 +56,12 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit }) => {
     >
       {({ isSubmitting }) => (
         <Form className={"flex flex-col space-y-4"}>
-          <label htmlFor="cardNumber">Card number</label>
+          <label htmlFor="cardNumber">Numéro de carte</label>
           <Field
             type={"text"}
             id="cardNumber"
             name="cardNumber"
-            placeholder="Card number"
+            placeholder="Numéro de carte"
           />
           <ErrorMessage
             name="cardNumber"
@@ -65,7 +69,7 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit }) => {
             className="text-red-500"
           />
 
-          <label htmlFor="expiryDate">Expiration date</label>
+          <label htmlFor="expiryDate">Date d'expiration</label>
           <Field type="date" id="expiryDate" name="expiryDate" />
           <ErrorMessage
             name="expiryDate"
@@ -77,11 +81,11 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit }) => {
           <Field type={"number"} id="cvv" name="cvv" placeholder="CVV" />
           <ErrorMessage name="cvv" component="div" className="text-red-500" />
 
-          <label htmlFor="cardHolderName">Full name</label>
+          <label htmlFor="cardHolderName">Nom complet</label>
           <Field
             id="cardHolderName"
             name="cardHolderName"
-            placeholder="Full name"
+            placeholder="Nom complet"
           />
           <ErrorMessage
             name="cardHolderName"
@@ -94,7 +98,7 @@ const PaymentForm: React.FC<PaymentFormProps> = ({ onSubmit }) => {
             type="submit"
             disabled={isSubmitting}
           >
-            Complete Order
+            Compléter la commande
           </button>
         </Form>
       )}

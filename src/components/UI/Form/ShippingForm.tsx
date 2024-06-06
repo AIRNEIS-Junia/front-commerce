@@ -10,29 +10,32 @@ interface ShippingFormProps {
 const ShippingForm: React.FC<ShippingFormProps> = ({ type, onSubmit }) => {
   const validationSchema = Yup.object().shape({
     name: Yup.string()
-      .min(3, "Name must be at least 3 characters")
-      .required("Name is required"),
+      .min(3, "Le nom doit comporter au moins 3 caractères")
+      .required("Le nom est obligatoire"),
     firstName: Yup.string()
-      .min(3, "First name must be at least 3 characters")
-      .required("First name is required"),
+      .min(3, "Le prénom doit comporter au moins 3 caractères")
+      .required("Le prénom est obligatoire"),
     lastName: Yup.string()
-      .min(3, "Last name must be at least 3 characters")
-      .required("Last name is required"),
+      .min(3, "Le nom de famille doit comporter au moins 3 caractères")
+      .required("Le nom de famille est obligatoire"),
     phone: Yup.string()
-      .matches(/^[0-9]{10}$/, "Phone must be a valid 10-digit number")
-      .required("Phone is required"),
-    streetNumber: Yup.string().required("Street number is required"),
+      .matches(
+        /^[0-9]{10}$/,
+        "Le numéro de téléphone doit comporter 10 chiffres",
+      )
+      .required("Le numéro de téléphone est obligatoire"),
+    streetNumber: Yup.string().required("Le numéro de rue est obligatoire"),
     street: Yup.string()
-      .min(3, "Street must be at least 3 characters")
-      .required("Street is required"),
+      .min(3, "La rue doit comporter au moins 3 caractères")
+      .required("La rue est obligatoire"),
     additional: Yup.string(),
-    zipCode: Yup.string().required("Zip code is required"),
+    zipCode: Yup.string().required("Le code postal est obligatoire"),
     city: Yup.string()
-      .min(3, "City must be at least 3 characters")
-      .required("City is required"),
+      .min(3, "La ville doit comporter au moins 3 caractères")
+      .required("La ville est obligatoire"),
     country: Yup.string()
-      .min(3, "Country must be at least 3 characters")
-      .required("Country is required"),
+      .min(3, "Le pays doit comporter au moins 3 caractères")
+      .required("Le pays est obligatoire"),
   });
 
   const initialValues: AddressInput = {
@@ -53,11 +56,14 @@ const ShippingForm: React.FC<ShippingFormProps> = ({ type, onSubmit }) => {
     { setSubmitting }: FormikHelpers<AddressInput>,
   ) => {
     try {
-      // Submit the address form data
-      await onSubmit(values);
+      // Soumettre les données du formulaire d'adresse
+      onSubmit(values);
       setSubmitting(false);
     } catch (error) {
-      console.error("Error submitting shipping form", error);
+      console.error(
+        "Erreur lors de la soumission du formulaire d'adresse",
+        error,
+      );
       setSubmitting(false);
     }
   };
@@ -70,37 +76,37 @@ const ShippingForm: React.FC<ShippingFormProps> = ({ type, onSubmit }) => {
     >
       {({ isSubmitting }) => (
         <Form className={"flex flex-col space-y-4"}>
-          <label htmlFor="name">Name</label>
-          <Field id="name" name="name" placeholder="Name" />
+          <label htmlFor="name">Nom</label>
+          <Field id="name" name="name" placeholder="Nom" />
           <ErrorMessage name="name" component="div" className="text-red-500" />
 
-          <label htmlFor="firstName">First Name</label>
-          <Field id="firstName" name="firstName" placeholder="First Name" />
+          <label htmlFor="firstName">Prénom</label>
+          <Field id="firstName" name="firstName" placeholder="Prénom" />
           <ErrorMessage
             name="firstName"
             component="div"
             className="text-red-500"
           />
 
-          <label htmlFor="lastName">Last Name</label>
-          <Field id="lastName" name="lastName" placeholder="Last Name" />
+          <label htmlFor="lastName">Nom de famille</label>
+          <Field id="lastName" name="lastName" placeholder="Nom de famille" />
           <ErrorMessage
             name="lastName"
             component="div"
             className="text-red-500"
           />
 
-          <label htmlFor="phone">Phone</label>
-          <Field id="phone" name="phone" placeholder="Phone" />
+          <label htmlFor="phone">Téléphone</label>
+          <Field id="phone" name="phone" placeholder="Téléphone" />
           <ErrorMessage name="phone" component="div" className="text-red-500" />
 
           <div className={"grid grid-cols-2 gap-4"}>
             <div>
-              <label htmlFor="streetNumber">Street Number</label>
+              <label htmlFor="streetNumber">Numéro de rue</label>
               <Field
                 id="streetNumber"
                 name="streetNumber"
-                placeholder="Street Number"
+                placeholder="Numéro de rue"
               />
               <ErrorMessage
                 name="streetNumber"
@@ -109,8 +115,8 @@ const ShippingForm: React.FC<ShippingFormProps> = ({ type, onSubmit }) => {
               />
             </div>
             <div>
-              <label htmlFor="street">Street</label>
-              <Field id="street" name="street" placeholder="Street" />
+              <label htmlFor="street">Rue</label>
+              <Field id="street" name="street" placeholder="Rue" />
               <ErrorMessage
                 name="street"
                 component="div"
@@ -119,28 +125,32 @@ const ShippingForm: React.FC<ShippingFormProps> = ({ type, onSubmit }) => {
             </div>
           </div>
 
-          <label htmlFor="additional">Additional</label>
-          <Field id="additional" name="additional" placeholder="Additional" />
+          <label htmlFor="additional">Complément d'adresse</label>
+          <Field
+            id="additional"
+            name="additional"
+            placeholder="Complément d'adresse"
+          />
           <ErrorMessage
             name="additional"
             component="div"
             className="text-red-500"
           />
 
-          <label htmlFor="zipCode">Zip Code</label>
-          <Field id="zipCode" name="zipCode" placeholder="Zip Code" />
+          <label htmlFor="zipCode">Code postal</label>
+          <Field id="zipCode" name="zipCode" placeholder="Code postal" />
           <ErrorMessage
             name="zipCode"
             component="div"
             className="text-red-500"
           />
 
-          <label htmlFor="city">City</label>
-          <Field id="city" name="city" placeholder="City" />
+          <label htmlFor="city">Ville</label>
+          <Field id="city" name="city" placeholder="Ville" />
           <ErrorMessage name="city" component="div" className="text-red-500" />
 
-          <label htmlFor="country">Country</label>
-          <Field id="country" name="country" placeholder="Country" />
+          <label htmlFor="country">Pays</label>
+          <Field id="country" name="country" placeholder="Pays" />
           <ErrorMessage
             name="country"
             component="div"
@@ -152,7 +162,9 @@ const ShippingForm: React.FC<ShippingFormProps> = ({ type, onSubmit }) => {
             type="submit"
             disabled={isSubmitting}
           >
-            {type === "create" ? "Add Address" : "Update Address"}
+            {type === "create"
+              ? "Ajouter l'adresse"
+              : "Mettre à jour l'adresse"}
           </button>
         </Form>
       )}

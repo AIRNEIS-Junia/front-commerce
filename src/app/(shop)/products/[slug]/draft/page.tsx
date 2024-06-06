@@ -21,7 +21,6 @@ interface ProductProps {
 }
 
 export default async function Product({ params: { slug } }: ProductProps) {
-  console.log("Product Component - slug:", slug);
   return (
     <Suspense fallback={<PageSkeleton />}>
       <ProductView slug={slug} />
@@ -34,11 +33,9 @@ export async function generateStaticParams() {
 }
 
 async function ProductView({ slug }: { slug: string }) {
-  console.log("ProductView - slug:", slug);
   const product = await getDraftAwareProduct(slug);
 
   if (!product) {
-    console.log("Product not found for slug:", slug);
     return notFound();
   }
 
@@ -48,10 +45,6 @@ async function ProductView({ slug }: { slug: string }) {
         <BackButton className="mb-8 hidden md:block" />
       </div>
       <main className="max-w-container-sm mx-auto">
-        <Breadcrumbs
-          className="mb-8 hidden md:block"
-          items={makeBreadcrumbs(product)}
-        />
         <div className="grid grid-cols-1 justify-center gap-10 md:grid-cols-2 lg:gap-20">
           <GallerySection images={product.images} />
           <div className="flex flex-col items-start pt-12">
@@ -73,11 +66,8 @@ async function ProductView({ slug }: { slug: string }) {
 
 async function getDraftAwareProduct(slug: string) {
   const handle = removeOptionsFromUrl(slug);
-  console.log("getDraftAwareProduct - handle:", handle);
-
   let product = await getProductBySlug(slug);
 
-  console.log("getDraftAwareProduct - product:", product);
   return product;
 }
 

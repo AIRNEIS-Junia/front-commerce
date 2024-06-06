@@ -19,34 +19,34 @@ const SignupForm = () => {
       await register(valuesToSend);
       router.push("/");
     } catch (error) {
-      console.error("Error:", error);
+      console.error("Erreur :", error);
     } finally {
-      formikHelpers.setSubmitting(false); // Réinitialiser l'état de soumission
+      formikHelpers.setSubmitting(false);
     }
   };
 
   const validationSchema = Yup.object().shape({
     firstName: Yup.string()
-      .min(3, "First name must be at least 3 characters")
-      .required("First name is required"),
+      .min(3, "Le prénom doit contenir au moins 3 caractères")
+      .required("Le prénom est obligatoire"),
     lastName: Yup.string()
-      .min(3, "Last name must be at least 3 characters")
-      .required("Last name is required"),
+      .min(3, "Le nom de famille doit contenir au moins 3 caractères")
+      .required("Le nom de famille est obligatoire"),
     email: Yup.string()
-      .email("Invalid email address")
-      .required("Email is required"),
+      .email("Adresse email invalide")
+      .required("L'email est obligatoire"),
     password: Yup.string()
       .matches(
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,}$/,
-        "Password must contain at least 10 characters, including one uppercase letter, one lowercase letter, one number, and one special character",
+        "Le mot de passe doit contenir au moins 10 caractères, dont une lettre majuscule, une lettre minuscule, un chiffre et un caractère spécial",
       )
-      .required("Password is required"),
+      .required("Le mot de passe est obligatoire"),
     confirmPassword: Yup.string()
       .oneOf(
         [Yup.ref("password") as unknown as string | undefined],
-        "Passwords must match",
+        "Les mots de passe doivent correspondre",
       )
-      .required("Confirm password is required"),
+      .required("La confirmation du mot de passe est obligatoire"),
   });
 
   return (
@@ -70,15 +70,15 @@ const SignupForm = () => {
       >
         {({ isSubmitting }) => (
           <Form className={"flex flex-col space-y-4"}>
-            <label htmlFor="firstName">First Name</label>
-            <Field id="firstName" name="firstName" placeholder="John" />
+            <label htmlFor="firstName">Prénom</label>
+            <Field id="firstName" name="firstName" placeholder="Jean" />
             <ErrorMessage
               name="firstName"
               component="div"
               className="text-red-500"
             />
-            <label htmlFor="lastName">Last Name</label>
-            <Field id="lastName" name="lastName" placeholder="Doe" />
+            <label htmlFor="lastName">Nom de famille</label>
+            <Field id="lastName" name="lastName" placeholder="Dupont" />
             <ErrorMessage
               name="lastName"
               component="div"
@@ -88,7 +88,7 @@ const SignupForm = () => {
             <Field
               id="email"
               name="email"
-              placeholder="john@acme.com"
+              placeholder="jean@exemple.com"
               type="email"
             />
             <ErrorMessage
@@ -96,7 +96,7 @@ const SignupForm = () => {
               component="div"
               className="text-red-500"
             />
-            <label htmlFor="password">Password</label>
+            <label htmlFor="password">Mot de passe</label>
             <Field
               id="password"
               name="password"
@@ -108,7 +108,7 @@ const SignupForm = () => {
               component="div"
               className="text-red-500"
             />
-            <label htmlFor="confirmPassword">Confirm password</label>
+            <label htmlFor="confirmPassword">Confirmer le mot de passe</label>
             <Field
               id="confirmPassword"
               name="confirmPassword"
@@ -125,7 +125,7 @@ const SignupForm = () => {
               type="submit"
               disabled={isSubmitting}
             >
-              SIGN UP
+              S'INSCRIRE
             </button>
           </Form>
         )}
@@ -138,11 +138,11 @@ const SignupForm = () => {
               "absolute transform -translate-y-1/2 top-1/2 -translate-x-1/2 left-1/2 p-2 bg-white"
             }
           >
-            Already a client ?
+            Déjà client ?
           </div>
         </div>
         <Link className={"btn btn-light text-center mt-16"} href={"/login"}>
-          SIGN IN
+          SE CONNECTER
         </Link>
       </div>
     </div>

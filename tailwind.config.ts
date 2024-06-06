@@ -90,6 +90,9 @@ const config = {
         },
       },
       maxWidth: {
+        mobileContainer: "350px",
+        tabletContainer: "768px",
+        desktopContainer: "1280px",
         ...defaultTheme.width,
         "container-lg": "1440px",
         "container-md": "1280px",

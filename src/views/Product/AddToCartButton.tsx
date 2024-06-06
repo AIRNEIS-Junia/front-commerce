@@ -15,8 +15,8 @@ const AddToCartButton: React.FC<AddToCartButtonProps> = ({ productSlug }) => {
   };
 
   return (
-    <button type="button" onClick={handleAddToCart}>
-      Add to cart
+    <button className={"btn btn-dark"} type="button" onClick={handleAddToCart}>
+      Ajouter au panier
     </button>
   );
 };

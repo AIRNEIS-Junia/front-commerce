@@ -31,12 +31,12 @@ const ContactForm = () => {
         <Field
           id="comment"
           name="comment"
-          placeholder="Comment"
+          placeholder="Commentaire"
           as={"textarea"}
           rows={"5"}
         />
         <button className={"btn btn-dark mt-16"} type="submit">
-          Submit
+          Envoyer
         </button>
       </Form>
     </Formik>

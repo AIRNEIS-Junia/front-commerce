@@ -88,8 +88,12 @@ export function GallerySection({
           )}
         </CarouselContent>
         <div className="absolute bottom-0 left-1/2 flex -translate-x-1/2 gap-10 pb-6">
-          {hasOnlyOneImage ? null : <CarouselPrevious className="relative" />}
-          {hasOnlyOneImage ? null : <CarouselNext className="relative" />}
+          {hasOnlyOneImage ? null : (
+            <CarouselPrevious className="relative [&>span]:!text-white" />
+          )}
+          {hasOnlyOneImage ? null : (
+            <CarouselNext className="relative [&>span]:!text-white" />
+          )}
         </div>
       </Carousel>
 

@@ -11,15 +11,14 @@ const MobileMenu = () => {
       className={"h-screen bg-offWhiteTint w-full fixed z-[90] top-0 left-0"}
     >
       <div className={`${styles["container"]}`}>
-        <Link href={"/"}>Home</Link>
-        <Link href={"/category"}>Category</Link>
-        <Link href={"/search"}>Search</Link>
+        <Link href={"/"}>Accueil</Link>
+        <Link href={"/search"}>Boutique</Link>
         <button
           onClick={() =>
             session?.user.token.accessToken ? signOut() : signIn()
           }
         >
-          {session?.user.token.accessToken ? "Sign out" : "Sign in"}
+          {session?.user.token.accessToken ? "Déconnexion" : "Connexion"}
         </button>{" "}
       </div>
     </div>

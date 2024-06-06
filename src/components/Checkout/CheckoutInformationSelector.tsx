@@ -26,9 +26,9 @@ const CheckoutInformationSelector: FC<CheckoutInformationSelectorProps> = ({
 
   useEffect(() => {
     if (currentStep === "address") {
-      setPlaceholder("Select an address");
+      setPlaceholder("Sélectionner une adresse");
     } else if (currentStep === "payment") {
-      setPlaceholder("Select a credit card");
+      setPlaceholder("Selectionner une carte bancaire");
     }
   }, [currentStep]);
 
@@ -43,7 +43,7 @@ const CheckoutInformationSelector: FC<CheckoutInformationSelectorProps> = ({
           label: `${address.street} ${address.streetNumber}, ${address.city}`,
           value: address.id,
         })),
-        { label: "Add shipping address", value: "add-address" },
+        { label: "Ajouter une adresse de livraison", value: "add-address" },
       ];
     } else if (currentStep === "payment") {
       return creditCards
@@ -52,7 +52,7 @@ const CheckoutInformationSelector: FC<CheckoutInformationSelectorProps> = ({
               label: `**** **** **** ${creditCard.cardNumber.slice(-4)}`,
               value: creditCard.id,
             })),
-            { label: "Add credit card", value: "add-credit-card" },
+            { label: "Ajouter une carte bancaire", value: "add-credit-card" },
           ]
         : [];
     }
