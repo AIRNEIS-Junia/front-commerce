@@ -51,7 +51,7 @@ export const PriceFacet = ({ initMin, initMax, setFacet }: PriceFacetProps) => {
           setFacet({ minPrice, maxPrice });
         }}
       >
-        Apply
+        Appliquer
       </button>
     </div>
   );
