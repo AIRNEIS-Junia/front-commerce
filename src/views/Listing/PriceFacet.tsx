@@ -1,4 +1,3 @@
-import { Button } from "@/components/UI/Button/Button";
 import { Input, InputProps } from "@/components/UI/Input/Input";
 import { Label } from "@/components/UI/Label/Label";
 import { type ChangeEvent, type KeyboardEvent, useState } from "react";
@@ -46,14 +45,14 @@ export const PriceFacet = ({ initMin, initMax, setFacet }: PriceFacetProps) => {
           onKeyDown={handleKeyDown}
         />
       </div>
-      <Button
-        className="ml-auto mt-2"
+      <button
+        className="ml-auto mt-2 btn btn-dark !text-white"
         onClick={() => {
           setFacet({ minPrice, maxPrice });
         }}
       >
         Apply
-      </Button>
+      </button>
     </div>
   );
 };
